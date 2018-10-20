@@ -1,0 +1,60 @@
+﻿1
+00:00:00,450 --> 00:00:05,970
+In the last several videos you learn how to use the Mongo D-B native driver and that let you create
+
+2
+00:00:06,120 --> 00:00:09,450
+and it update and delete documents from here on out.
+
+3
+00:00:09,450 --> 00:00:15,660
+We're also going to be using something called mongoose mongoose which is an O R M standing for object
+
+4
+00:00:15,750 --> 00:00:19,640
+relational mapping is a fantastic NPM library.
+
+5
+00:00:19,770 --> 00:00:22,010
+It makes it really easy to structure your data.
+
+6
+00:00:22,050 --> 00:00:28,290
+For example in this app we're going to have to do's and users to do needs certain things it needs certain
+
+7
+00:00:28,290 --> 00:00:34,410
+properties of certain types maybe we want to add some custom validation for them for the user for example
+
+8
+00:00:34,410 --> 00:00:36,620
+we need to validate their password.
+
+9
+00:00:36,630 --> 00:00:40,200
+All of this is a lot easier with mongoose in place.
+
+10
+00:00:40,230 --> 00:00:41,580
+Is it possible that mongoose.
+
+11
+00:00:41,580 --> 00:00:42,990
+Yes it is.
+
+12
+00:00:42,990 --> 00:00:43,980
+You can do everything.
+
+13
+00:00:43,980 --> 00:00:50,250
+Mongoose can do with a mango divi native driver but instead of writing all that boilerplate code yourself
+
+14
+00:00:50,430 --> 00:00:54,040
+most people prefer to use mongoose to get the job done.
+
+15
+00:00:54,210 --> 00:00:57,770
+Let's go ahead and start integrating it into our node code.
+

@@ -1,0 +1,576 @@
+﻿1
+00:00:00,230 --> 00:00:05,760
+And now that you have inserted some documents into your Mongo DB collections I want to take a moment
+
+2
+00:00:05,760 --> 00:00:06,650
+to talk about that.
+
+3
+00:00:06,660 --> 00:00:13,410
+Underscore id property in the context of a mongo DB because its a little different than the ideas that
+
+4
+00:00:13,410 --> 00:00:20,750
+you're probably used to if you've used other database systems like post graphs or my ask you Al to kick
+
+5
+00:00:20,750 --> 00:00:23,300
+off our discussion of the id property.
+
+6
+00:00:23,300 --> 00:00:26,270
+Let's go ahead and rerun the Mongo DB connect file.
+
+7
+00:00:26,270 --> 00:00:31,250
+This is going to insert a new document into the user's collection like we have defined right here.
+
+8
+00:00:31,250 --> 00:00:34,240
+I'm going to go ahead and do that by running the file through node.
+
+9
+00:00:34,570 --> 00:00:39,520
+It's in the playground folder and the file itself is called Mongo D-B heighth and connect Dot.
+
+10
+00:00:39,590 --> 00:00:44,400
+Yes I'm going to run the command and we're going to print out the document that got inserted.
+
+11
+00:00:44,510 --> 00:00:50,320
+And as we've seen in the past we get our three attributes as well as the one added by Mongo.
+
+12
+00:00:50,330 --> 00:00:55,340
+Now the first thing you'll notice about this is that it is not an auto incrementing integer kind of
+
+13
+00:00:55,340 --> 00:01:00,200
+like it is for post-crash or my Eskew minuscule where the first record has an idea of 1 and the second
+
+14
+00:01:00,200 --> 00:01:01,820
+one has an idea of two.
+
+15
+00:01:01,850 --> 00:01:03,860
+Mongo does not use this approach.
+
+16
+00:01:03,860 --> 00:01:10,190
+Mongo was designed to scale out really easily scaling out means that you add on more database servers
+
+17
+00:01:10,190 --> 00:01:11,870
+to handle that extra load.
+
+18
+00:01:11,870 --> 00:01:17,030
+Imagine you have a web app that gets about 200 users a day and your current servers are ready for that
+
+19
+00:01:17,030 --> 00:01:17,740
+traffic.
+
+20
+00:01:17,780 --> 00:01:22,730
+Then you get picked up by some news outlet and 10000 people flood your site with Mongo DB.
+
+21
+00:01:22,730 --> 00:01:29,510
+It is really easy to kick up new database servers to handle that extra load when we use a randomly generated
+
+22
+00:01:29,510 --> 00:01:30,790
+Id like this one.
+
+23
+00:01:30,830 --> 00:01:35,600
+We don't need to constantly communicate with the other database servers to check what the highest incrementing
+
+24
+00:01:35,600 --> 00:01:36,460
+value is.
+
+25
+00:01:36,470 --> 00:01:38,080
+Is it 7 is it 17.
+
+26
+00:01:38,160 --> 00:01:39,500
+Doesn't really matter.
+
+27
+00:01:39,590 --> 00:01:45,950
+We're simply going to generate a new random object id and use that for the documents unique identifier.
+
+28
+00:01:45,980 --> 00:01:50,080
+Now the object idea itself is made up of a few different things.
+
+29
+00:01:50,120 --> 00:01:54,280
+It's a 12 by value the first four bytes are a time stamp.
+
+30
+00:01:54,290 --> 00:01:55,940
+We'll talk about that in just a second.
+
+31
+00:01:55,940 --> 00:02:01,190
+That means that built into the data right here we have a time stamp that refers to the moment in time
+
+32
+00:02:01,280 --> 00:02:03,020
+the ID was created.
+
+33
+00:02:03,020 --> 00:02:08,730
+This means in our documents we don't need to have a created field it's already encoded in the ID.
+
+34
+00:02:08,870 --> 00:02:11,850
+The next three bytes those are a machine identifier.
+
+35
+00:02:11,930 --> 00:02:17,010
+That means if two computers generate object IDs their machine ID is going to be different.
+
+36
+00:02:17,030 --> 00:02:20,050
+This is going to ensure that the ID is unique.
+
+37
+00:02:20,060 --> 00:02:25,520
+Next up we have two bytes the process id just another way to create a unique identifier.
+
+38
+00:02:25,520 --> 00:02:28,420
+Last up we have a three byte counter.
+
+39
+00:02:28,440 --> 00:02:31,390
+This is similar to what my Eskew Ellwood do.
+
+40
+00:02:31,460 --> 00:02:33,640
+This is only three bytes of the ID.
+
+41
+00:02:33,650 --> 00:02:39,070
+As we talked about we have a time stamp which is going to be unique a machine identifier a process ID.
+
+42
+00:02:39,080 --> 00:02:41,520
+And lastly just a random value.
+
+43
+00:02:41,600 --> 00:02:45,390
+That is what makes up the object id you see right here.
+
+44
+00:02:46,940 --> 00:02:53,240
+Well the object id is the default value for underscore ID if nothing is provided you can indeed do whatever
+
+45
+00:02:53,240 --> 00:02:54,710
+you like with that property.
+
+46
+00:02:54,710 --> 00:03:01,000
+For example over inside of the Mongo DB connect file I can specify an ID property right here.
+
+47
+00:03:01,430 --> 00:03:07,580
+I'm going to give it a value let's go with one two three and a comma at the end and that is perfectly
+
+48
+00:03:07,580 --> 00:03:08,310
+legal.
+
+49
+00:03:08,330 --> 00:03:13,340
+We can save the file a rerun the script using the up arrow key and the enter key and what do we get.
+
+50
+00:03:13,340 --> 00:03:19,670
+We get our record where the underscore ID property is 123 and the object id is the default way.
+
+51
+00:03:19,670 --> 00:03:27,080
+Mongo D-B creates IDs but you can do anything you like for ID creation over inside of robo Mongo we
+
+52
+00:03:27,080 --> 00:03:29,900
+can give our users collection a refresh.
+
+53
+00:03:30,230 --> 00:03:30,920
+And what do we get.
+
+54
+00:03:30,920 --> 00:03:32,360
+We get our documents.
+
+55
+00:03:32,360 --> 00:03:35,520
+We have the one we created in the last video and the two we just made.
+
+56
+00:03:35,540 --> 00:03:38,180
+Now all with a unique identifier.
+
+57
+00:03:38,300 --> 00:03:40,780
+And this is why unique IDs are really important.
+
+58
+00:03:40,830 --> 00:03:45,980
+And this example we have three properties in name age and location and theyre the same for all the records
+
+59
+00:03:46,190 --> 00:03:47,960
+and that's a reasonable thing to do.
+
+60
+00:03:47,960 --> 00:03:53,270
+Imagine two people need to do the same thing like buy groceries and that string alone is not going to
+
+61
+00:03:53,270 --> 00:03:59,180
+be enough to uniquely identify to do object IDs on the other hand are going to be unique and that is
+
+62
+00:03:59,180 --> 00:04:04,980
+what we're going to use to associate things like to do with things like users.
+
+63
+00:04:05,000 --> 00:04:09,450
+Next up I want to take a look at some things we can do with the ID inside of our code.
+
+64
+00:04:09,530 --> 00:04:15,200
+As I mentioned earlier a time stamp is embedded inside of here and we can actually pull that out over
+
+65
+00:04:15,200 --> 00:04:16,180
+inside of atom.
+
+66
+00:04:16,280 --> 00:04:21,080
+What were going to do is remove the ID property right here the time stamp is only going to be available
+
+67
+00:04:21,080 --> 00:04:22,910
+when you're using object IDs.
+
+68
+00:04:22,990 --> 00:04:28,410
+Then down below inside of our callback we can go ahead and print the time stamp to the screen.
+
+69
+00:04:28,580 --> 00:04:33,460
+If you remember result dot ops is an array of all the documents that got inserted.
+
+70
+00:04:33,470 --> 00:04:37,880
+We're only inserting one here so I'm going to access the first item in the array and then we're going
+
+71
+00:04:37,880 --> 00:04:40,130
+to access the ID property.
+
+72
+00:04:40,130 --> 00:04:45,410
+This is going to do exactly what you might think if we save the file and rerun the script over from
+
+73
+00:04:45,410 --> 00:04:49,940
+the terminal all we get is the object id printing to the screen.
+
+74
+00:04:50,160 --> 00:04:56,920
+Now though we can call a method on the underscore ID property but we're going to call is dot get time
+
+75
+00:04:56,920 --> 00:05:02,800
+stamp and get time stamp is a function but it doesn't take any arguments it simply returns the time
+
+76
+00:05:02,800 --> 00:05:06,000
+stamp that the object idea was created at.
+
+77
+00:05:06,010 --> 00:05:09,600
+Now if we go ahead and rerun our program what do we get.
+
+78
+00:05:09,610 --> 00:05:17,620
+We get a time stamp right here I can see that the object idea was created on August 11th 2016 at 15
+
+79
+00:05:17,680 --> 00:05:23,200
+0 3 in GMT which would be 11 0 0 3 on the East Coast where I am.
+
+80
+00:05:23,200 --> 00:05:25,710
+So this time stamp is indeed correct.
+
+81
+00:05:25,720 --> 00:05:30,550
+This is a fantastic way to figure out exactly when a document was created.
+
+82
+00:05:30,550 --> 00:05:36,370
+Now we don't have to rely on Mongo DB to create our object IDs inside of the Mongo DB library.
+
+83
+00:05:36,370 --> 00:05:41,710
+They actually give us a function we can run to make an object ID whenever we like for the moment let's
+
+84
+00:05:41,710 --> 00:05:45,710
+go ahead and comment out our call to insert one right here.
+
+85
+00:05:45,940 --> 00:05:51,100
+Up above at the very top of the file We're going to change our inport statement to Loden something new
+
+86
+00:05:51,100 --> 00:05:57,610
+off of Mongo D.B and we're going to do this using an S 6 feature known as object destructuring.
+
+87
+00:05:57,610 --> 00:06:01,580
+Let's take a quick second to talk about that before we actually go ahead and use it.
+
+88
+00:06:01,600 --> 00:06:07,330
+Object restructuring lets you pull out properties from an object creating variables.
+
+89
+00:06:07,330 --> 00:06:14,830
+This means if we have an object called user and it set equal to an object with a name property set to
+
+90
+00:06:14,860 --> 00:06:18,280
+Andrew and then age property set to 25.
+
+91
+00:06:18,280 --> 00:06:21,490
+We can easily pull out one of these into a variable.
+
+92
+00:06:21,610 --> 00:06:28,090
+Let's say for example we want to grab name and create a name a variable to do that using object destructuring
+
+93
+00:06:28,090 --> 00:06:29,240
+in ESX.
+
+94
+00:06:29,240 --> 00:06:33,390
+We're going to make a variable and then we're going to wrap it inside of curly braces.
+
+95
+00:06:33,550 --> 00:06:36,150
+We're going to provide the name we want to pull out.
+
+96
+00:06:36,160 --> 00:06:38,160
+This is also going to be the variable name.
+
+97
+00:06:38,290 --> 00:06:41,920
+Then we're going to set it equal to whatever object we want to do structure.
+
+98
+00:06:41,980 --> 00:06:45,870
+In this case that is the user object and there we go.
+
+99
+00:06:45,910 --> 00:06:51,550
+We have successfully restructured the user object pulling off the name property creating a new name
+
+100
+00:06:51,550 --> 00:06:54,540
+variable and setting it equal to whatever the value is.
+
+101
+00:06:54,560 --> 00:07:00,170
+This means right below I can use console dialog to print name to the screen.
+
+102
+00:07:00,170 --> 00:07:06,600
+I'm in a rerun the script and we get angry right here which is exactly what you'd expect because that
+
+103
+00:07:06,600 --> 00:07:08,880
+is the value of the name property.
+
+104
+00:07:09,150 --> 00:07:14,810
+E6 destructuring is a fantastic way to make new variables from an object's properties.
+
+105
+00:07:14,820 --> 00:07:17,960
+I'm going to go ahead and delete this example and up above.
+
+106
+00:07:18,030 --> 00:07:22,620
+We're going to change our require statement to use a destructuring before we add anything new.
+
+107
+00:07:22,620 --> 00:07:27,000
+Let's go ahead and take this statement and switch it to destructuring and then we'll worry about grabbing
+
+108
+00:07:27,000 --> 00:07:30,110
+that new thing that's going to let us make object IDs.
+
+109
+00:07:30,150 --> 00:07:35,590
+I'm going to copy and paste this line down below and comment out the old one so we have it for reference.
+
+110
+00:07:35,760 --> 00:07:41,280
+Well we're going to do is remove our DOT Mongo client call after require there's no need to pull off
+
+111
+00:07:41,280 --> 00:07:45,480
+that attribute like we do here because we're going to be using destructuring instead.
+
+112
+00:07:45,600 --> 00:07:51,330
+And that means over here we can use destructuring which requires us to add our curly braces and we can
+
+113
+00:07:51,330 --> 00:07:54,810
+pull off any property from the Mongo DB library.
+
+114
+00:07:54,900 --> 00:07:58,850
+In this case the only property we had was a mongo client.
+
+115
+00:07:58,980 --> 00:08:05,610
+This creates a variable called Mongo client like we do here setting it equal to the Mongul client property
+
+116
+00:08:05,730 --> 00:08:09,320
+of require Mongo D-B which is exactly what we did here.
+
+117
+00:08:09,330 --> 00:08:12,510
+This code is identical to the code up above.
+
+118
+00:08:12,510 --> 00:08:17,770
+Now that we have some destructuring in place we can easily pull more things off of Mongo DB.
+
+119
+00:08:18,030 --> 00:08:21,780
+We can Atacama right here and specify something else we want to pull off.
+
+120
+00:08:21,780 --> 00:08:26,830
+In this case we're going to pull off upper case o object upper case I.
+
+121
+00:08:26,840 --> 00:08:27,530
+A D.
+
+122
+00:08:27,720 --> 00:08:33,070
+And this object id constructor function lets us make new object IDs on the fly.
+
+123
+00:08:33,180 --> 00:08:37,260
+We can do anything we like with them even if we're not using Mongo DB as our database.
+
+124
+00:08:37,260 --> 00:08:43,940
+There is some value in creating and using object IDs to uniquely identify things down below.
+
+125
+00:08:43,980 --> 00:08:51,450
+We can make a new object id by first creating a variable I'll call it LBJ and we'll set it equal to
+
+126
+00:08:52,110 --> 00:09:00,750
+New object id calling it as a function just like this using the new keyword we create a new instance
+
+127
+00:09:00,780 --> 00:09:02,480
+of Object ID.
+
+128
+00:09:02,490 --> 00:09:07,280
+Next up we can go ahead and log that to the screen using console dialog.
+
+129
+00:09:07,610 --> 00:09:14,790
+Oh just like we did earlier and this is a regular object ID if we rerun the file over from the terminal
+
+130
+00:09:14,790 --> 00:09:16,480
+we get exactly what you'd expect.
+
+131
+00:09:16,510 --> 00:09:18,690
+We get an object id a looking thing.
+
+132
+00:09:18,780 --> 00:09:20,400
+If I rerun it again what do we get.
+
+133
+00:09:20,400 --> 00:09:21,530
+We get a new one.
+
+134
+00:09:21,570 --> 00:09:23,080
+They are both unique.
+
+135
+00:09:23,190 --> 00:09:26,820
+Using this technique we can incorporate object IDs anywhere we like.
+
+136
+00:09:26,820 --> 00:09:31,890
+We could even generate our own setting them as the underscore ID property for our documents.
+
+137
+00:09:31,890 --> 00:09:38,190
+And though I find it much easier to Mongo DB handle that heavy lifting for us I'm going to go ahead
+
+138
+00:09:38,190 --> 00:09:43,270
+and remove the two lines right here since he won't actually be using this code in the script down below.
+
+139
+00:09:43,410 --> 00:09:45,590
+And with this in place we are now done.
+
+140
+00:09:45,660 --> 00:09:51,150
+We have learned a bit about object IDs what they are and why they're useful in the next couple of videos
+
+141
+00:09:51,160 --> 00:09:56,790
+we're going to be taking a look at other ways we can work with Mongo D-B will learn how to read remove
+
+142
+00:09:56,820 --> 00:09:58,780
+and update our documents.
+
+143
+00:09:58,780 --> 00:10:00,660
+That's all coming up next so stay tuned.
+
+144
+00:10:00,660 --> 00:10:02,410
+I will see you next time.
+

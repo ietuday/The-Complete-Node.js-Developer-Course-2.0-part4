@@ -1,0 +1,972 @@
+﻿1
+00:00:00,180 --> 00:00:04,440
+In this video you're finally going to move out of the playground folder and we're going to start playing
+
+2
+00:00:04,440 --> 00:00:05,490
+with mongoose.
+
+3
+00:00:05,580 --> 00:00:11,240
+We'll be connecting to our Mongo DB database creating a model talking about exactly what a model is.
+
+4
+00:00:11,250 --> 00:00:16,260
+And finally we'll be saving some data to the database using mongoose.
+
+5
+00:00:16,260 --> 00:00:20,190
+Now we're not going to need any of the files we currently have open from the playground directory so
+
+6
+00:00:20,190 --> 00:00:21,980
+we can go ahead and close them.
+
+7
+00:00:21,990 --> 00:00:26,600
+We're also going to wipe the to do app a database using robo Mongo.
+
+8
+00:00:26,730 --> 00:00:30,570
+The data inside of here is going to be a little different than the data we'll be using going forward
+
+9
+00:00:30,750 --> 00:00:33,540
+and it's best to start with a clean slate.
+
+10
+00:00:33,540 --> 00:00:39,090
+Now there is no need to create the database after you drop it because if you remember Mongo D-B is going
+
+11
+00:00:39,090 --> 00:00:43,820
+to automatically create the database once you start writing data to it.
+
+12
+00:00:43,920 --> 00:00:49,110
+With this in place we can now explore a mongoose and the first thing I always like to do is check out
+
+13
+00:00:49,110 --> 00:00:50,300
+the Web site.
+
+14
+00:00:50,310 --> 00:00:56,050
+You can check the website out by going to mongoose and G-S dot com.
+
+15
+00:00:56,110 --> 00:00:57,690
+Here you can find examples.
+
+16
+00:00:57,700 --> 00:01:02,230
+Guides a full list of plugins a ton of great resources.
+
+17
+00:01:02,230 --> 00:01:04,950
+The read the docs resource is the one I use the most.
+
+18
+00:01:04,960 --> 00:01:11,590
+It includes tutorial like guides that have examples as well as documentation covering every single feature
+
+19
+00:01:11,680 --> 00:01:12,930
+of the library.
+
+20
+00:01:12,940 --> 00:01:18,250
+It really is a fantastic resource if you ever want to learn about something or use a feature we don't
+
+21
+00:01:18,250 --> 00:01:19,480
+cover in the course.
+
+22
+00:01:19,480 --> 00:01:24,760
+I highly recommend coming here taking the examples copying and pasting some code playing around with
+
+23
+00:01:24,760 --> 00:01:26,960
+it and figuring out how it works.
+
+24
+00:01:27,010 --> 00:01:29,210
+Now obviously about this course for a reason.
+
+25
+00:01:29,230 --> 00:01:33,580
+We're going to be covering most of the essential mongoose features right now.
+
+26
+00:01:33,640 --> 00:01:39,550
+The first thing we need to do before we can actually use mongoose in our project is install it over
+
+27
+00:01:39,550 --> 00:01:40,570
+in the terminal.
+
+28
+00:01:40,570 --> 00:01:43,230
+I'm going to install it using NPM.
+
+29
+00:01:43,430 --> 00:01:52,470
+I am I being short for NPM install the module name itself is called mongoose and will be installing
+
+30
+00:01:52,470 --> 00:01:55,900
+the most recent version available at the time of the filming.
+
+31
+00:01:55,920 --> 00:01:59,260
+That's going to be version four point five point nine.
+
+32
+00:01:59,520 --> 00:02:05,640
+And we are going to tack on these same flags since we will need mongoose for both production and testing
+
+33
+00:02:05,730 --> 00:02:07,520
+purposes.
+
+34
+00:02:07,520 --> 00:02:10,090
+Now once we run this it's going to go off and do its thing.
+
+35
+00:02:10,100 --> 00:02:15,890
+We can move into atom and start creating the files we're going to need to run our application.
+
+36
+00:02:15,890 --> 00:02:19,720
+First up let's make a directory in the root of the project.
+
+37
+00:02:19,730 --> 00:02:24,650
+This directory is going to be called server and everything related to our server is going to get stored
+
+38
+00:02:24,650 --> 00:02:25,790
+in here.
+
+39
+00:02:25,790 --> 00:02:29,030
+The first file We're going to create is going to be called server.
+
+40
+00:02:29,120 --> 00:02:32,120
+Yes this is going to be the root of our application.
+
+41
+00:02:32,120 --> 00:02:35,390
+When you want to start up our node you're going to run this file.
+
+42
+00:02:35,390 --> 00:02:38,300
+This file will get everything ready to go.
+
+43
+00:02:38,330 --> 00:02:43,520
+The first thing we need to do inside of server dot J.S. is load in a mongoose.
+
+44
+00:02:43,520 --> 00:02:49,540
+We're going to make a variable called mongoose which I always seem to spell incorrectly and we're going
+
+45
+00:02:49,540 --> 00:02:53,580
+to require it from the mongoose library.
+
+46
+00:02:53,650 --> 00:02:54,230
+Awesome.
+
+47
+00:02:54,640 --> 00:02:58,900
+Now that we have the Mango's variable in place we need to go ahead and connect to the database because
+
+48
+00:02:58,900 --> 00:03:05,800
+we can't start writing data to the database until mongoose knows how to connect and the process of connecting
+
+49
+00:03:05,800 --> 00:03:09,490
+is going to be pretty similar to what we did inside of our Mongo DB scripts.
+
+50
+00:03:09,490 --> 00:03:15,970
+For example the connect script here we called Mongo client connect passing a u r l but we're going to
+
+51
+00:03:15,970 --> 00:03:23,520
+do for Mongoose is called mongoose dot connect passing in the exact same way you are out.
+
+52
+00:03:23,890 --> 00:03:31,110
+Mongo D-B is the protocol Colan forward slash forward slash we're going to be connecting to our local
+
+53
+00:03:31,110 --> 00:03:37,610
+host a database on port 2 7 0 1 7.
+
+54
+00:03:37,630 --> 00:03:42,670
+Next up is going to be our forward slash followed by the database name and we'll continue to use the
+
+55
+00:03:42,670 --> 00:03:47,050
+to do app database which we used over here in the script.
+
+56
+00:03:47,050 --> 00:03:49,090
+Now this is where the two functions differ.
+
+57
+00:03:49,090 --> 00:03:53,860
+The Mongo client connect method takes a callback and that is when we have access to the database.
+
+58
+00:03:53,870 --> 00:03:56,170
+Mongoose is a lot more complex.
+
+59
+00:03:56,170 --> 00:03:59,180
+This is good because it means our code can be a lot simpler.
+
+60
+00:03:59,450 --> 00:04:01,960
+Mongooses maintaining this connection over time.
+
+61
+00:04:01,960 --> 00:04:03,210
+So imagine down here.
+
+62
+00:04:03,310 --> 00:04:08,110
+I tried to save something save New something.
+
+63
+00:04:08,110 --> 00:04:13,300
+Now obviously by the time this statement runs mongoose connect is not going to have had time to make
+
+64
+00:04:13,300 --> 00:04:15,640
+a database request to connect.
+
+65
+00:04:15,640 --> 00:04:18,080
+That's going to take a few milliseconds at least.
+
+66
+00:04:18,130 --> 00:04:21,360
+This statement is going to run almost right away behind the scenes.
+
+67
+00:04:21,430 --> 00:04:26,730
+Mongooses is going to be waiting for that connection before it ever actually tries to make the query.
+
+68
+00:04:26,740 --> 00:04:29,200
+This is one of the great advantages of mongoose.
+
+69
+00:04:29,200 --> 00:04:34,850
+We don't have to micromanage the order things happen in mongoose takes care of that for us.
+
+70
+00:04:34,870 --> 00:04:39,610
+Now there is one more thing I want to configure just above Mangu stock connect.
+
+71
+00:04:39,760 --> 00:04:43,110
+We've been using promises in this course and we're going to continue to use them.
+
+72
+00:04:43,150 --> 00:04:48,340
+Mangu supports callbacks by default but callbacks really aren't how I like to program.
+
+73
+00:04:48,340 --> 00:04:54,160
+I prefer promises as they're a lot simpler to chain manage and scale right here.
+
+74
+00:04:54,220 --> 00:04:57,940
+We're going to tell mounds use which promise library we want to use.
+
+75
+00:04:57,970 --> 00:05:01,960
+Now if you're not familiar with the history of promises it didn't used to always be something built
+
+76
+00:05:01,960 --> 00:05:06,190
+into javascript promises originally came from libraries like Bluebird.
+
+77
+00:05:06,220 --> 00:05:08,860
+It was an idea developer had they created a library.
+
+78
+00:05:08,860 --> 00:05:10,120
+People start using it.
+
+79
+00:05:10,210 --> 00:05:13,640
+So much so that they added it to the language right here.
+
+80
+00:05:13,660 --> 00:05:19,030
+We need to tell mongoose that we want to use the built in promis library as opposed to some third party
+
+81
+00:05:19,040 --> 00:05:26,650
+one we're going to set mongoose ADOT promise equal to global dot promise.
+
+82
+00:05:26,650 --> 00:05:31,180
+And this is something we're only going to have to do once these two lines we're just going to put in
+
+83
+00:05:31,180 --> 00:05:32,440
+server dot apps.
+
+84
+00:05:32,500 --> 00:05:34,270
+We don't want to add them anywhere else.
+
+85
+00:05:34,270 --> 00:05:36,930
+And with this in place Mongoose is now configured.
+
+86
+00:05:37,000 --> 00:05:42,490
+We've connected to our database and we've set it up to use promises which is exactly what we want.
+
+87
+00:05:42,850 --> 00:05:45,790
+The next thing we're going to do is create a model.
+
+88
+00:05:45,850 --> 00:05:51,790
+Now as we talked about inside of Mongo D-B your collections can store anything I could have a collection
+
+89
+00:05:51,790 --> 00:05:55,160
+with a document that has an age property and that's it.
+
+90
+00:05:55,300 --> 00:06:00,250
+I could have a different document in the same collection with a property name.
+
+91
+00:06:00,250 --> 00:06:01,030
+That's it.
+
+92
+00:06:01,030 --> 00:06:04,150
+These two documents are different but they're both in the same collection.
+
+93
+00:06:04,150 --> 00:06:07,630
+Mongoose likes to keep things a little more organized than that.
+
+94
+00:06:07,750 --> 00:06:12,640
+Well we're going to do is create a model for everything we want to store in this example we'll be creating
+
+95
+00:06:12,670 --> 00:06:14,060
+a to do model.
+
+96
+00:06:14,200 --> 00:06:18,930
+Now what to do is going to have certain attributes that's going to have a text attribute we know that's
+
+97
+00:06:18,940 --> 00:06:19,670
+a string.
+
+98
+00:06:19,780 --> 00:06:22,710
+It's going to have a completed attribute we know that's a boolean.
+
+99
+00:06:22,720 --> 00:06:28,630
+These are things we can define but we're going to do is create a mongoose model so mongoose knows how
+
+100
+00:06:28,630 --> 00:06:31,310
+to store our data right here.
+
+101
+00:06:31,510 --> 00:06:35,640
+Let's make a variable called uppercase t to do.
+
+102
+00:06:35,920 --> 00:06:43,450
+And we're going to set that equal to mongoose dot model model is the method we're going to use to create
+
+103
+00:06:43,450 --> 00:06:44,870
+a new model.
+
+104
+00:06:44,890 --> 00:06:49,180
+It takes two arguments the first one is the string name I'm going to match the variable name on the
+
+105
+00:06:49,180 --> 00:06:51,250
+left uppercase t to do.
+
+106
+00:06:51,370 --> 00:06:56,920
+And the second argument is going to be an object and this object is going to define the various properties
+
+107
+00:06:57,100 --> 00:06:57,990
+for a model.
+
+108
+00:06:58,090 --> 00:07:04,050
+For example the to do model is going to have a Text property so we can set that up right here and then
+
+109
+00:07:04,120 --> 00:07:08,900
+we can set text equal to an object and we can configure exactly what text is.
+
+110
+00:07:08,950 --> 00:07:12,150
+We can do the same thing for a completed.
+
+111
+00:07:12,370 --> 00:07:17,020
+We're going to have a completed property and we're going to want to specify certain things maybe it's
+
+112
+00:07:17,020 --> 00:07:21,110
+required maybe we have custom validators maybe we want to set that type.
+
+113
+00:07:21,460 --> 00:07:29,130
+And we're also going to add one final one completed at this is going to let us know when a to do was
+
+114
+00:07:29,130 --> 00:07:30,200
+completed.
+
+115
+00:07:30,240 --> 00:07:36,870
+Now a created out property might sound useful but if you remember the Mongo db object id that already
+
+116
+00:07:36,870 --> 00:07:39,610
+has and he created at timestamped built in.
+
+117
+00:07:39,720 --> 00:07:41,660
+So there's no reason to add that here.
+
+118
+00:07:41,650 --> 00:07:42,360
+Complete it out.
+
+119
+00:07:42,360 --> 00:07:44,030
+On the other hand is going to add value.
+
+120
+00:07:44,030 --> 00:07:50,520
+It lets you know exactly when you completed a to do from here we can start specifying the details about
+
+121
+00:07:50,580 --> 00:07:56,820
+each attribute and there is a ton of different options available inside of the mongoose documentation.
+
+122
+00:07:56,820 --> 00:08:02,760
+For now though we're going to keep things really really simple just specifying the type for each text.
+
+123
+00:08:02,760 --> 00:08:06,200
+For example we can set any type equal to a string.
+
+124
+00:08:06,240 --> 00:08:10,400
+It's always going to be a string that wouldn't make sense if it was a Boolean or a number.
+
+125
+00:08:11,630 --> 00:08:14,310
+Down below we can set a type for completed.
+
+126
+00:08:14,310 --> 00:08:16,000
+Completed needs to be a boolean.
+
+127
+00:08:16,000 --> 00:08:17,500
+There's no way around that.
+
+128
+00:08:17,540 --> 00:08:21,390
+So we're going to set type equal to uppercase B boolean.
+
+129
+00:08:21,440 --> 00:08:23,670
+The last one we have is completed at.
+
+130
+00:08:23,690 --> 00:08:28,520
+Now this is going to be a regular old Unix time stamp which means it's just a number so we can set the
+
+131
+00:08:28,520 --> 00:08:32,910
+type for completed at equal to number.
+
+132
+00:08:32,930 --> 00:08:33,820
+Excellent.
+
+133
+00:08:33,860 --> 00:08:37,730
+With this in place we now have a working mongoose model.
+
+134
+00:08:37,790 --> 00:08:44,750
+It's a model of how to do that has a few properties text completed and completed at.
+
+135
+00:08:44,870 --> 00:08:49,580
+Now in order to illustrate exactly how we create instances of this we're going to go ahead and just
+
+136
+00:08:49,610 --> 00:08:50,950
+add one to do.
+
+137
+00:08:51,080 --> 00:08:56,450
+We're not going to worry about fetching data updating data or deleting data although that is stuff that
+
+138
+00:08:56,450 --> 00:09:01,460
+Mancuso supports we'll be worrying about that in the next video as we start building out the individual
+
+139
+00:09:01,460 --> 00:09:03,190
+routes for our API.
+
+140
+00:09:03,320 --> 00:09:09,500
+For now we're going to go over just a very quick example of creating a brand new to do.
+
+141
+00:09:09,560 --> 00:09:14,840
+I'm going to make a variable called new to do although you could call it anything you like.
+
+142
+00:09:14,840 --> 00:09:21,200
+The name here is not important what is important though is that you run the to do function which is
+
+143
+00:09:21,200 --> 00:09:21,950
+right here.
+
+144
+00:09:21,950 --> 00:09:26,080
+This is what comes back from mongoose top model as a constructor function.
+
+145
+00:09:26,090 --> 00:09:30,760
+We want to add the new keyword in front of it because we're creating a new instance of to do.
+
+146
+00:09:31,220 --> 00:09:34,370
+Now the to do constructor function it does take an argument.
+
+147
+00:09:34,550 --> 00:09:37,890
+It's going to be an object where we can specify some of these properties.
+
+148
+00:09:38,000 --> 00:09:42,110
+Maybe we know that we want tax to equal something like cooked dinner right here.
+
+149
+00:09:42,110 --> 00:09:47,540
+We can specify that text equals a string cook dinner.
+
+150
+00:09:47,540 --> 00:09:48,700
+Excellent.
+
+151
+00:09:48,770 --> 00:09:52,160
+And we haven't required any of our attributes so we could just stop here.
+
+152
+00:09:52,160 --> 00:09:54,430
+We have a Text property that is good enough.
+
+153
+00:09:54,440 --> 00:09:57,620
+Let's go ahead and explore how to save this to the database.
+
+154
+00:09:57,620 --> 00:10:02,390
+Creating a new instance alone does not actually update the Mongo D-B a database.
+
+155
+00:10:02,390 --> 00:10:05,980
+What we need to do is call a method on new to do.
+
+156
+00:10:05,990 --> 00:10:12,950
+That's going to be new to do dot save new to do that save is going to be responsible for actually saving
+
+157
+00:10:12,950 --> 00:10:19,430
+this to the bango IDB a database and save returns or promise which means right here we can tack on a
+
+158
+00:10:19,430 --> 00:10:25,850
+then call and we can add a few callbacks for when the data either get saved or when an error occurs
+
+159
+00:10:25,880 --> 00:10:31,890
+because it can't save for some reason maybe the connection failed or maybe the model is not valid.
+
+160
+00:10:32,150 --> 00:10:41,000
+Either way for now we'll just print a little string console dialog unable to save to do up above in
+
+161
+00:10:41,000 --> 00:10:42,290
+the success callback.
+
+162
+00:10:42,290 --> 00:10:45,240
+We're actually going to get that to do right here.
+
+163
+00:10:45,380 --> 00:10:50,670
+I can call the argument doc and I can print it to the screen cancel the dialog.
+
+164
+00:10:50,810 --> 00:10:57,370
+I'll print a little message first saved to do and the second argument will be the actual document.
+
+165
+00:10:57,440 --> 00:10:59,630
+And now that we have this in place we are done.
+
+166
+00:10:59,690 --> 00:11:03,410
+We've configured mongoose connecting to the Mongo DB database.
+
+167
+00:11:03,470 --> 00:11:07,790
+We've created a model specifying the attributes we want to do's to have.
+
+168
+00:11:07,880 --> 00:11:09,080
+We created a new to do.
+
+169
+00:11:09,080 --> 00:11:11,690
+And finally we saved it to the database.
+
+170
+00:11:11,780 --> 00:11:16,500
+I'm going to add a semi-colon at the very end and we're going to run the script from the terminal.
+
+171
+00:11:16,730 --> 00:11:22,190
+I'm going to kick things off by clearing the terminal output and we're running node the file we're running
+
+172
+00:11:22,190 --> 00:11:25,290
+is in that server directory and it's called Server dot.
+
+173
+00:11:25,310 --> 00:11:27,820
+And yes when I run the file what do we get.
+
+174
+00:11:27,890 --> 00:11:29,310
+We get saved to do.
+
+175
+00:11:29,330 --> 00:11:31,090
+Meaning that things went well.
+
+176
+00:11:31,130 --> 00:11:34,660
+We have an object right here with an ID property as expected.
+
+177
+00:11:34,730 --> 00:11:41,030
+The text property which we specified and this underscore underscore the property underscore underscore
+
+178
+00:11:41,060 --> 00:11:43,800
+the is version and it comes from mongoose.
+
+179
+00:11:43,800 --> 00:11:44,800
+We'll talk about it later.
+
+180
+00:11:44,810 --> 00:11:49,190
+But essentially it keeps track of the various model changes over time.
+
+181
+00:11:49,190 --> 00:11:51,840
+For now it's not important it can be ignored.
+
+182
+00:11:52,160 --> 00:11:55,710
+If we open up Rogel mango we're going to see the exact same data.
+
+183
+00:11:55,790 --> 00:11:58,030
+I'm going to Right-Click the connection and refresh it.
+
+184
+00:11:58,070 --> 00:12:03,880
+Here we have our to do app inside of the to do app database we have our dues collection.
+
+185
+00:12:03,920 --> 00:12:10,510
+Notice that mongoose automatically lower cased and pluralized to do I'm going to view the documents
+
+186
+00:12:10,540 --> 00:12:14,630
+and what do we have we have our one document with a text equal to cook dinner.
+
+187
+00:12:14,710 --> 00:12:18,310
+Exactly what we created over inside of Adam.
+
+188
+00:12:18,340 --> 00:12:21,040
+Now seems like a pretty good time for a challenge.
+
+189
+00:12:21,040 --> 00:12:22,290
+We have one to do.
+
+190
+00:12:22,290 --> 00:12:27,900
+Created using our mongoose model what I want you to do is make a second one filling out all three values.
+
+191
+00:12:27,910 --> 00:12:32,440
+That means you're going to make a new to do with a text value a completed boolean.
+
+192
+00:12:32,470 --> 00:12:38,370
+Go ahead and set that to true and a completed at time stamp which you can set to any number you like.
+
+193
+00:12:38,410 --> 00:12:43,350
+And then I want you to go ahead and save it print it to the screen if it saves successfully printing
+
+194
+00:12:43,410 --> 00:12:43,850
+error.
+
+195
+00:12:43,870 --> 00:12:47,250
+If it saves poorly then finally run it.
+
+196
+00:12:47,320 --> 00:12:50,740
+Make sure it shows up in Rodel Mongo and the data looks correct.
+
+197
+00:12:50,740 --> 00:12:52,380
+If it does you're done.
+
+198
+00:12:52,510 --> 00:12:55,350
+That's your challenge so take a moment pause the video.
+
+199
+00:12:55,420 --> 00:13:02,230
+Create a new to do and when you're done click play.
+
+200
+00:13:02,400 --> 00:13:05,630
+Hopefully you were able to get that done without too much trouble.
+
+201
+00:13:05,640 --> 00:13:08,730
+The first thing I would have done is made a new variable down below.
+
+202
+00:13:08,730 --> 00:13:17,770
+I'm going to make a variable called other to do setting it equal to a new instance of the to do model.
+
+203
+00:13:17,980 --> 00:13:23,200
+From here we can pass in our one argument which is going to be the object and we can specify all of
+
+204
+00:13:23,200 --> 00:13:23,980
+the values.
+
+205
+00:13:24,010 --> 00:13:26,290
+I can set text equal to whatever I like.
+
+206
+00:13:27,150 --> 00:13:29,810
+Feed the cat.
+
+207
+00:13:29,890 --> 00:13:37,250
+I can set the completed value equal to true which I wanted you to do and I can set completed at equal
+
+208
+00:13:37,250 --> 00:13:38,490
+to any number.
+
+209
+00:13:38,630 --> 00:13:46,070
+Anything lower than zero like negative 1 is going to go backwards from 1970 which is where zero is anything
+
+210
+00:13:46,070 --> 00:13:47,830
+positive is going to be where at.
+
+211
+00:13:47,830 --> 00:13:50,390
+And we'll talk about timestamps more later.
+
+212
+00:13:51,200 --> 00:13:56,480
+It For now I'm going to go with something like 123 which would basically be two minutes into the year.
+
+213
+00:13:56,550 --> 00:13:58,230
+Nineteen seventy.
+
+214
+00:13:58,320 --> 00:14:01,590
+With this in place we now just need to save.
+
+215
+00:14:01,650 --> 00:14:08,750
+I'm going to call other to do dot save and this is what's actually going to write to the Mongo DB database.
+
+216
+00:14:08,820 --> 00:14:14,080
+I am going to tack on and then call back because I do want to do something once the save is complete.
+
+217
+00:14:14,490 --> 00:14:18,620
+If the save worked we're going to get our doc and I'm going to print it to the screen.
+
+218
+00:14:20,420 --> 00:14:23,870
+I'm going to use that pretty print system we talked about earlier.
+
+219
+00:14:24,700 --> 00:14:32,590
+Jason docstring a phi passing in the actual object undefined and to excellent.
+
+220
+00:14:32,620 --> 00:14:33,800
+You didn't need to do that.
+
+221
+00:14:33,820 --> 00:14:36,190
+You could have printed it in any way you like.
+
+222
+00:14:36,190 --> 00:14:43,680
+Next up I'm going to print a little message if things go poorly Council a dialogue.
+
+223
+00:14:44,820 --> 00:14:48,740
+Unable to say it and I'll pass along that error object.
+
+224
+00:14:48,750 --> 00:14:53,230
+So if someone's reading the logs they can see exactly why the call failed.
+
+225
+00:14:53,250 --> 00:14:58,440
+With this in place we can now comment out that first to do this is going to prevent another one from
+
+226
+00:14:58,440 --> 00:15:03,320
+being created and we can rerun the script running our brand new to do.
+
+227
+00:15:03,340 --> 00:15:08,940
+Creation calls right here inside of the terminal I'm going to shut down the old connection and start
+
+228
+00:15:08,940 --> 00:15:09,900
+up a new one.
+
+229
+00:15:09,900 --> 00:15:13,720
+This is going to create a brand new to do and we have it right here.
+
+230
+00:15:13,740 --> 00:15:15,370
+TEXT equals feed the cat.
+
+231
+00:15:15,380 --> 00:15:17,070
+Complete it is the boolean true.
+
+232
+00:15:17,070 --> 00:15:21,930
+Notice there's no quotes around it and completed as is the number one at 23.
+
+233
+00:15:21,930 --> 00:15:24,180
+Once again no quotes.
+
+234
+00:15:24,180 --> 00:15:27,540
+I can also go into robo Mongo to confirm.
+
+235
+00:15:27,540 --> 00:15:29,930
+I'm going to re fetch the to do's collection.
+
+236
+00:15:30,000 --> 00:15:36,240
+And now we have to do's on the right hand side of the values you also notice the type.
+
+237
+00:15:36,240 --> 00:15:43,170
+Here we have 32 for completed at end of the the property the completed property is a Boolean text is
+
+238
+00:15:43,200 --> 00:15:46,950
+a string and the ID is an object id type.
+
+239
+00:15:46,960 --> 00:15:50,590
+There is a lot of useful information hidden inside of robo Mongo.
+
+240
+00:15:50,730 --> 00:15:55,640
+If you want something they most likely have it built in that is it for this one.
+
+241
+00:15:55,650 --> 00:15:58,470
+We now know how to use mongoose to make a connection.
+
+242
+00:15:58,590 --> 00:16:02,580
+Create a model and finally save that model to the database.
+
+243
+00:16:02,580 --> 00:16:04,760
+Stay tuned I will see you soon.
+

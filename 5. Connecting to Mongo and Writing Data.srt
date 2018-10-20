@@ -1,0 +1,1248 @@
+﻿1
+00:00:00,300 --> 00:00:05,340
+In this video you're going to learn how to connect your node applications to the Mongo DB database that
+
+2
+00:00:05,340 --> 00:00:07,470
+you have running on your local machine.
+
+3
+00:00:07,470 --> 00:00:12,660
+This means that we'll be able to issue database commands right inside of our node apps to do stuff like
+
+4
+00:00:12,690 --> 00:00:15,550
+insert update delete or read a data.
+
+5
+00:00:15,570 --> 00:00:20,460
+This is going to be critical if we're ever going to make that to do arrest API when someone hits one
+
+6
+00:00:20,460 --> 00:00:21,860
+of our API endpoints.
+
+7
+00:00:21,930 --> 00:00:27,030
+We want to manipulate the database whether it's reading all of the to do's or adding a new one before
+
+8
+00:00:27,030 --> 00:00:32,700
+we can do any of that though we have to learn the basics to connect to our Mongo DB database from inside
+
+9
+00:00:32,700 --> 00:00:33,230
+of Node.
+
+10
+00:00:33,360 --> 00:00:37,960
+J.S. we're going to be using an NPM module created by the Mongo DB team.
+
+11
+00:00:38,010 --> 00:00:43,710
+It's called node Mongo D-B native and it includes all of the features you'll need to connect to it interact
+
+12
+00:00:43,710 --> 00:00:45,840
+with your database to get to it.
+
+13
+00:00:45,840 --> 00:00:53,580
+We're going to google node Mongo D-B native it a good hub repo which should be the first link is the
+
+14
+00:00:53,580 --> 00:00:56,990
+one we want the node Mongo D-B native repository.
+
+15
+00:00:57,060 --> 00:01:00,900
+And if we scroll down we can take a look at a few important links.
+
+16
+00:01:00,900 --> 00:01:04,530
+First up we have documentation and we also have our API docs.
+
+17
+00:01:04,530 --> 00:01:09,420
+These are going to be critical as we start exploring the features that we have inside of this library.
+
+18
+00:01:09,420 --> 00:01:12,180
+Double-O there's a ton of examples on how to get started.
+
+19
+00:01:12,210 --> 00:01:15,080
+We'll be going through a lot of this stuff in this course.
+
+20
+00:01:15,150 --> 00:01:21,630
+But I do want to make you aware where you can find other resources because the Mongo D-B native library
+
+21
+00:01:21,630 --> 00:01:23,220
+has a ton of features.
+
+22
+00:01:23,220 --> 00:01:28,920
+There are entire courses dedicated just to Mongo D.B and they don't even begin to cover everything that's
+
+23
+00:01:28,920 --> 00:01:30,660
+built in to this library.
+
+24
+00:01:30,780 --> 00:01:37,140
+We're going to be focusing on the important and common subset of Mongo D-B that we need for node J.S.
+
+25
+00:01:37,230 --> 00:01:38,980
+apps to get started.
+
+26
+00:01:38,980 --> 00:01:41,140
+Let's go ahead and open up the box.
+
+27
+00:01:41,580 --> 00:01:46,170
+When you go to the docs page you do have to pick your version will be using version 2.0 to have the
+
+28
+00:01:46,170 --> 00:01:48,370
+driver and there's two important links here.
+
+29
+00:01:48,390 --> 00:01:49,830
+We have a reference link.
+
+30
+00:01:49,980 --> 00:01:55,840
+This includes guide like articles things to get you started and other various references.
+
+31
+00:01:56,130 --> 00:02:02,070
+If you go back and you go to the API link and this includes the details of every single method available
+
+32
+00:02:02,100 --> 00:02:07,500
+to you when you're working with a library and we'll be exploring some of the methods in here as we get
+
+33
+00:02:07,500 --> 00:02:11,950
+started creating our node to do API.
+
+34
+00:02:11,960 --> 00:02:17,090
+For now though we can get started by creating a new directory for this project and then we're going
+
+35
+00:02:17,090 --> 00:02:22,520
+to go ahead and install the Mongo DB library and connect to the database we have running.
+
+36
+00:02:22,520 --> 00:02:27,680
+Now I am going to assume that you have your database running for all the videos in this section.
+
+37
+00:02:27,680 --> 00:02:30,320
+I have that running in a separate tab in my terminal.
+
+38
+00:02:30,350 --> 00:02:31,970
+It's sitting right here.
+
+39
+00:02:32,090 --> 00:02:36,710
+If you're on Windows refer to the instructions in the Windows install video to start your database if
+
+40
+00:02:36,710 --> 00:02:42,020
+you forget if you're on the Linux or OS X operating systems use those instructions and don't forget
+
+41
+00:02:42,200 --> 00:02:49,520
+to also include that DBI path argument that is essential for booting up your Mangold db server to kick
+
+42
+00:02:49,520 --> 00:02:50,000
+things off.
+
+43
+00:02:50,000 --> 00:02:53,760
+I'm going to make a new folder on the desktop for the node API.
+
+44
+00:02:54,170 --> 00:03:02,360
+I'll use M-K Diyar to create a new directory called node hyphen to do an API and then I can go ahead
+
+45
+00:03:02,360 --> 00:03:07,850
+and UCD to go into that directory C-D node to do API.
+
+46
+00:03:07,850 --> 00:03:11,180
+And from here we're going to run NPM in it which creates our package.
+
+47
+00:03:11,210 --> 00:03:19,730
+Jason File and lets us install this Mongo DB library NPM in it once again like we've done throughout
+
+48
+00:03:19,730 --> 00:03:25,440
+the course we're going to be using enter to skip through all of the options using the defaults for each.
+
+49
+00:03:25,610 --> 00:03:30,500
+Once we get to the end we can confirm and now our package Jason file is created.
+
+50
+00:03:30,500 --> 00:03:34,160
+The next thing we're going to do is open up this directory inside of Adam.
+
+51
+00:03:34,460 --> 00:03:36,920
+I'm going to go ahead and pop that open real quick.
+
+52
+00:03:36,980 --> 00:03:37,930
+It's on the desktop.
+
+53
+00:03:38,030 --> 00:03:40,850
+And here it is node to do API.
+
+54
+00:03:41,030 --> 00:03:46,760
+Next up inside of the root of the project we're going to create a new folder and I'm going to call this
+
+55
+00:03:46,760 --> 00:03:50,690
+folder a playground inside of here will store various scripts.
+
+56
+00:03:50,690 --> 00:03:52,980
+They're not going to be scripts related to the to do API.
+
+57
+00:03:53,000 --> 00:03:55,760
+There'll be scripts related to Mongo DB.
+
+58
+00:03:55,880 --> 00:04:00,200
+So I do want to keep them in the folder but I don't necessarily want them to be part of the app.
+
+59
+00:04:00,230 --> 00:04:04,380
+We'll use the playground folder for that like we have in the past in the playground folder.
+
+60
+00:04:04,490 --> 00:04:07,910
+Let's go ahead and make a new file and we'll call this file.
+
+61
+00:04:07,910 --> 00:04:16,070
+Mongo D-B connect and Dot J.S. inside of this file We're going to get started by loading in the library
+
+62
+00:04:16,100 --> 00:04:18,420
+and connecting to the database.
+
+63
+00:04:18,440 --> 00:04:22,610
+Now in order to do that we do have to install the library from the terminal.
+
+64
+00:04:22,610 --> 00:04:25,450
+We can run NPM install to get that done.
+
+65
+00:04:25,700 --> 00:04:31,430
+NPM install the library name is Mongo D-B.
+
+66
+00:04:31,450 --> 00:04:33,830
+All lower case no hyphens.
+
+67
+00:04:33,910 --> 00:04:38,410
+Then we're going to go ahead and specify the version to make sure we're all using the same functionality
+
+68
+00:04:38,500 --> 00:04:40,940
+at two point 2.5.
+
+69
+00:04:40,970 --> 00:04:46,390
+And this is the most recent version as of the filming after the version number I am going to use the
+
+70
+00:04:46,390 --> 00:04:47,600
+save flag.
+
+71
+00:04:47,770 --> 00:04:52,450
+This is going to save it as a regular dependency which it is we're going to need this to run the to
+
+72
+00:04:52,450 --> 00:04:56,440
+do API application with Mongo D-B now installed.
+
+73
+00:04:56,440 --> 00:05:01,570
+We can move in it to our Mongo DB connect file and start connecting to the database.
+
+74
+00:05:01,630 --> 00:05:07,120
+The first thing we need to do is pull something out of the library that we just install that Mongo DB
+
+75
+00:05:07,120 --> 00:05:07,910
+library.
+
+76
+00:05:07,960 --> 00:05:13,570
+What we're looking for is what's called the Mongo client the Mongo client lets you connect to a mango
+
+77
+00:05:13,570 --> 00:05:16,810
+server and issue commands to manipulate the database.
+
+78
+00:05:16,810 --> 00:05:24,650
+Let's go ahead and kick things off by creating a constant called uppercase m a mongo client.
+
+79
+00:05:25,150 --> 00:05:31,700
+And we're going to set that equal to require and we are going to require the library we just installed
+
+80
+00:05:31,700 --> 00:05:38,880
+a mango D-B and from that library we're going to pull off Mongo client just like this.
+
+81
+00:05:39,020 --> 00:05:39,960
+Excellent.
+
+82
+00:05:40,190 --> 00:05:47,090
+With a mongo client now in place we can call Mongul client and connect to connect to the database Mongo
+
+83
+00:05:47,090 --> 00:05:50,220
+client ADOT connect.
+
+84
+00:05:50,390 --> 00:05:53,120
+And this is a method that takes two arguments.
+
+85
+00:05:53,120 --> 00:05:59,330
+The first argument is a string and this is going to be you R-AL where your database lives now in a production
+
+86
+00:05:59,330 --> 00:05:59,840
+example.
+
+87
+00:05:59,840 --> 00:06:04,080
+This might be an Amazon Web services you are out or Heroku you are Al.
+
+88
+00:06:04,100 --> 00:06:07,060
+For our case it's going to be that local host you are l.
+
+89
+00:06:07,160 --> 00:06:08,510
+We'll talk about that in just a second.
+
+90
+00:06:08,510 --> 00:06:14,210
+The second argument that is going to be a callback function the callback function will fire after the
+
+91
+00:06:14,210 --> 00:06:16,420
+connection has either succeeded or failed.
+
+92
+00:06:16,520 --> 00:06:18,910
+And then we can go ahead and handle things appropriately.
+
+93
+00:06:18,980 --> 00:06:21,950
+If the connection failed we'll print a message and stop the program.
+
+94
+00:06:21,950 --> 00:06:25,410
+If it succeeded we can start manipulating the database.
+
+95
+00:06:25,470 --> 00:06:28,920
+That first argument in our case is going to look something like this.
+
+96
+00:06:29,000 --> 00:06:34,530
+We're going to start it off with Mongo D-B colon of forward slash forward slash.
+
+97
+00:06:34,610 --> 00:06:40,670
+When we connect it to a mongo DB database we want to use the Mongo D-B protocol like this.
+
+98
+00:06:40,670 --> 00:06:45,920
+Next up it's going to be at local host since we're running it on our local machine and we have the port
+
+99
+00:06:46,190 --> 00:06:52,430
+which we already explored 2 7 0 1 7 after the port.
+
+100
+00:06:52,530 --> 00:06:57,280
+We need to use forward slash to specify which database we want to connect to.
+
+101
+00:06:57,420 --> 00:07:00,630
+Now in the last video we used that test database.
+
+102
+00:07:00,630 --> 00:07:06,510
+This is the default database that Mongo DB gives you but we can go ahead and create a new one after
+
+103
+00:07:06,510 --> 00:07:07,140
+the slash.
+
+104
+00:07:07,140 --> 00:07:11,880
+I'm going to call the database to do app just like this.
+
+105
+00:07:11,880 --> 00:07:15,740
+Next up we can go ahead and provide that callback function.
+
+106
+00:07:15,960 --> 00:07:21,840
+I'm going to use and yes 6 arrow function and we're going to get past two arguments the first one is
+
+107
+00:07:21,840 --> 00:07:23,360
+going to be an error argument.
+
+108
+00:07:23,370 --> 00:07:26,360
+This may or may not exist just like we've seen in the past.
+
+109
+00:07:26,370 --> 00:07:29,460
+It will exist if an error actually happened otherwise it won't.
+
+110
+00:07:29,460 --> 00:07:32,210
+The second argument is going to be the db object.
+
+111
+00:07:32,220 --> 00:07:36,710
+This is what we can use to issue commands to read and write data.
+
+112
+00:07:36,740 --> 00:07:42,000
+Now before we write any data I'm going to go ahead and handle any potential errors that come about.
+
+113
+00:07:42,210 --> 00:07:48,700
+I'll do that using an if statement if error if there is an error we're going to print a message to the
+
+114
+00:07:48,700 --> 00:07:53,890
+console letting whoever is looking at the logs know that we were unable to connect to the database server
+
+115
+00:07:54,260 --> 00:08:06,500
+console a dialog that inside of quotes something like unable to connect to Mongo DB server.
+
+116
+00:08:06,710 --> 00:08:07,970
+Excellent.
+
+117
+00:08:07,970 --> 00:08:14,390
+After the if statement we can go ahead and log out a success message something like Konsole that log
+
+118
+00:08:14,710 --> 00:08:21,900
+and then inside of quotes we'll use connected to Mongo DB server.
+
+119
+00:08:22,260 --> 00:08:27,780
+Now when you're handling errors like this the success code is going to run even if the error block runs
+
+120
+00:08:27,980 --> 00:08:31,260
+what we want to do instead is add a return statement right here.
+
+121
+00:08:31,440 --> 00:08:34,020
+This return statement isn't doing anything fancy.
+
+122
+00:08:34,020 --> 00:08:39,210
+All we're doing is using it to prevent the rest of the function from executing as soon as you return
+
+123
+00:08:39,210 --> 00:08:39,980
+from a function.
+
+124
+00:08:40,020 --> 00:08:41,220
+The program stops.
+
+125
+00:08:41,310 --> 00:08:44,550
+Which means if an error does occur the message will get logged.
+
+126
+00:08:44,550 --> 00:08:49,680
+The function will stop and we'll never see this connected to Mongo db server message.
+
+127
+00:08:49,680 --> 00:08:54,810
+The alternative from the return keyword would be to add an else clause like this and put our success
+
+128
+00:08:54,810 --> 00:08:55,860
+code in here.
+
+129
+00:08:55,860 --> 00:09:00,150
+But it's unnecessary we can just use this syntax which I prefer.
+
+130
+00:09:00,150 --> 00:09:03,190
+Now before we run this file there is one more thing I want to do.
+
+131
+00:09:03,300 --> 00:09:09,410
+At the very bottom of our callback function we're going to call a method on NDB it's D.B ADOT close.
+
+132
+00:09:09,510 --> 00:09:12,550
+This closes the connection with the Mongo DB server.
+
+133
+00:09:12,630 --> 00:09:17,190
+Now that we have this in place we can actually save the Mongo DB connect file and run it over inside
+
+134
+00:09:17,190 --> 00:09:18,020
+of the terminal.
+
+135
+00:09:18,030 --> 00:09:23,430
+It doesn't do much yet but it is indeed going to work over in the terminal we can run it using node
+
+136
+00:09:24,330 --> 00:09:31,750
+playground as the directory and the file itself as Mongo D-B hyphen connect dot J ass.
+
+137
+00:09:31,920 --> 00:09:33,420
+When we run this file what do we get.
+
+138
+00:09:33,420 --> 00:09:39,210
+We get connected to Mongo db server printing it to the screen and if we head over into the tab where
+
+139
+00:09:39,210 --> 00:09:44,910
+we have the Mongo db server we can see we got a new connection connection accepted and then that connection
+
+140
+00:09:44,940 --> 00:09:46,690
+was closed down below.
+
+141
+00:09:46,710 --> 00:09:48,630
+And this is fantastic.
+
+142
+00:09:48,720 --> 00:09:54,390
+Using the Mongo library we were able to connect print a message and disconnect from the server.
+
+143
+00:09:54,390 --> 00:09:59,940
+Now you might have noticed that we changed the database name right here and we never actually did anything
+
+144
+00:09:59,940 --> 00:10:03,740
+to create it in Mongo D-B unlike other database programs.
+
+145
+00:10:03,750 --> 00:10:06,740
+You don't need to create a database before you start using it.
+
+146
+00:10:06,780 --> 00:10:10,350
+If I want to kick up a new database I simply give it a name something like.
+
+147
+00:10:10,350 --> 00:10:11,160
+Users.
+
+148
+00:10:11,160 --> 00:10:14,660
+Now I have a users database I can connect to it and I can manipulate it.
+
+149
+00:10:14,670 --> 00:10:16,920
+There is no need to create that database.
+
+150
+00:10:16,920 --> 00:10:24,510
+First I'm going to go ahead and change this back to do app and if we head into the robo Mongo program
+
+151
+00:10:24,690 --> 00:10:31,060
+and connect it to our local database you'll also see that the only database we have here is test indeed
+
+152
+00:10:31,260 --> 00:10:35,180
+to do app database was never even created even though we connected to it.
+
+153
+00:10:35,190 --> 00:10:40,950
+Mongo is not going to create the database until we start adding and data into it and we can go ahead
+
+154
+00:10:40,950 --> 00:10:42,660
+and do that right now.
+
+155
+00:10:43,980 --> 00:10:50,040
+Inside of atom what we're going to do right before our call to DVD-Rs close is insert a new record into
+
+156
+00:10:50,040 --> 00:10:51,230
+a collection.
+
+157
+00:10:51,240 --> 00:10:53,450
+Now this is going to be the to do application.
+
+158
+00:10:53,490 --> 00:10:59,870
+We're going to have two collections in this app A to do's collection and a user's collection right here.
+
+159
+00:10:59,910 --> 00:11:07,950
+We can go ahead and start adding some data to the collection by calling NDB dot collection DVD collection
+
+160
+00:11:07,950 --> 00:11:11,620
+takes as its only argument in the string name for the collection.
+
+161
+00:11:11,640 --> 00:11:15,600
+You want to insert into now like the actual database itself.
+
+162
+00:11:15,600 --> 00:11:17,670
+You don't need to create this collection first.
+
+163
+00:11:17,730 --> 00:11:23,620
+You can simply give it a name like uppercase t to do's and you can start inserting into it.
+
+164
+00:11:23,640 --> 00:11:26,290
+There is no need to run any command to create it.
+
+165
+00:11:26,430 --> 00:11:33,510
+Right here we're going to use a method available on our collection called insert one insert one lets
+
+166
+00:11:33,510 --> 00:11:36,390
+you insert a new document into your collection.
+
+167
+00:11:36,390 --> 00:11:40,250
+It takes two arguments and the first one is going to be an object.
+
+168
+00:11:40,260 --> 00:11:42,600
+This is going to store the various key value pairs.
+
+169
+00:11:42,600 --> 00:11:44,550
+We want to have on our document.
+
+170
+00:11:44,590 --> 00:11:47,180
+And the second one is going to be a callback function.
+
+171
+00:11:47,220 --> 00:11:51,410
+This callback function will get fired when things either fail or go well.
+
+172
+00:11:51,690 --> 00:11:54,500
+You're going to get an error argument which may or may not exist.
+
+173
+00:11:54,510 --> 00:12:00,300
+And you'll also get the result argument which is going to be provided if things went well inside of
+
+174
+00:12:00,300 --> 00:12:02,090
+the arrow callback function itself.
+
+175
+00:12:02,100 --> 00:12:06,880
+We can add some code to handle the error and then we'll add some code to print the object to the screen
+
+176
+00:12:06,880 --> 00:12:08,500
+if that was added successfully.
+
+177
+00:12:08,570 --> 00:12:11,720
+First up let's add that air handler much like we do above.
+
+178
+00:12:11,850 --> 00:12:14,370
+We're going to check if the error argument exists.
+
+179
+00:12:14,370 --> 00:12:20,560
+If it does then we'll simply print a message using the return keyword to stop the function execution.
+
+180
+00:12:20,670 --> 00:12:28,330
+Here we can use cancel dialog to print unable to insert to do excellent.
+
+181
+00:12:28,350 --> 00:12:33,890
+The second argument Ahman a past to console dialog is going to be the actual air object itself.
+
+182
+00:12:33,930 --> 00:12:37,590
+So if someone's looking at the logs they can see exactly what went wrong.
+
+183
+00:12:37,950 --> 00:12:43,470
+Down below our IF statement we can add our success code in this case all we're going to do is pretty
+
+184
+00:12:43,470 --> 00:12:46,670
+print something to the screen console dialog.
+
+185
+00:12:47,010 --> 00:12:54,710
+Then I'm going to call Jason and Dot string if I and then we're going to go ahead and pass in result.
+
+186
+00:12:54,810 --> 00:13:00,930
+Dot ops the OPs attribute is going to store all of the docs that were inserted in this case we used
+
+187
+00:13:00,930 --> 00:13:01,760
+insert one.
+
+188
+00:13:01,800 --> 00:13:04,310
+So it's just going to be our one document.
+
+189
+00:13:04,430 --> 00:13:09,660
+Then I can add my other two arguments undefined for the filter function and the indentation will be
+
+190
+00:13:09,660 --> 00:13:11,340
+to do with this in place.
+
+191
+00:13:11,350 --> 00:13:15,100
+We can now go ahead and execute our file and see what happens.
+
+192
+00:13:16,030 --> 00:13:19,000
+Hey it's Andrew from the future with a quick update.
+
+193
+00:13:19,000 --> 00:13:25,900
+This course was filmed using Mongo DBI module to and the code for that is the code that we just wrote
+
+194
+00:13:25,900 --> 00:13:26,920
+out in the video.
+
+195
+00:13:26,950 --> 00:13:27,880
+I put it over here.
+
+196
+00:13:27,910 --> 00:13:30,010
+Just for comparison's sake.
+
+197
+00:13:30,040 --> 00:13:34,120
+This code right here is the exact code that you have in your file.
+
+198
+00:13:34,120 --> 00:13:37,780
+Now if you're using Mongo DBI module V-2 you can stick with this code.
+
+199
+00:13:37,780 --> 00:13:39,970
+The code is going to work as expected.
+
+200
+00:13:39,970 --> 00:13:45,550
+You can figure out what version of Mongo DBI you installed by looking for it in package.
+
+201
+00:13:45,700 --> 00:13:46,630
+Jason.
+
+202
+00:13:46,650 --> 00:13:52,510
+Now some students have upgraded to V3 and you can't just make the upgrade with the same code because
+
+203
+00:13:52,510 --> 00:13:56,650
+there are a few API changes that we're going to need to address.
+
+204
+00:13:56,880 --> 00:14:01,290
+So on the left hand side we have the current code on the right hand side we have the updated code.
+
+205
+00:14:01,300 --> 00:14:03,350
+There are three things we're going to talk about.
+
+206
+00:14:03,370 --> 00:14:08,110
+We're going to talk about a change and arguments we're going to talk about a new line and we're going
+
+207
+00:14:08,110 --> 00:14:11,690
+to talk about a change in where we access the Close method.
+
+208
+00:14:11,860 --> 00:14:19,060
+So first up the arguments no longer do we get error and D-B we now get error and client in v3.
+
+209
+00:14:19,060 --> 00:14:21,830
+So we have to use this client argument instead.
+
+210
+00:14:21,880 --> 00:14:24,820
+Now we do still need access to a database reference.
+
+211
+00:14:24,820 --> 00:14:27,020
+We get that with this new line.
+
+212
+00:14:27,130 --> 00:14:32,770
+Here we use client Scott D-B calling it passing in the database reference we're looking for.
+
+213
+00:14:32,800 --> 00:14:36,320
+In this case we're trying to get a reference for the to do app database.
+
+214
+00:14:36,460 --> 00:14:42,960
+Then we have this D.B and we can actually do something meaningful with it like call dbd collection.
+
+215
+00:14:43,180 --> 00:14:45,920
+So all of the code here hasn't changed at all.
+
+216
+00:14:45,940 --> 00:14:48,160
+It's the exact same code over here.
+
+217
+00:14:48,160 --> 00:14:52,750
+All that changes is that we now need to do a bit of work to get that database reference.
+
+218
+00:14:52,750 --> 00:14:55,430
+So that's the argument change and the new line change.
+
+219
+00:14:55,450 --> 00:15:00,000
+The last thing to talk about is that there is no longer a DB close method.
+
+220
+00:15:00,010 --> 00:15:02,400
+It is now client datt close.
+
+221
+00:15:02,470 --> 00:15:04,790
+So you're gonna want to make sure to change that as well.
+
+222
+00:15:04,840 --> 00:15:10,360
+If you looked in package that Jason and you're using V-2 of mango D-B you don't have to make a single
+
+223
+00:15:10,360 --> 00:15:11,040
+change.
+
+224
+00:15:11,140 --> 00:15:15,790
+If you do see yourself using v3 you're going to have to make those three changes before running the
+
+225
+00:15:15,790 --> 00:15:16,590
+script.
+
+226
+00:15:16,650 --> 00:15:18,280
+Right that is it for this update.
+
+227
+00:15:18,280 --> 00:15:20,500
+Everything else is exactly the same.
+
+228
+00:15:20,500 --> 00:15:29,970
+Let's jump right back into the video over inside of the terminal I'm going to run node playground board
+
+229
+00:15:29,970 --> 00:15:35,790
+slash a mongo D-B hyphen connect dot and J.S. when I execute the command.
+
+230
+00:15:35,850 --> 00:15:41,400
+We get our success message connected to Mongo db server and then we get an array of documents that were
+
+231
+00:15:41,400 --> 00:15:42,190
+inserted.
+
+232
+00:15:42,200 --> 00:15:46,820
+Now as I mentioned in this case we just inserted one document and that shows up right here.
+
+233
+00:15:46,890 --> 00:15:50,810
+We have the text property the text property gets created by us.
+
+234
+00:15:50,810 --> 00:15:56,070
+We have the completed property that gets created by us and we have the underscore ID property which
+
+235
+00:15:56,070 --> 00:15:58,750
+gets automatically added by Mongo.
+
+236
+00:15:58,770 --> 00:16:03,780
+Now the underscore ID property is going to be the topic of the next video we're going to talk in-depth
+
+237
+00:16:03,810 --> 00:16:07,220
+about what it is why it exists and why it's awesome.
+
+238
+00:16:07,230 --> 00:16:10,610
+For now we're going to go ahead and just know that it's a unique identifier.
+
+239
+00:16:10,610 --> 00:16:13,610
+It's an idea given to just this document.
+
+240
+00:16:13,740 --> 00:16:19,900
+And there we go and that is all it takes to insert a document into your Mongo DB database using node.
+
+241
+00:16:19,930 --> 00:16:25,260
+J.S. we can view this doc over inside of a robo mango up here.
+
+242
+00:16:25,260 --> 00:16:28,600
+I'm going to click the connection using right click and click refresh.
+
+243
+00:16:28,640 --> 00:16:32,820
+This reveals our brand new to do app database if we open that up.
+
+244
+00:16:32,820 --> 00:16:34,350
+We get our collections list.
+
+245
+00:16:34,350 --> 00:16:38,010
+We can then go into the collections view the documents and what do we get.
+
+246
+00:16:38,010 --> 00:16:39,550
+We get our one to do item.
+
+247
+00:16:39,630 --> 00:16:42,130
+If we expand it we can see we have our ID.
+
+248
+00:16:42,210 --> 00:16:45,710
+We have our text property and we have our completed boolean.
+
+249
+00:16:45,720 --> 00:16:47,600
+In this case the to do is not completed.
+
+250
+00:16:47,670 --> 00:16:50,020
+So the completed value is false.
+
+251
+00:16:50,100 --> 00:16:54,940
+Now that we have this in place what I want you to do is add a new record into a collection.
+
+252
+00:16:54,970 --> 00:16:58,710
+This is going to be your challenge for the video over inside of Adam.
+
+253
+00:16:58,710 --> 00:17:03,990
+What I'd like you to do is take the code all the way from D-B dot collection down to the bottom of our
+
+254
+00:17:04,070 --> 00:17:07,920
+callback and comment it out and then we're going to go ahead and add something.
+
+255
+00:17:07,920 --> 00:17:17,750
+And down below right here you're going to insert new doc into the users collection uppercase you a users
+
+256
+00:17:17,900 --> 00:17:22,800
+and this doc is going to have a few properties I want you to give it a name property set that equal
+
+257
+00:17:22,800 --> 00:17:24,150
+to your name.
+
+258
+00:17:24,160 --> 00:17:26,070
+Then we're going to give it an age property.
+
+259
+00:17:26,160 --> 00:17:29,460
+And last but not least we can give it a location string.
+
+260
+00:17:29,460 --> 00:17:32,750
+I want you to insert that doc using Insert one.
+
+261
+00:17:32,760 --> 00:17:37,860
+You're going to need to pass in the new collection name into the collection method then down below you're
+
+262
+00:17:37,860 --> 00:17:42,780
+going to add some error handling code and you're going to print the ops to the screen once you rerun
+
+263
+00:17:42,780 --> 00:17:43,510
+the file.
+
+264
+00:17:43,560 --> 00:17:48,270
+You should be able to view your record in the terminal and you should be able to refresh things over
+
+265
+00:17:48,270 --> 00:17:49,700
+in robo Mongo.
+
+266
+00:17:49,710 --> 00:17:55,800
+You should see the new users collection and you should see your user with the name age and location
+
+267
+00:17:55,860 --> 00:17:57,690
+you specified right here.
+
+268
+00:17:57,720 --> 00:18:03,630
+So take a moment to pause the video create that new record check that it works by viewing it in the
+
+269
+00:18:03,630 --> 00:18:05,250
+terminal and in roba Mongo.
+
+270
+00:18:05,250 --> 00:18:09,000
+And when you're done go ahead and click play.
+
+271
+00:18:09,050 --> 00:18:09,820
+How'd you do.
+
+272
+00:18:09,950 --> 00:18:15,230
+Hopefully you were able to insert a new document into that user's collection which you needed to do
+
+273
+00:18:15,230 --> 00:18:21,440
+in order to get this done is call D-B Dom collection so we can access the collection we want to insert
+
+274
+00:18:21,440 --> 00:18:25,280
+into which in this case is users.
+
+275
+00:18:25,280 --> 00:18:29,200
+Next up we have to call a method to manipulate that user's collection.
+
+276
+00:18:29,270 --> 00:18:30,580
+We want to insert a new document.
+
+277
+00:18:30,590 --> 00:18:34,340
+So we're going to use Insert one just like we did up above.
+
+278
+00:18:34,580 --> 00:18:39,690
+We're going to pass into insert one or two arguments the first one is the document to insert.
+
+279
+00:18:39,680 --> 00:18:41,750
+We're going to give it a name property.
+
+280
+00:18:41,810 --> 00:18:48,190
+I'll set that equal to Andrew and then we can go ahead and set the age equal to something like 25.
+
+281
+00:18:48,200 --> 00:18:52,470
+And lastly we'll set location equal to my current location.
+
+282
+00:18:52,490 --> 00:18:54,730
+Philadelphia excellent.
+
+283
+00:18:54,750 --> 00:18:59,870
+The next argument we wanted to pass in is our callback function which is going to get called with the
+
+284
+00:18:59,870 --> 00:19:06,220
+error object as well as of the result inside of the callback function itself.
+
+285
+00:19:06,220 --> 00:19:09,730
+We're going to first handle the error if there was an error.
+
+286
+00:19:10,000 --> 00:19:12,820
+We're going to go ahead and log it to the screen.
+
+287
+00:19:12,820 --> 00:19:15,700
+I'm going to return console log.
+
+288
+00:19:16,090 --> 00:19:20,810
+And then we can put a message right here unable to insert user.
+
+289
+00:19:20,940 --> 00:19:26,060
+And then I'll add at the error argument as the second argument to console that lock.
+
+290
+00:19:26,080 --> 00:19:29,640
+Next up down below we can add our success case code.
+
+291
+00:19:29,740 --> 00:19:38,300
+If things do go well all I'm going to do is use console a log to print result dot ops to the screen.
+
+292
+00:19:38,320 --> 00:19:42,460
+This is going to show us all of the records that were inserted with this in place.
+
+293
+00:19:42,550 --> 00:19:47,710
+We can now go ahead and rerun the file over inside of the terminal using the up arrow key and the Enter
+
+294
+00:19:47,710 --> 00:19:48,130
+key.
+
+295
+00:19:48,220 --> 00:19:49,600
+When we do it what do we get.
+
+296
+00:19:49,690 --> 00:19:55,030
+We get our array of inserted documents and we just have one the name age and location all come from
+
+297
+00:19:55,030 --> 00:19:55,250
+us.
+
+298
+00:19:55,270 --> 00:19:58,790
+And the id property comes from a mango D-B.
+
+299
+00:19:58,810 --> 00:20:04,410
+Next up I wanted you to verify that it was indeed inserted by viewing it over in Roboam Mongo.
+
+300
+00:20:04,450 --> 00:20:09,480
+In general when you add a new collection or a new database you can just right click the connection itself
+
+301
+00:20:09,760 --> 00:20:13,400
+click refresh and then you should be able to see everything that was added.
+
+302
+00:20:13,510 --> 00:20:15,540
+Right here we have our users collection.
+
+303
+00:20:15,640 --> 00:20:17,890
+I can view the documents for users.
+
+304
+00:20:17,890 --> 00:20:18,720
+And what do we get.
+
+305
+00:20:18,760 --> 00:20:25,880
+We get our one document with name set to Andrew age set to 25 and location set to Philadelphia.
+
+306
+00:20:25,900 --> 00:20:27,950
+With this in place we are now done.
+
+307
+00:20:28,030 --> 00:20:34,510
+We've been able to connect to our Mongo DB database using node J.S. and we've also learned how to insert
+
+308
+00:20:34,510 --> 00:20:38,350
+documents using this Mongo native library.
+
+309
+00:20:38,470 --> 00:20:42,550
+With this in place we're not ready to move on to the next video where we're going to take an in-depth
+
+310
+00:20:42,580 --> 00:20:47,160
+look at object IDs exploring exactly what they are and why they're useful.
+
+311
+00:20:47,170 --> 00:20:47,860
+Stay tuned.
+
+312
+00:20:47,860 --> 00:20:49,340
+I will see you next time.
+

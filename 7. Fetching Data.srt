@@ -1,0 +1,960 @@
+﻿1
+00:00:00,300 --> 00:00:03,320
+It now that you know how to insert data into your database.
+
+2
+00:00:03,340 --> 00:00:07,980
+Let's go ahead and talk about how we can fetch data out of it and we're going to be using this technique
+
+3
+00:00:08,220 --> 00:00:09,550
+to do API.
+
+4
+00:00:09,690 --> 00:00:13,000
+People are going to want to populate a list of all the to do items they need to do.
+
+5
+00:00:13,020 --> 00:00:16,750
+And they might want to fetch the details about an individual to do item.
+
+6
+00:00:16,770 --> 00:00:22,350
+All of this is going to require that we can query the Mongo IDB database not to kick things off.
+
+7
+00:00:22,360 --> 00:00:26,160
+We're going to create a new file based off of Mongo DB connect.
+
+8
+00:00:26,280 --> 00:00:32,490
+In this new file instead of inserting records like we do here we'll fetch records from the database.
+
+9
+00:00:32,490 --> 00:00:35,640
+I'm going to created duplicate calling this new file.
+
+10
+00:00:35,650 --> 00:00:42,430
+Mongo D-B hyphen find Because find is the method we're going to use to query that database down below.
+
+11
+00:00:42,540 --> 00:00:48,470
+We can go ahead and remove all of the commented out code that currently inserts records Well let's get
+
+12
+00:00:48,470 --> 00:00:52,880
+started by trying to fetch all of the dues out of our dues collection.
+
+13
+00:00:52,880 --> 00:00:58,910
+Now if I had over to robo Mongo and open up the to dues collection we have just one record in order
+
+14
+00:00:58,910 --> 00:01:00,790
+to make this queering a little more interesting.
+
+15
+00:01:00,790 --> 00:01:03,680
+We're going to go ahead and add a second one right here.
+
+16
+00:01:03,680 --> 00:01:10,250
+I can click to insert a new document Rogow Mongo can delete insert update and read all of your documents
+
+17
+00:01:10,250 --> 00:01:13,120
+and this makes it a fantastic tool for debugging.
+
+18
+00:01:13,130 --> 00:01:20,250
+Right here we can add a new document on the fly with a text property equal to walk with the dog and
+
+19
+00:01:20,250 --> 00:01:22,620
+we can also tack on a completed value.
+
+20
+00:01:24,810 --> 00:01:30,810
+I'm going to set completed equal to false no by default we're not going to provide an underscore ID
+
+21
+00:01:30,810 --> 00:01:31,250
+Propp.
+
+22
+00:01:31,260 --> 00:01:38,380
+This is going to let Mongo DB automatically generate that object id and right here we have our two days
+
+23
+00:01:38,950 --> 00:01:39,770
+with this in place.
+
+24
+00:01:39,780 --> 00:01:45,180
+Let's go ahead and run our first query over inside of atom in atom what we're going to do is access
+
+25
+00:01:45,180 --> 00:01:53,120
+the collection just like we did over inside of the connect file using DBD collection D-B dot collection
+
+26
+00:01:53,660 --> 00:01:56,100
+passing in the collection name as the string.
+
+27
+00:01:56,110 --> 00:02:01,040
+This collection is going to be the to do's upper case t collection.
+
+28
+00:02:01,040 --> 00:02:08,670
+Now we're going to go ahead and use a method available on collections called Find ADOT find by default.
+
+29
+00:02:08,750 --> 00:02:10,930
+We can call find with no arguments.
+
+30
+00:02:10,940 --> 00:02:16,190
+This means we're not providing a query so we're not saying we want to fetch all to do's that are completed
+
+31
+00:02:16,190 --> 00:02:17,330
+or not completed.
+
+32
+00:02:17,330 --> 00:02:21,670
+We're just saying we want to patch all to do everything regardless of its values.
+
+33
+00:02:21,680 --> 00:02:27,840
+We want every document from the to do's collection no calling fine is only the first step.
+
+34
+00:02:27,860 --> 00:02:34,340
+Find returns a mongo DB cursor this cursor is not the actual documents themselves.
+
+35
+00:02:34,340 --> 00:02:38,600
+There could be a couple of thousand and that would be really inefficient it's actually a pointer to
+
+36
+00:02:38,630 --> 00:02:45,130
+those documents and the cursor has a ton of methods we can use those methods to get our documents.
+
+37
+00:02:45,200 --> 00:02:53,270
+One of the most common cursor methods we're going to be using is dot to uppercase a array to Array.
+
+38
+00:02:53,270 --> 00:02:55,350
+It does exactly what you might think it does.
+
+39
+00:02:55,460 --> 00:02:58,850
+Instead of having a cursor we have an array of the documents.
+
+40
+00:02:58,850 --> 00:03:04,760
+This means we have an array of objects they have ID properties text properties and completed properties.
+
+41
+00:03:04,760 --> 00:03:11,130
+This two array method gets us exactly what we want back we want back the documents now to array the
+
+42
+00:03:11,200 --> 00:03:12,300
+returns a promise.
+
+43
+00:03:12,320 --> 00:03:15,980
+That means we can tack on a then call.
+
+44
+00:03:15,980 --> 00:03:20,000
+We can add our call back and when things go right we can do something like.
+
+45
+00:03:20,000 --> 00:03:22,030
+Print those documents to the screen.
+
+46
+00:03:22,220 --> 00:03:27,410
+We're going to get the documents as the first and only argument here and we can also add an air handler
+
+47
+00:03:27,440 --> 00:03:35,070
+down below we'll get past an heir argument and we can simply print something to the screen like Konsole
+
+48
+00:03:35,100 --> 00:03:35,990
+dialogue.
+
+49
+00:03:36,310 --> 00:03:39,320
+Unable to fetch to do's.
+
+50
+00:03:39,340 --> 00:03:42,740
+And there's the second argument we'll pass in the air object.
+
+51
+00:03:42,930 --> 00:03:48,130
+Now up above for the success case what we're going to do is print the documents to the screen.
+
+52
+00:03:48,280 --> 00:03:54,400
+I'm going to go ahead and use Konsole dialogue to print a little message to do's and then I'll call
+
+53
+00:03:54,400 --> 00:03:55,910
+Konsole dialogue again.
+
+54
+00:03:57,350 --> 00:04:02,790
+This time we'll be using our Jason and docstring ify technique.
+
+55
+00:04:02,870 --> 00:04:09,810
+I'll be passing in the documents undefined for our filter function and to for our spacing.
+
+56
+00:04:09,890 --> 00:04:15,860
+With this in place we now have a script that is capable of fetching the documents converting them into
+
+57
+00:04:15,860 --> 00:04:18,070
+an array and printing them to the screen.
+
+58
+00:04:18,290 --> 00:04:24,740
+Now for the time being I'm going to comment out the D-B a dock close method currently that would interfere
+
+59
+00:04:24,740 --> 00:04:26,350
+with the code we have above.
+
+60
+00:04:26,360 --> 00:04:32,030
+So let's go ahead and comment that out save the file and run it from the terminal inside of the terminal.
+
+61
+00:04:32,030 --> 00:04:37,430
+I'm going to go ahead and run our script obviously since we connected to the database with robo Mongo
+
+62
+00:04:37,430 --> 00:04:41,070
+it is running somewhere it's running in this other tab over here.
+
+63
+00:04:41,180 --> 00:04:42,980
+I can run the script.
+
+64
+00:04:42,980 --> 00:04:44,170
+We're going to run it through node.
+
+65
+00:04:44,180 --> 00:04:50,470
+It is in the playground folder and the file itself is called Mongo D-B hyphen find.
+
+66
+00:04:50,480 --> 00:04:51,070
+Dot.
+
+67
+00:04:51,130 --> 00:04:51,930
+Yes.
+
+68
+00:04:52,040 --> 00:04:55,070
+When I execute this file We're going to get our results and what do we have.
+
+69
+00:04:55,070 --> 00:04:59,130
+We have our two do's array with our two documents.
+
+70
+00:04:59,210 --> 00:05:04,030
+We have our IDs are text properties and are completed boolean values.
+
+71
+00:05:04,070 --> 00:05:06,400
+And this is fantastic.
+
+72
+00:05:06,410 --> 00:05:10,880
+We now have a way to query our data right inside of a node.
+
+73
+00:05:11,020 --> 00:05:11,890
+Yes.
+
+74
+00:05:11,930 --> 00:05:13,840
+Now this is a very basic query.
+
+75
+00:05:13,940 --> 00:05:19,760
+We set everything in the to do array regardless of whether or not it has certain values in order to
+
+76
+00:05:19,760 --> 00:05:21,560
+query based on certain values.
+
+77
+00:05:21,560 --> 00:05:24,200
+Let's go ahead and switch up our to do's currently.
+
+78
+00:05:24,210 --> 00:05:27,180
+Both of them have completed a value equal to false.
+
+79
+00:05:27,200 --> 00:05:32,930
+Let's go ahead and change the walk the dogs completed value to true so we can try to query just items
+
+80
+00:05:32,930 --> 00:05:34,360
+that aren't complete.
+
+81
+00:05:34,670 --> 00:05:38,520
+Over in Roboam Ango we can go ahead and do just that.
+
+82
+00:05:38,540 --> 00:05:43,220
+I'm going to write click the document and click Edit document and right here we can go ahead and edit
+
+83
+00:05:43,250 --> 00:05:44,300
+the values.
+
+84
+00:05:44,510 --> 00:05:50,510
+I'm going to change the completed value from false to true and then I can save the record and over inside
+
+85
+00:05:50,510 --> 00:05:54,140
+of the terminal I can rerun the script to prove that it changed.
+
+86
+00:05:54,200 --> 00:06:00,350
+I'm going to shut down the script by running Control-C and then I can rerun it and right here we have
+
+87
+00:06:00,350 --> 00:06:06,230
+our two to choose one with a completed value of false and one with a completed value of true.
+
+88
+00:06:06,350 --> 00:06:11,870
+Now by default a to do app is probably only going to show you that to Dewes you haven't completed the
+
+89
+00:06:11,870 --> 00:06:13,220
+ones you have completed.
+
+90
+00:06:13,220 --> 00:06:18,000
+Like walk the dog will probably be hidden although they could be accessible if you clicked about unlike
+
+91
+00:06:18,200 --> 00:06:19,470
+Shelta news.
+
+92
+00:06:19,610 --> 00:06:22,640
+Let's go ahead and write a query that just fetches the dues.
+
+93
+00:06:22,760 --> 00:06:28,670
+They have a completed status set to false to get this done over inside of atom and we're going to make
+
+94
+00:06:28,670 --> 00:06:34,240
+a change to how we call find instead of passing in zero arguments we're going to pass in one.
+
+95
+00:06:34,260 --> 00:06:37,620
+This is what's known as our query inside of here.
+
+96
+00:06:37,640 --> 00:06:41,150
+We can start specifying how we want to query that to dues collection.
+
+97
+00:06:41,180 --> 00:06:48,980
+For example maybe we want to query only two Doo's that have a completed value equal to false.
+
+98
+00:06:48,980 --> 00:06:54,250
+All we have to do to query by value is set up the key value pairs right here.
+
+99
+00:06:54,500 --> 00:07:00,290
+If I rerun our script over in the terminal after shutting it down what do we get we get just our one
+
+100
+00:07:00,350 --> 00:07:01,200
+to do item.
+
+101
+00:07:01,280 --> 00:07:06,950
+We have our item with the text equal to something to do it as a completed status of false show it shows
+
+102
+00:07:06,950 --> 00:07:12,500
+up our other to do with a text of walk the dog that is not showing up down below because that one has
+
+103
+00:07:12,500 --> 00:07:13,330
+been completed.
+
+104
+00:07:13,430 --> 00:07:14,790
+It doesn't match the query.
+
+105
+00:07:14,810 --> 00:07:17,470
+So Mongo D-B does not return it.
+
+106
+00:07:17,490 --> 00:07:23,480
+This is going to come in handy as we start querying our documents based off of completed values text
+
+107
+00:07:23,480 --> 00:07:25,820
+properties or IDs.
+
+108
+00:07:25,970 --> 00:07:31,100
+Let's take a quick moment to look at how we can query one of our two do's by ID.
+
+109
+00:07:31,100 --> 00:07:34,610
+The first thing we need to do is remove everything from our query object.
+
+110
+00:07:34,610 --> 00:07:40,580
+We no longer want to query by the completed value instead we're going to query by that underscore ID
+
+111
+00:07:40,610 --> 00:07:41,710
+property.
+
+112
+00:07:41,780 --> 00:07:46,640
+Now in order to illustrate this I'm going to grab the ID from the terminal of the do with the completed
+
+113
+00:07:46,640 --> 00:07:47,760
+value of false.
+
+114
+00:07:47,810 --> 00:07:49,640
+I'm going to copy it using a command.
+
+115
+00:07:49,640 --> 00:07:55,040
+See if you're on a Windows or Linux you might need to right click after highlighting the ID and click
+
+116
+00:07:55,250 --> 00:07:56,830
+copy text.
+
+117
+00:07:56,840 --> 00:08:02,170
+And now that I have the text inside of the clipboard though I can head over to the query itself.
+
+118
+00:08:02,180 --> 00:08:08,780
+Now if we tried to add the ID like this it is not going to work as expected because what we have inside
+
+119
+00:08:08,780 --> 00:08:15,560
+of the ID property is not a string it's an object id which means that we need to use this object id
+
+120
+00:08:15,560 --> 00:08:22,070
+constructor function that we imported previously in order to create an object id for the query to illustrate
+
+121
+00:08:22,070 --> 00:08:23,230
+how that's going to happen.
+
+122
+00:08:23,360 --> 00:08:26,980
+I'm going to go ahead and indent our object.
+
+123
+00:08:27,040 --> 00:08:29,950
+This is going to make it a little easier to read and add it.
+
+124
+00:08:30,070 --> 00:08:39,670
+Now that we have this in place I'm going to remove the string and call new object id just like we imported
+
+125
+00:08:39,670 --> 00:08:40,680
+it up above.
+
+126
+00:08:40,680 --> 00:08:46,890
+Now new object idea as we saw in the previous video it does take an argument and the ID in this case
+
+127
+00:08:46,890 --> 00:08:48,780
+we have it stored as a string.
+
+128
+00:08:48,780 --> 00:08:50,970
+This is going to work as expected.
+
+129
+00:08:50,970 --> 00:08:55,710
+What we're doing here is we're querying and need to do is collection looking for any records that have
+
+130
+00:08:55,710 --> 00:09:00,750
+an underscore ID property equal to the ID we have right here.
+
+131
+00:09:00,750 --> 00:09:03,170
+Now I can go ahead and save this file.
+
+132
+00:09:03,330 --> 00:09:09,000
+You give things a refreshed by running the script again and we get the same exact to do.
+
+133
+00:09:09,180 --> 00:09:15,810
+I can go ahead and change it for the walk the dog to do by copying the string value pasting that inside
+
+134
+00:09:15,810 --> 00:09:19,900
+of the object id constructor function and rerunning the script.
+
+135
+00:09:20,010 --> 00:09:24,980
+When I do this I get the walk the dog to do return because that was the object ID.
+
+136
+00:09:25,020 --> 00:09:31,380
+I queried no queering in this fashion is one of the ways we'll be using find but there are other methods
+
+137
+00:09:31,410 --> 00:09:34,320
+other than to array that are available on our cursors.
+
+138
+00:09:34,320 --> 00:09:40,740
+We can explore other ones by heading over to the docks for the native driver over inside of chrome and
+
+139
+00:09:40,740 --> 00:09:42,600
+the Mongo DB docks pulled up.
+
+140
+00:09:42,630 --> 00:09:47,370
+These are the docks I showed you how to access earlier in the section and on the left hand side we have
+
+141
+00:09:47,550 --> 00:09:49,130
+the cursor section.
+
+142
+00:09:49,230 --> 00:09:54,090
+If you click that we can view a list of all the methods available to us on that cursor.
+
+143
+00:09:54,090 --> 00:09:55,650
+This is what comes back from.
+
+144
+00:09:55,650 --> 00:10:00,870
+Find down below at the very bottom of the list we have our two array method one that we're going to
+
+145
+00:10:00,870 --> 00:10:04,380
+look at right now is called Count up above.
+
+146
+00:10:04,380 --> 00:10:05,990
+You can go ahead and click count.
+
+147
+00:10:06,000 --> 00:10:10,140
+It's going to bring you to the documentation and the documentation for the native driver is actually
+
+148
+00:10:10,140 --> 00:10:11,100
+really good.
+
+149
+00:10:11,160 --> 00:10:15,840
+There is a complete list of all the arguments that you can provide some of them are optional some of
+
+150
+00:10:15,840 --> 00:10:16,870
+them are required.
+
+151
+00:10:17,010 --> 00:10:20,230
+And there is usually a real world example down below.
+
+152
+00:10:20,310 --> 00:10:23,520
+We can figure out exactly how to use count.
+
+153
+00:10:23,520 --> 00:10:27,060
+Now we're going to go ahead and implement count over inside of atom.
+
+154
+00:10:27,120 --> 00:10:32,550
+What I'm going to do is take the current queery copy it to the clipboard and then comment it out.
+
+155
+00:10:32,760 --> 00:10:39,250
+And down below I'm going to go ahead and replace our call to 2 array with a call to count.
+
+156
+00:10:39,450 --> 00:10:44,550
+Let's go ahead and remove the query that we pass in to find what we're going to do here is count up
+
+157
+00:10:44,580 --> 00:10:49,980
+all of the dues in the dues collection instead of having a call to array.
+
+158
+00:10:50,130 --> 00:10:53,280
+We're going to have a call to count instead.
+
+159
+00:10:53,280 --> 00:11:00,150
+Now as you saw inside of the examples for count they call count like this calling count passing in a
+
+160
+00:11:00,150 --> 00:11:04,690
+callback function that gets called with an error or the actual count.
+
+161
+00:11:04,710 --> 00:11:10,880
+You can also have a promise as the way to access that data which is exactly what we did with two array.
+
+162
+00:11:11,040 --> 00:11:15,300
+In our case instead of passing a callback function like this we're going to use the promise.
+
+163
+00:11:15,330 --> 00:11:17,780
+Instead we already have the promise set up.
+
+164
+00:11:17,820 --> 00:11:24,560
+We need to do to fix this is change docs to count and then we're going to remove the console log call
+
+165
+00:11:24,570 --> 00:11:30,540
+where we print the docs to the screen and right after we print to do's we're going to print to Dewes
+
+166
+00:11:31,290 --> 00:11:34,620
+count with a colon passing in the value.
+
+167
+00:11:34,620 --> 00:11:39,210
+Now this is not a template string but I am going to go ahead and swap it out with one replacing the
+
+168
+00:11:39,210 --> 00:11:42,270
+quotes with the ticks right here.
+
+169
+00:11:42,330 --> 00:11:49,090
+I can pass in the count awesome now that we have this in place we have a way to count up all of the
+
+170
+00:11:49,090 --> 00:11:53,030
+to do's in the two do's collection over inside of the terminal.
+
+171
+00:11:53,030 --> 00:11:56,680
+I'm going to go ahead and shut down our previous script or rerun it.
+
+172
+00:11:56,780 --> 00:11:57,620
+And what do we get.
+
+173
+00:11:57,620 --> 00:12:01,430
+We get to do is count two which is exactly correct.
+
+174
+00:12:01,580 --> 00:12:07,010
+The cursor that we have here a call to find returns everything in the deduced collection if you count
+
+175
+00:12:07,010 --> 00:12:10,480
+all of that up you're going to get those two to do items.
+
+176
+00:12:10,490 --> 00:12:12,530
+Now once again count end to array.
+
+177
+00:12:12,530 --> 00:12:16,720
+There are just a subset of all of the awesome methods you have available to you.
+
+178
+00:12:16,730 --> 00:12:21,320
+There are entire courses on Mongo D.B and a mongo DB for node.
+
+179
+00:12:21,410 --> 00:12:25,850
+We're not going to be using most of these methods but by now you should have a good idea about how you
+
+180
+00:12:25,850 --> 00:12:27,060
+can implement them.
+
+181
+00:12:27,080 --> 00:12:29,980
+Go ahead and scan the list for something that you think might be useful.
+
+182
+00:12:29,990 --> 00:12:33,410
+Check out the examples and try to implement it in your code.
+
+183
+00:12:33,410 --> 00:12:38,690
+Now we will be using other methods whether we use the Mongo D-B native driver or as you'll see later
+
+184
+00:12:38,900 --> 00:12:40,320
+the library mongoose.
+
+185
+00:12:40,340 --> 00:12:42,510
+But for now let's go ahead and do a challenge.
+
+186
+00:12:42,530 --> 00:12:47,470
+Given what you know to get started let's head into robo Mongo.
+
+187
+00:12:47,580 --> 00:12:52,060
+Open up the users collection and take a look at all of the documents we have inside of there.
+
+188
+00:12:52,080 --> 00:12:56,970
+We currently have five if you don't have the exact same number or yours are a little different.
+
+189
+00:12:56,970 --> 00:12:58,190
+That is fine.
+
+190
+00:12:58,200 --> 00:13:01,950
+I'm going to highlight them right click them and click expand recursively.
+
+191
+00:13:01,950 --> 00:13:06,540
+This is going to show me all of the key value pairs for each document currently.
+
+192
+00:13:06,570 --> 00:13:12,640
+Aside from the ID they're all identical names Andrew age 25 and location is Philadelphia.
+
+193
+00:13:12,710 --> 00:13:15,420
+I'm going to tweak the name property for two.
+
+194
+00:13:15,660 --> 00:13:19,900
+I'm going to right click the first document and change the name to something like.
+
+195
+00:13:19,930 --> 00:13:25,860
+John that I'll go ahead and do the same thing for the second document.
+
+196
+00:13:25,860 --> 00:13:30,260
+I'm going to edit that document and change the name from Andrew to Mike.
+
+197
+00:13:30,270 --> 00:13:36,230
+Now I have one document with the name of John one with Mike and three with Andrew.
+
+198
+00:13:36,240 --> 00:13:42,060
+The challenge for you in this video is going to be to queries your users looking for all of the users
+
+199
+00:13:42,060 --> 00:13:45,360
+with the name equal to the name you provided in the script.
+
+200
+00:13:45,390 --> 00:13:51,000
+In this case I'm going to try to query for all documents in the users collection where name is Andrew.
+
+201
+00:13:51,030 --> 00:13:56,810
+Then I'm going to print them into the screen and I would expect to get three back the two up above with
+
+202
+00:13:56,810 --> 00:14:00,690
+the name of Jan and with a name of Mike should not show up.
+
+203
+00:14:00,960 --> 00:14:08,310
+Now in order to do this all you need to do is go over to Adam comment out our previous query and add
+
+204
+00:14:08,310 --> 00:14:10,080
+a new one down below.
+
+205
+00:14:10,140 --> 00:14:12,030
+Take a moment to write this query.
+
+206
+00:14:12,030 --> 00:14:15,710
+Run it from the terminal and make sure the correct number of documents returns.
+
+207
+00:14:15,720 --> 00:14:19,050
+Remember if you didn't have 5 you might not get three.
+
+208
+00:14:19,050 --> 00:14:23,750
+Just make sure that the data you view in Roboam mango is the data that comes back.
+
+209
+00:14:23,760 --> 00:14:25,860
+Take a moment to knock this out test it.
+
+210
+00:14:25,860 --> 00:14:30,930
+Pause the video and when you're done click play.
+
+211
+00:14:30,990 --> 00:14:31,730
+How'd you do.
+
+212
+00:14:31,830 --> 00:14:35,600
+Hopefully you were able to write that query and get the data back.
+
+213
+00:14:35,670 --> 00:14:39,100
+If you were that is fantastic if you weren't that's also great.
+
+214
+00:14:39,120 --> 00:14:41,730
+We're going to go ahead and do it together right now.
+
+215
+00:14:41,790 --> 00:14:44,520
+The first thing we need to do is patch from that collection.
+
+216
+00:14:44,520 --> 00:14:49,470
+This is going to be the user's collection as opposed to the to do's collection we've used in this video
+
+217
+00:14:50,190 --> 00:14:57,630
+D-B Dom collection and we're looking for the users collection with an upper case you.
+
+218
+00:14:57,760 --> 00:15:03,940
+And now we're going to go ahead and call find passing in our queery remember querying was a part of
+
+219
+00:15:03,970 --> 00:15:05,020
+this challenge.
+
+220
+00:15:05,020 --> 00:15:11,690
+We want to queery fetching all documents where the name lowercase N is equal to the string.
+
+221
+00:15:11,700 --> 00:15:13,840
+Andrew upper case A.
+
+222
+00:15:13,930 --> 00:15:17,520
+Now this is going to return the cursor in order to actually get the documents.
+
+223
+00:15:17,620 --> 00:15:21,750
+We have to call to array just like this.
+
+224
+00:15:21,790 --> 00:15:28,510
+We now have a promise we can attach a then call on to two array to do something with the docs.
+
+225
+00:15:28,600 --> 00:15:33,880
+If the documents are going to come back as the first argument in our success handler and right inside
+
+226
+00:15:33,880 --> 00:15:37,110
+of the function itself we can print the docs to the screen.
+
+227
+00:15:37,390 --> 00:15:40,410
+I'm going to go ahead and use console dialog.
+
+228
+00:15:40,900 --> 00:15:45,290
+Jason docstring ify passing in our three classic arguments.
+
+229
+00:15:45,290 --> 00:15:51,220
+The object itself undefined and two for formatting were this in place.
+
+230
+00:15:51,220 --> 00:15:54,190
+We are now done the challenge we have a query and it should work.
+
+231
+00:15:54,220 --> 00:15:58,710
+We can test it by running it from the terminal over inside of the terminal.
+
+232
+00:15:58,720 --> 00:16:03,570
+I'm going to go ahead and shut down the previous connection and rerun the script when I do this.
+
+233
+00:16:03,640 --> 00:16:04,230
+What do I get.
+
+234
+00:16:04,240 --> 00:16:07,090
+I get my three documents back.
+
+235
+00:16:07,150 --> 00:16:12,490
+All of them have a name equal to Andrew and that is correct because of the query we set up.
+
+236
+00:16:12,490 --> 00:16:17,020
+Notice the documents with a name equal to Mike or gen are nowhere to be found.
+
+237
+00:16:17,020 --> 00:16:21,370
+With this in place we now know how to insert and query data from the database.
+
+238
+00:16:21,370 --> 00:16:25,540
+Up next we're going to take a look at how we can remove and update documents.
+
+239
+00:16:25,560 --> 00:16:27,600
+It's all coming up soon so stay tuned.
+
+240
+00:16:27,610 --> 00:16:29,340
+I will see you next time.
+

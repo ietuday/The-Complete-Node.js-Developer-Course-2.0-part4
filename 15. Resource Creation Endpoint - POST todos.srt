@@ -1,0 +1,1016 @@
+﻿1
+00:00:00,450 --> 00:00:05,880
+In this video you're going to create your HTP post route for adding new to do's.
+
+2
+00:00:05,880 --> 00:00:10,730
+Before we dive into that we're going to take a quick second to refactor everything we have in server
+
+3
+00:00:11,130 --> 00:00:12,970
+because it doesn't really belong here.
+
+4
+00:00:13,050 --> 00:00:17,940
+We have database configuration stuff which should live somewhere else and we have our models which should
+
+5
+00:00:17,940 --> 00:00:20,000
+also live in separate files.
+
+6
+00:00:20,010 --> 00:00:26,670
+The only thing we want in server G-S is our express route handlers to get started inside of the server
+
+7
+00:00:26,670 --> 00:00:32,670
+directory we're going to make a new folder called D-B and inside of the DB folder we'll make a file
+
+8
+00:00:32,670 --> 00:00:35,410
+where all of this mongoose configuration happens.
+
+9
+00:00:35,490 --> 00:00:41,080
+I'm going to call that file mongoose dot Yes.
+
+10
+00:00:41,320 --> 00:00:47,360
+And don't we need to do is take our mongoose configuration code right here cut it out and move it over
+
+11
+00:00:47,360 --> 00:00:48,490
+into mongoose.
+
+12
+00:00:48,560 --> 00:00:49,410
+Jay Yes.
+
+13
+00:00:49,460 --> 00:00:51,380
+Now we do need to export something.
+
+14
+00:00:51,440 --> 00:00:54,330
+What we're going to export is the mongoose variable.
+
+15
+00:00:54,350 --> 00:00:59,330
+So essentially when someone requires this file they're going to have mongoose configured and they're
+
+16
+00:00:59,330 --> 00:01:00,530
+going to get it back.
+
+17
+00:01:00,590 --> 00:01:05,540
+They're going to get back the mongoose variable that comes from the library right here.
+
+18
+00:01:05,540 --> 00:01:14,600
+I'm going to set module exports equal to an object and that object will set mongoose equal to mongoose.
+
+19
+00:01:14,600 --> 00:01:20,840
+Now as we know in Essex this can be simplified if you have a property and a variable with the same name
+
+20
+00:01:20,840 --> 00:01:25,460
+and you can shorten it and we can take things a step further and put it all on one line.
+
+21
+00:01:25,460 --> 00:01:26,310
+Excellent.
+
+22
+00:01:26,360 --> 00:01:32,400
+And now we have the mongoose configuration in a separate file and that file can be required right here.
+
+23
+00:01:32,420 --> 00:01:37,200
+I'm going to pull off the mongoose property using E.S. 6 destructuring.
+
+24
+00:01:37,340 --> 00:01:43,730
+Essentially we're creating a local variable called mongoose equal to the mongoose property on the object
+
+25
+00:01:44,180 --> 00:01:50,570
+and that object is going to be the return result from requiring the file we just created that's in the
+
+26
+00:01:50,570 --> 00:01:59,080
+DV directory and it's called mongoose dot JSM we can leave off that extension.
+
+27
+00:01:59,810 --> 00:02:03,550
+Now that mongoose lives in its own place let's do the same thing for to do.
+
+28
+00:02:03,650 --> 00:02:10,810
+And user this is going to happen in a new folder in server called models inside of models.
+
+29
+00:02:10,830 --> 00:02:14,210
+We're going to create two files one for each model.
+
+30
+00:02:14,360 --> 00:02:16,750
+I'm going to make a new file called to do.
+
+31
+00:02:16,940 --> 00:02:17,920
+Yes.
+
+32
+00:02:18,320 --> 00:02:22,500
+And a new file inside of models called user Dot.
+
+33
+00:02:22,530 --> 00:02:23,210
+Yes.
+
+34
+00:02:23,300 --> 00:02:30,640
+And we can take the models from here and simply copy and paste them in to their appropriate files.
+
+35
+00:02:30,830 --> 00:02:33,430
+Once the model is copied we can remove it from server.
+
+36
+00:02:33,490 --> 00:02:40,490
+Yes I'm going to do the same thing with user copying it into user J S and removing it from here.
+
+37
+00:02:40,490 --> 00:02:42,760
+Now I'm also going to remove everything we have so far.
+
+38
+00:02:42,830 --> 00:02:45,400
+All of these examples aren't necessary any more.
+
+39
+00:02:45,470 --> 00:02:50,180
+We can simply leave our mongoose imports statement up at the top.
+
+40
+00:02:50,180 --> 00:02:53,480
+Now inside of these model files there are a few things we need to do.
+
+41
+00:02:53,480 --> 00:02:55,360
+First up we call mongoose model.
+
+42
+00:02:55,370 --> 00:02:57,940
+So we still need to load in mongoose.
+
+43
+00:02:57,950 --> 00:03:03,390
+Now we don't have to load in the mongoose J.S. file we created it we can load in the plain old library.
+
+44
+00:03:03,710 --> 00:03:06,710
+Let's make a variable call that variable.
+
+45
+00:03:06,710 --> 00:03:16,220
+Mongoose and we're going to require Monkees and the last thing we need to do is export the model otherwise
+
+46
+00:03:16,220 --> 00:03:19,310
+we can't use it in files that require this one.
+
+47
+00:03:19,310 --> 00:03:26,930
+I'm going to set module exports equal to an object and we'll set the deed to do property equal to that
+
+48
+00:03:26,930 --> 00:03:28,010
+to do variable.
+
+49
+00:03:28,010 --> 00:03:30,370
+This is exactly what we did over in mongoose.
+
+50
+00:03:30,370 --> 00:03:33,620
+Jay Yes and we're going to do the exact same thing in a user.
+
+51
+00:03:33,710 --> 00:03:34,410
+Yes.
+
+52
+00:03:34,580 --> 00:03:36,990
+Inside of user J s up at the top.
+
+53
+00:03:37,840 --> 00:03:45,880
+We'll create a variable called the mongoose acquiring and mongoose and at the bottom will export the
+
+54
+00:03:45,880 --> 00:03:53,780
+user model module DOD exports setting an equal to an object where a user equals user.
+
+55
+00:03:53,830 --> 00:03:54,420
+Awesome.
+
+56
+00:03:54,540 --> 00:03:57,920
+And now all three of our files have been formatted.
+
+57
+00:03:57,940 --> 00:04:00,010
+We have three new files and our one old one.
+
+58
+00:04:00,040 --> 00:04:03,220
+The last thing I have to do is load in to do end user.
+
+59
+00:04:03,430 --> 00:04:14,550
+Let's make a variable using destructuring called to do setting an equal to require models forward slash
+
+60
+00:04:14,820 --> 00:04:20,730
+to do and we can do the exact same thing for user using ESX destructuring we're going to pull off that
+
+61
+00:04:20,730 --> 00:04:21,980
+user variable.
+
+62
+00:04:22,140 --> 00:04:29,010
+And we're getting it from the object that comes back from a call to require requiring models of board
+
+63
+00:04:29,010 --> 00:04:30,720
+slash user.
+
+64
+00:04:31,140 --> 00:04:32,010
+Excellent.
+
+65
+00:04:32,040 --> 00:04:35,460
+With this in place we are now ready to get going.
+
+66
+00:04:35,460 --> 00:04:40,350
+We have the exact same set up only it's been refactored and this is going to make it a lot easier to
+
+67
+00:04:40,350 --> 00:04:46,680
+test update and manage the server just as file is just going to be responsible for our routes and to
+
+68
+00:04:46,680 --> 00:04:49,210
+get started we're going to need to install Express.
+
+69
+00:04:49,290 --> 00:04:50,780
+We've already done that in the past.
+
+70
+00:04:50,820 --> 00:04:58,020
+So over in the terminal all we need to do is run p.m.-I followed by the module name which is express
+
+71
+00:04:58,210 --> 00:05:04,200
+will be using the most recent version for point fourteen point zero and we're also going to be installing
+
+72
+00:05:04,200 --> 00:05:09,240
+a second module and we can actually type that right after the first one there's no need to run NPM installed
+
+73
+00:05:09,240 --> 00:05:10,080
+twice.
+
+74
+00:05:10,080 --> 00:05:17,290
+This one is called The Body hyphen parser a body parser is going to let us send Jason to the server.
+
+75
+00:05:17,340 --> 00:05:20,190
+The server can then take that Jason and do something with it.
+
+76
+00:05:20,250 --> 00:05:23,390
+Body parser essentially parses the body.
+
+77
+00:05:23,490 --> 00:05:28,380
+It takes that string body and turns it into a javascript object.
+
+78
+00:05:28,400 --> 00:05:31,120
+Now body parser with an R on the end.
+
+79
+00:05:31,230 --> 00:05:37,490
+We're going to be installing the version 1 pt. 1 5 point to the most recent version.
+
+80
+00:05:37,500 --> 00:05:43,290
+I'm also going to provide the save flag which is going to add both express and body parser to the dependencies
+
+81
+00:05:43,290 --> 00:05:45,380
+section of packaged Jason.
+
+82
+00:05:45,420 --> 00:05:47,600
+Now I can go ahead and fire off this request.
+
+83
+00:05:47,610 --> 00:05:50,560
+Installing both modules and over inside of server.
+
+84
+00:05:50,580 --> 00:05:53,510
+Yes we can start configuring our app.
+
+85
+00:05:53,730 --> 00:05:58,770
+First up we have to load in those two modules we just installed as I mentioned to like to keep a space
+
+86
+00:05:58,770 --> 00:06:02,860
+between local imports and library imports right here.
+
+87
+00:06:03,000 --> 00:06:11,040
+I'm going to use a variable called Express to store the Express library require Express and we're going
+
+88
+00:06:11,040 --> 00:06:17,130
+to do the same thing for body parts for a variable called Body parser setting and equal to the return
+
+89
+00:06:17,130 --> 00:06:22,130
+result from requiring a body hyphen parser.
+
+90
+00:06:22,230 --> 00:06:27,180
+Now that we have this in place we can set up a very basic application like we did earlier in the course
+
+91
+00:06:27,580 --> 00:06:29,700
+we're going to make a variable called app.
+
+92
+00:06:29,700 --> 00:06:32,560
+This is going to store our express application.
+
+93
+00:06:32,880 --> 00:06:37,180
+I'm going to set this equal to a call to express nothing new here.
+
+94
+00:06:37,260 --> 00:06:41,360
+And we're also going to call app dot listen listening on a port.
+
+95
+00:06:41,400 --> 00:06:44,070
+Now we will be deploying this to Heroku eventually.
+
+96
+00:06:44,070 --> 00:06:49,940
+For now though we're going to have a local port Port 3000 and we'll provide a callback function that's
+
+97
+00:06:49,940 --> 00:07:00,040
+going to fire once the app is up and all we're going to do is use console log to print started on port
+
+98
+00:07:00,430 --> 00:07:02,040
+three thousand.
+
+99
+00:07:02,170 --> 00:07:03,190
+Excellent.
+
+100
+00:07:03,190 --> 00:07:06,190
+Now that we have this in place we have a very basic server.
+
+101
+00:07:06,250 --> 00:07:08,900
+All we have to do is start configuring our routes.
+
+102
+00:07:08,920 --> 00:07:13,720
+And as I promised the one we're going to be focusing on in this video is the post route.
+
+103
+00:07:13,720 --> 00:07:18,630
+This is going to let us create new to do's now inside of your rest API.
+
+104
+00:07:18,640 --> 00:07:25,420
+There's the basic crud operations crud being create read update and delete when you want to create a
+
+105
+00:07:25,420 --> 00:07:26,100
+resource.
+
+106
+00:07:26,110 --> 00:07:31,780
+You use the post HTP method and you send that resource as the body.
+
+107
+00:07:31,780 --> 00:07:36,880
+This means that when we want to make a new to do it we're going to send a Jasen object over to the server.
+
+108
+00:07:37,000 --> 00:07:41,590
+It's going to have a text property and the server is going to get that text property create the new
+
+109
+00:07:41,590 --> 00:07:49,030
+model and send the complete model with the id the completed property and completed at back to the client
+
+110
+00:07:49,570 --> 00:07:50,540
+to set up a route.
+
+111
+00:07:50,760 --> 00:07:57,790
+We need to call app dot post passing in the two arguments we've used for every single express route.
+
+112
+00:07:57,820 --> 00:08:05,880
+R U R L and R callback function that gets called with the request and response objects.
+
+113
+00:08:05,950 --> 00:08:11,740
+Now that you are L4 of ISAPI is really important and there is a lot of talk about the proper structure
+
+114
+00:08:12,010 --> 00:08:13,240
+for resources.
+
+115
+00:08:13,240 --> 00:08:17,020
+What I like to do is use a forward slash to do's.
+
+116
+00:08:17,020 --> 00:08:22,430
+This is for resource creation and this is a pretty standard set up forward slash to do.
+
+117
+00:08:22,450 --> 00:08:29,200
+As for creating a new to do later on when we want to read to do's we'll use the get method and we will
+
+118
+00:08:29,200 --> 00:08:35,920
+get from a forward slash to do's to get all to Doo's or forward slash to Doo's some crazy number to
+
+119
+00:08:35,920 --> 00:08:38,710
+get individual to do by its ID.
+
+120
+00:08:38,710 --> 00:08:42,430
+This is a very common pattern it's the one we're going to be using here.
+
+121
+00:08:42,640 --> 00:08:48,430
+For now though we can focus on getting body data that got sent from the client to do this.
+
+122
+00:08:48,430 --> 00:08:50,980
+We have to use that body parser module.
+
+123
+00:08:51,010 --> 00:08:56,170
+As I said body parser is going to take your Jason and convert it into an object attaching it onto this
+
+124
+00:08:56,170 --> 00:08:57,640
+request object.
+
+125
+00:08:57,640 --> 00:09:02,920
+Right here we're going to configure the middleware using app use which we used earlier inside of our
+
+126
+00:09:02,920 --> 00:09:08,560
+express section as we know app use takes the middle where if we're writing custom middleware it will
+
+127
+00:09:08,560 --> 00:09:14,920
+be a function if we're using third party middleware we usually just access something off of the library.
+
+128
+00:09:14,920 --> 00:09:21,550
+In this case it's going to be body parser dot Jason getting called as a function of the return value
+
+129
+00:09:21,550 --> 00:09:27,880
+from this Jason method is a function and that is the middleware that we need to give to express.
+
+130
+00:09:27,880 --> 00:09:32,480
+With this in place we can now send Jason to our express application.
+
+131
+00:09:32,530 --> 00:09:40,480
+What I'd like to do inside of the post callback is simply Consul a log in the value of request dot body
+
+132
+00:09:40,660 --> 00:09:44,080
+where the body gets store to buy body parser.
+
+133
+00:09:44,080 --> 00:09:50,190
+With this in place we can now start up a server and test things out inside a postman over in the terminal.
+
+134
+00:09:50,230 --> 00:09:56,830
+I'm going to use clear to clear the terminal output and then I'll run the app node server server.
+
+135
+00:09:56,830 --> 00:10:03,940
+Dhananjay Yes the server is up on port 3000 which means now we can head into post man now inside of
+
+136
+00:10:03,940 --> 00:10:08,680
+post man we're not going to be making a get request like we did in the previous video and this time
+
+137
+00:10:08,680 --> 00:10:13,630
+what we're going to be doing is making a post request which means we need to change the HTP method to
+
+138
+00:10:13,630 --> 00:10:16,630
+post and type the you are Allen right here.
+
+139
+00:10:16,630 --> 00:10:22,470
+That's going to be localhost Kallen 3000 for the port forward slash dues.
+
+140
+00:10:22,660 --> 00:10:25,860
+This is that you are all that we want to send our data to.
+
+141
+00:10:25,930 --> 00:10:31,090
+Now in order to send some data to the application we have to go to this body tab.
+
+142
+00:10:31,090 --> 00:10:32,650
+We're trying to send Jason data.
+
+143
+00:10:32,710 --> 00:10:37,800
+So we're going to go to Raw and select Jason from the dropdown list on the right hand side.
+
+144
+00:10:37,810 --> 00:10:39,150
+Now we have our Hetter set.
+
+145
+00:10:39,160 --> 00:10:41,750
+You can see there's one letter showing up right here.
+
+146
+00:10:41,770 --> 00:10:47,050
+This is the Content-Type header letting the server know that Jason is getting sent all of this is done
+
+147
+00:10:47,050 --> 00:10:50,530
+automatically with postman inside of here.
+
+148
+00:10:50,530 --> 00:10:55,180
+The only piece of information I'm going to attach to my Jason is a text property.
+
+149
+00:10:55,240 --> 00:10:58,800
+This is from post man.
+
+150
+00:10:58,810 --> 00:11:02,560
+Now that we have this in place we can click send to fire off our request.
+
+151
+00:11:02,590 --> 00:11:06,630
+We're never going to get a response because we haven't responded to it inside of server.
+
+152
+00:11:06,720 --> 00:11:11,060
+Yes but if I head over to the terminal right here you see we have our data.
+
+153
+00:11:11,170 --> 00:11:17,730
+This is the data we created inside a post man it's now showing up in our node application which is fantastic.
+
+154
+00:11:17,890 --> 00:11:23,560
+We are one step closer to actually creating that to do the only thing left to do inside of the post
+
+155
+00:11:23,560 --> 00:11:29,680
+handler is actually create that to do using the information that comes from the user.
+
+156
+00:11:29,680 --> 00:11:36,040
+Let's make a variable called to do to do the thing we've done previously creating an instance of a mongoose
+
+157
+00:11:36,100 --> 00:11:37,160
+model.
+
+158
+00:11:37,300 --> 00:11:43,990
+We're going to set it equal to new to do passing in our object and passing in the values we want to
+
+159
+00:11:43,990 --> 00:11:44,610
+set.
+
+160
+00:11:44,680 --> 00:11:47,260
+In this case we just want to set text.
+
+161
+00:11:47,260 --> 00:11:52,040
+We're going to set text to request dot body which is the object we have here.
+
+162
+00:11:52,150 --> 00:11:56,350
+And then we're going to access that text property like this.
+
+163
+00:11:56,350 --> 00:11:58,710
+Next up we're going to call to do dot save.
+
+164
+00:11:58,750 --> 00:12:02,290
+This is going to actually save the model to the database.
+
+165
+00:12:02,290 --> 00:12:11,420
+And we are going to be providing a callback for a success case and for the error case awesome.
+
+166
+00:12:11,430 --> 00:12:15,930
+Now if things go well we're going to be sending back the actual to do which is going to show up right
+
+167
+00:12:15,930 --> 00:12:16,600
+here.
+
+168
+00:12:16,680 --> 00:12:22,110
+I'm going to get the document and right here inside of the callback function I'm going to use response
+
+169
+00:12:22,140 --> 00:12:25,260
+dot send to send the doc back.
+
+170
+00:12:25,260 --> 00:12:31,020
+This is going to give the user really important information things like the ID and the completed and
+
+171
+00:12:31,020 --> 00:12:34,950
+completed at properties which were not set by the user.
+
+172
+00:12:34,950 --> 00:12:37,970
+If things go poorly and we get an error that's fine too.
+
+173
+00:12:38,100 --> 00:12:43,510
+All we're going to do is use response send to send that error back.
+
+174
+00:12:43,530 --> 00:12:46,420
+Now we'll be modifying how we send errors back a little later.
+
+175
+00:12:46,440 --> 00:12:49,350
+For now this code is going to work just great.
+
+176
+00:12:49,350 --> 00:12:56,400
+We can also set an HTP status if you remember HTP statuses but you give someone some information about
+
+177
+00:12:56,400 --> 00:12:57,240
+how their request.
+
+178
+00:12:57,240 --> 00:13:00,600
+When did it go well did it go poorly all that sort of thing.
+
+179
+00:13:00,840 --> 00:13:10,000
+You can get a list of all the HTP statuses available to you by going to HTP statuses dot com.
+
+180
+00:13:10,020 --> 00:13:12,790
+Here you can view all of the statuses that you can set.
+
+181
+00:13:12,870 --> 00:13:15,990
+The one that set by default by Express is the 200.
+
+182
+00:13:15,990 --> 00:13:22,260
+This is if things went OK what we're going to be using for an error is a 400 a 400 means there was some
+
+183
+00:13:22,260 --> 00:13:27,810
+bad input which is going to be the case if the model can't be saved maybe the user didn't provide a
+
+184
+00:13:27,810 --> 00:13:30,810
+text property or maybe the text string was empty.
+
+185
+00:13:30,810 --> 00:13:37,090
+Either way we want to send a 400 back and that's going to happen right before we call send.
+
+186
+00:13:37,120 --> 00:13:42,150
+All we're going to do is call status passing in the status of 400.
+
+187
+00:13:42,150 --> 00:13:48,710
+With this in place we are now ready to test out our post to do's request over inside of postman.
+
+188
+00:13:48,810 --> 00:13:53,120
+I'm going to restart the server over inside of the terminal and you could start this up with node mine
+
+189
+00:13:53,130 --> 00:13:56,830
+if you like for the moment I'll be manually restarting it.
+
+190
+00:13:56,850 --> 00:14:02,460
+We're now up on localhost three thousand and over inside of postman we can make the exact same request
+
+191
+00:14:02,460 --> 00:14:03,570
+we made earlier.
+
+192
+00:14:03,570 --> 00:14:04,510
+I'm going to send it off.
+
+193
+00:14:04,590 --> 00:14:06,470
+And what do we get we get at 200.
+
+194
+00:14:06,570 --> 00:14:12,460
+This is fantastic it's the default status which means things went great down below the Jason response's
+
+195
+00:14:12,480 --> 00:14:14,280
+exactly what we expected.
+
+196
+00:14:14,280 --> 00:14:15,910
+We have our tax that we set.
+
+197
+00:14:15,930 --> 00:14:20,910
+We have the I.D. which was generated we have completed that which is set to null the default and we
+
+198
+00:14:20,910 --> 00:14:23,880
+have completed set to false default.
+
+199
+00:14:23,940 --> 00:14:25,970
+This is brilliant.
+
+200
+00:14:25,980 --> 00:14:30,870
+We can also test what happens when we try to create it to do it without the proper information.
+
+201
+00:14:30,870 --> 00:14:35,000
+For example maybe I set a text property equal to an empty string.
+
+202
+00:14:35,100 --> 00:14:39,930
+If I send this along we now get a 400 bad request down below.
+
+203
+00:14:39,930 --> 00:14:44,840
+We have a bunch of validation code saying that the to do validation failed.
+
+204
+00:14:44,910 --> 00:14:48,360
+Then we can go into the errors object to get the specific error.
+
+205
+00:14:48,360 --> 00:14:53,920
+Here we see the text field failed and the message is Path text is required.
+
+206
+00:14:53,940 --> 00:14:59,130
+All of this information can help someone fix their request and make a proper one.
+
+207
+00:14:59,130 --> 00:15:06,480
+Now if I head over into robo Mongo I'm going to refresh the collection for Dewes look at the last one
+
+208
+00:15:06,480 --> 00:15:10,580
+and it is indeed the one we created and Postman the text equal to.
+
+209
+00:15:10,590 --> 00:15:12,810
+This is from postman.
+
+210
+00:15:12,960 --> 00:15:20,570
+With this in place we now have our very first HTP and point set up for the to do rest API.
+
+211
+00:15:20,640 --> 00:15:25,520
+Now I haven't talked exactly about what rest is we're going to talk about that later.
+
+212
+00:15:25,650 --> 00:15:28,680
+For now we're going to focus on creating these endpoints.
+
+213
+00:15:28,680 --> 00:15:33,110
+The rest of version will come up a little later when we start adding authentication.
+
+214
+00:15:33,240 --> 00:15:37,800
+With this in place I want to give you a challenge your challenge is going to be to fire off a couple
+
+215
+00:15:37,830 --> 00:15:39,790
+more to do requests.
+
+216
+00:15:39,870 --> 00:15:46,770
+Try to set some text for at least one more to do make sure it shows up in the database as expected if
+
+217
+00:15:46,770 --> 00:15:48,040
+it does great.
+
+218
+00:15:48,150 --> 00:15:49,170
+You are done.
+
+219
+00:15:49,290 --> 00:15:50,760
+Take a moment to add a few to do's.
+
+220
+00:15:50,790 --> 00:15:53,330
+Pause the video and when you're done click play
+
+221
+00:15:57,290 --> 00:16:00,320
+that one should have been pretty easy over inside of post man.
+
+222
+00:16:00,320 --> 00:16:03,540
+We can add a few more to do's.
+
+223
+00:16:03,590 --> 00:16:04,960
+I'm going to add some right here.
+
+224
+00:16:05,990 --> 00:16:08,430
+Charge My Phone.
+
+225
+00:16:08,470 --> 00:16:10,910
+I don't think I've ever needed to be reminded of that one.
+
+226
+00:16:11,080 --> 00:16:18,430
+And we'll add take a break for lunch because it's about 12:30 and I'm starting to get pretty hungry.
+
+227
+00:16:18,580 --> 00:16:22,950
+Down below we see the charge my phone to do was created with a unique ID.
+
+228
+00:16:22,950 --> 00:16:24,490
+I'm going to send off this one.
+
+229
+00:16:24,690 --> 00:16:30,930
+And we see that we take a break for lunch to do was created over inside of robo mango we can give our
+
+230
+00:16:30,930 --> 00:16:33,920
+to do's collection a final refresh.
+
+231
+00:16:33,920 --> 00:16:39,170
+I'm going to expand to those last three items and they are indeed the three items we created in post
+
+232
+00:16:39,170 --> 00:16:43,180
+man and now that we have some meaningful work done in our project.
+
+233
+00:16:43,190 --> 00:16:45,210
+Let's go ahead and commit our changes.
+
+234
+00:16:45,210 --> 00:16:50,100
+As you can see over and atom the server directory is green meaning that it hasn't been added to get
+
+235
+00:16:50,300 --> 00:16:51,340
+and the package.
+
+236
+00:16:51,360 --> 00:16:57,030
+Jason File is orange which means that it's been modified even though it is tracking it over in the terminal.
+
+237
+00:16:57,030 --> 00:17:02,000
+We can shut down the server and I always like to run and get status to do a sanity check here.
+
+238
+00:17:02,010 --> 00:17:04,320
+Everything does look as expected.
+
+239
+00:17:04,320 --> 00:17:09,290
+I can then use get added to add everything followed by one more sanity check.
+
+240
+00:17:09,300 --> 00:17:13,820
+Here we have our four new files in the server folder as well as our package.
+
+241
+00:17:13,820 --> 00:17:15,030
+Does Jason File.
+
+242
+00:17:15,030 --> 00:17:16,920
+Now it's time to make that commit.
+
+243
+00:17:17,280 --> 00:17:18,660
+I'm going to create a quick commit.
+
+244
+00:17:18,870 --> 00:17:24,840
+I'm using the AM flag which usually adds modified files since I already used add.
+
+245
+00:17:24,840 --> 00:17:30,840
+I can simply use the AMA flag like we've been doing in the course and the message for this one would
+
+246
+00:17:30,840 --> 00:17:39,830
+be something like add post to Doo's route and refactor monkeys.
+
+247
+00:17:39,990 --> 00:17:40,770
+Excellent.
+
+248
+00:17:40,950 --> 00:17:46,170
+With the commit in place we can now wrap things up by pushing it up to get Haab making sure it's backed
+
+249
+00:17:46,170 --> 00:17:49,930
+up and making sure it's available for anyone else collaborating on the project.
+
+250
+00:17:49,930 --> 00:17:53,740
+Remember creating a committee alone does not get it up on get a job.
+
+251
+00:17:53,790 --> 00:17:56,550
+You've got to push that with another command.
+
+252
+00:17:56,550 --> 00:18:01,560
+With that in place it's now time to move on to the next video where you will be testing the route you
+
+253
+00:18:01,560 --> 00:18:02,730
+just created.
+
+254
+00:18:02,880 --> 00:18:04,710
+Stay tuned I will see you then
+

@@ -1,0 +1,908 @@
+﻿1
+00:00:00,480 --> 00:00:06,060
+In this video you're going to learn how to delete documents from your Mongo DB collections before we
+
+2
+00:00:06,060 --> 00:00:10,780
+get into that exploring the methods that let us delete multiple documents or just one.
+
+3
+00:00:10,830 --> 00:00:12,580
+We want to create a few more to do.
+
+4
+00:00:12,660 --> 00:00:17,190
+Currently the dues collection only has two items and we're going to need a few more in order to play
+
+5
+00:00:17,190 --> 00:00:20,460
+around with all these methods involving deletion.
+
+6
+00:00:20,460 --> 00:00:24,390
+Now I do have to I'm going to go ahead and create a third by right clicking down below.
+
+7
+00:00:24,590 --> 00:00:30,780
+We'll make a new document with a text property equal to something like eat lunch.
+
+8
+00:00:30,830 --> 00:00:35,580
+Not sure why that's going on my To Do list but it is and will set completed equal to false.
+
+9
+00:00:35,580 --> 00:00:37,700
+Since I haven't eaten lunch today.
+
+10
+00:00:37,700 --> 00:00:41,160
+Now before we save this I am going to copy it to the clipboard.
+
+11
+00:00:41,180 --> 00:00:46,670
+We're going to create a few duplicate to do's so we can see how we can delete items based off of a specific
+
+12
+00:00:46,670 --> 00:00:48,680
+criteria for this case.
+
+13
+00:00:48,710 --> 00:00:53,280
+We're going to be deleting multiple to do's with the same text value.
+
+14
+00:00:53,390 --> 00:00:55,060
+I'm going to copy that to the clipboard.
+
+15
+00:00:55,100 --> 00:01:00,170
+Click save and then I'll create two more with the exact same structure.
+
+16
+00:01:00,440 --> 00:01:04,740
+Is the first one and here is the second.
+
+17
+00:01:05,730 --> 00:01:06,470
+Awesome.
+
+18
+00:01:06,480 --> 00:01:12,840
+Now we have three to do's that are identical except for the ID and we have two that have unique text
+
+19
+00:01:12,930 --> 00:01:13,670
+properties.
+
+20
+00:01:13,740 --> 00:01:17,950
+With this in place let's go ahead and move into Adam and start writing some code.
+
+21
+00:01:17,970 --> 00:01:24,540
+I'm going to duplicate the Find File creating a brand new file called a mongo D-B hyphen and delete
+
+22
+00:01:24,910 --> 00:01:25,370
+Dot.
+
+23
+00:01:25,420 --> 00:01:29,100
+Yes and here we'll explore the methods for deleting data.
+
+24
+00:01:29,100 --> 00:01:32,900
+I'm also going to remove all of the queries that we set up in the last video.
+
+25
+00:01:32,940 --> 00:01:38,640
+I am going to keep the DB close method commented out as once again we don't want to close the connection
+
+26
+00:01:38,700 --> 00:01:39,450
+just yet.
+
+27
+00:01:39,450 --> 00:01:42,000
+It's going to interfere with the statements we're about to write.
+
+28
+00:01:42,010 --> 00:01:45,900
+Now there are three methods that we'll be using in order to remove data.
+
+29
+00:01:45,930 --> 00:01:52,370
+The first one is going to be delete many delete many will let us target many documents and remove them
+
+30
+00:01:52,890 --> 00:01:57,740
+will be using delete one which targets one document and removes it.
+
+31
+00:01:57,740 --> 00:02:07,160
+And finally my favorite will be using Find one and delete find one end delete lets you remove an individual
+
+32
+00:02:07,160 --> 00:02:10,130
+item and it also returns those values.
+
+33
+00:02:10,130 --> 00:02:15,710
+Imagine I want to delete a to do I deleted to do but I also get that to do object back so I can tell
+
+34
+00:02:15,710 --> 00:02:17,840
+the user exactly which one got deleted.
+
+35
+00:02:17,840 --> 00:02:20,250
+This is a really useful method.
+
+36
+00:02:20,270 --> 00:02:24,830
+Now we're going to start off with delete many and we're going to target those duplicates we just created.
+
+37
+00:02:24,830 --> 00:02:30,800
+The goal here is to delete every single to do inside of the to do's collection that has a text property
+
+38
+00:02:30,830 --> 00:02:32,530
+equal to eat lunch.
+
+39
+00:02:32,630 --> 00:02:38,080
+Currently there are three out of five that fit that criteria over inside of Adam.
+
+40
+00:02:38,330 --> 00:02:43,470
+We can go ahead and kick things off by doing D-B duck collection.
+
+41
+00:02:43,590 --> 00:02:44,760
+We've used this before.
+
+42
+00:02:44,780 --> 00:02:48,650
+This is going to let us target our dues collection.
+
+43
+00:02:48,710 --> 00:02:51,270
+Now we can go ahead and use the collection method.
+
+44
+00:02:51,620 --> 00:02:58,550
+Delete many passing in the arguments in this case the only argument we need is our object and this object
+
+45
+00:02:58,550 --> 00:03:02,980
+is just like the object we passed to find we can target r to Dewes.
+
+46
+00:03:03,050 --> 00:03:07,230
+In this case we're going to delete every to do where the text equals uppercase.
+
+47
+00:03:07,260 --> 00:03:10,010
+Eat Eat lunch.
+
+48
+00:03:10,070 --> 00:03:14,660
+We didn't use any punctuation over here so we're also going to avoid punctuation over an atom and needs
+
+49
+00:03:14,660 --> 00:03:16,930
+to show up exactly the same.
+
+50
+00:03:17,150 --> 00:03:23,030
+Now that we have this in place we could go ahead and tack on a then call to do something when an either
+
+51
+00:03:23,030 --> 00:03:24,530
+succeeds or fails.
+
+52
+00:03:24,530 --> 00:03:26,880
+For now we'll just add a success case.
+
+53
+00:03:29,440 --> 00:03:34,150
+We are going to get a result argument passed back to the callback and we can print that to the screen
+
+54
+00:03:34,600 --> 00:03:40,060
+Council a dialogue result and we'll take a look at exactly what is in and this result object in just
+
+55
+00:03:40,060 --> 00:03:41,960
+a moment with this in place.
+
+56
+00:03:42,070 --> 00:03:47,140
+We now have a script that deletes all to do's where the text value is eat lunch.
+
+57
+00:03:47,230 --> 00:03:51,400
+Let's go ahead and run it and see exactly what happens over inside of the terminal.
+
+58
+00:03:51,400 --> 00:03:52,680
+I'm going to run this file.
+
+59
+00:03:54,510 --> 00:03:58,950
+It's in the playground folder and we just called it Mongo D-B hyphen.
+
+60
+00:03:58,980 --> 00:04:00,090
+Delete that.
+
+61
+00:04:00,180 --> 00:04:01,300
+Yes.
+
+62
+00:04:01,350 --> 00:04:04,070
+Now when I run it we get a lot of output.
+
+63
+00:04:04,080 --> 00:04:05,750
+The really important piece of output.
+
+64
+00:04:05,760 --> 00:04:09,020
+The only important piece actually is up at the very top.
+
+65
+00:04:09,120 --> 00:04:13,800
+If you scroll to the top where you're going to see this result object we get.
+
+66
+00:04:13,810 --> 00:04:18,960
+OK set to 1 which means things that did go as expected and we get and set to three.
+
+67
+00:04:19,180 --> 00:04:25,240
+And is the number of records that were deleted in this case we had three to do's that matched that criteria.
+
+68
+00:04:25,240 --> 00:04:27,240
+So three to do's were deleted.
+
+69
+00:04:27,370 --> 00:04:30,700
+This is how you can target and delete many to do.
+
+70
+00:04:30,970 --> 00:04:34,750
+Now aside from delete many we have delete one and delete one.
+
+71
+00:04:34,750 --> 00:04:37,330
+Works exactly the same as delete many.
+
+72
+00:04:37,450 --> 00:04:42,280
+Only it deletes the first item it sees that matches the criteria and then it stops.
+
+73
+00:04:42,490 --> 00:04:48,620
+To illustrate exactly how this works we're going to create two items inside of our collection.
+
+74
+00:04:48,640 --> 00:04:53,720
+If I give things a refresh you see now we only have those two documents.
+
+75
+00:04:53,720 --> 00:04:55,460
+These are the ones we started with.
+
+76
+00:04:55,490 --> 00:05:00,020
+I'm going to insert documents again using the same data that's already in my clipboard.
+
+77
+00:05:00,020 --> 00:05:03,350
+This time will just make to two that are identical.
+
+78
+00:05:03,350 --> 00:05:08,560
+The goal here is to use delete one to delete the document where the text equals eat lunch.
+
+79
+00:05:08,570 --> 00:05:12,710
+But since we're using delete one and not delete many one of these should stay around and one of them
+
+80
+00:05:12,740 --> 00:05:14,170
+should go away.
+
+81
+00:05:14,450 --> 00:05:21,050
+Back inside an atom we can go ahead and get started by calling debug collection with the collection
+
+82
+00:05:21,050 --> 00:05:22,360
+name we want to target.
+
+83
+00:05:22,460 --> 00:05:29,500
+In this case it's to Dewes again and we're going to use delete one delete one takes that same criteria.
+
+84
+00:05:29,570 --> 00:05:34,920
+We're going to target documents where text equals eat lunch.
+
+85
+00:05:34,970 --> 00:05:39,540
+This time though instead of deleting multiple documents we're just going to delete the one and we are
+
+86
+00:05:39,540 --> 00:05:41,550
+still going to get that same exact result.
+
+87
+00:05:42,640 --> 00:05:46,810
+To prove it I'll just print to the screen like we did up above.
+
+88
+00:05:47,050 --> 00:05:50,500
+Console dialog result excellent.
+
+89
+00:05:50,500 --> 00:05:55,570
+With this in place we can now rerun our script and see what happens over inside of the terminal.
+
+90
+00:05:55,570 --> 00:05:57,760
+I'm going to shut down our current connection.
+
+91
+00:05:57,880 --> 00:05:58,440
+Rerun it.
+
+92
+00:05:58,440 --> 00:05:59,170
+And what do we get.
+
+93
+00:05:59,170 --> 00:06:04,450
+We get an A similar looking object a bunch of junk we don't really care about but once again if we scroll
+
+94
+00:06:04,450 --> 00:06:06,460
+to the top we have our results object.
+
+95
+00:06:06,570 --> 00:06:10,950
+We're OK as one and the number of deleted documents is also one.
+
+96
+00:06:11,080 --> 00:06:16,540
+Even though multiple documents did pass this criteria it only deleted the first one and we can prove
+
+97
+00:06:16,540 --> 00:06:23,530
+that by going over to Rodel Mongo right clicking up above and viewing the documents again and this time
+
+98
+00:06:23,530 --> 00:06:25,480
+around we have three to do's.
+
+99
+00:06:25,480 --> 00:06:31,600
+We do still have one of the do's with the eat lunch text and now that we know how to use these two methods
+
+100
+00:06:31,660 --> 00:06:33,200
+I want to take a look at my favorite.
+
+101
+00:06:33,220 --> 00:06:37,240
+This is find one and delete most of the time when I'm deleting a document.
+
+102
+00:06:37,240 --> 00:06:38,850
+I only have the ID.
+
+103
+00:06:38,860 --> 00:06:44,260
+This means that I don't exactly know what the text is or the completed status and it can be really useful
+
+104
+00:06:44,290 --> 00:06:45,970
+depending on your user interface.
+
+105
+00:06:45,970 --> 00:06:52,240
+For example if I delete a to do maybe I want to show that down below saying you deleted the to do that
+
+106
+00:06:52,240 --> 00:06:56,320
+says eat lunch with a little undo button in case they didn't mean to take that action.
+
+107
+00:06:56,470 --> 00:07:03,130
+Getting the data back as well as deleting it can be a really useful thing in order to explore find one
+
+108
+00:07:03,130 --> 00:07:08,770
+and delete we're going to once again target to do where the text equals eat lunch.
+
+109
+00:07:08,950 --> 00:07:13,690
+I'm going to go ahead and comment out delete one and down below we can get started by accessing the
+
+110
+00:07:13,690 --> 00:07:17,280
+appropriate collection.
+
+111
+00:07:17,300 --> 00:07:23,030
+The method is called Find one and delete find one and delete.
+
+112
+00:07:23,030 --> 00:07:25,420
+Takes a very similar set of arguments.
+
+113
+00:07:25,430 --> 00:07:28,130
+The only thing we need to pass in is the query.
+
+114
+00:07:28,130 --> 00:07:32,960
+This is going to be identical to the ones we have above this time though let's go ahead and target to
+
+115
+00:07:32,960 --> 00:07:37,400
+do's that have a completed value set to false.
+
+116
+00:07:37,400 --> 00:07:43,880
+Now there are two to do's that fit this query but once again we're using a find one method which means
+
+117
+00:07:43,880 --> 00:07:49,160
+it's only going to target the first one it sees the one with a text of something to do back inside of
+
+118
+00:07:49,160 --> 00:07:55,390
+out and we can get this done by targeting to Doo's where completed equals false.
+
+119
+00:07:55,400 --> 00:08:01,770
+Now instead of getting back a result object with an ok property and an end property defined one end.
+
+120
+00:08:01,790 --> 00:08:04,430
+The method actually gets that document back.
+
+121
+00:08:04,430 --> 00:08:07,820
+This means we can tack on a then call.
+
+122
+00:08:07,820 --> 00:08:10,310
+We can get our result and we can print it to the screen.
+
+123
+00:08:10,310 --> 00:08:14,670
+Once again console dialog result awesome.
+
+124
+00:08:14,900 --> 00:08:19,940
+Now that we have this in place let's test things out over in the terminal over in the terminal.
+
+125
+00:08:19,940 --> 00:08:24,070
+I'm going to shut down the script and started up again this time around.
+
+126
+00:08:24,070 --> 00:08:24,890
+What do we get.
+
+127
+00:08:24,890 --> 00:08:27,020
+We get a few different things in our result object.
+
+128
+00:08:27,020 --> 00:08:30,340
+We do get an ok set to 1 letting us know things went as planned.
+
+129
+00:08:30,500 --> 00:08:32,310
+We have a last error object.
+
+130
+00:08:32,360 --> 00:08:34,030
+We'll talk about that in just a second.
+
+131
+00:08:34,220 --> 00:08:36,290
+And we have are a value object.
+
+132
+00:08:36,290 --> 00:08:39,050
+This is the actual document we deleted.
+
+133
+00:08:39,190 --> 00:08:42,440
+This is why the Find want to delete method is just super handy.
+
+134
+00:08:42,440 --> 00:08:49,120
+It gets that document back as well as deleting it know in this particular case the last air object once
+
+135
+00:08:49,120 --> 00:08:54,760
+again just has our end property and we can see the number of dues that were deleted.
+
+136
+00:08:54,760 --> 00:08:59,350
+There is other information that could potentially be in the last air object but that's only going to
+
+137
+00:08:59,350 --> 00:09:02,350
+happen when we use other methods so we'll look at that when the time comes.
+
+138
+00:09:02,350 --> 00:09:06,830
+For now when you delete a to do we just get the number back.
+
+139
+00:09:07,000 --> 00:09:13,720
+With this in place we have three different ways we can target our Mongo DB documents and remove them.
+
+140
+00:09:13,840 --> 00:09:19,870
+As I mentioned I think three times already find one and delete is my personal favorite.
+
+141
+00:09:19,960 --> 00:09:25,450
+With this in place we're going to go ahead and go over a quick challenge to test your skills inside
+
+142
+00:09:25,450 --> 00:09:26,110
+of Roboam Monga.
+
+143
+00:09:26,110 --> 00:09:29,130
+We can look at the data we have in that user's collection.
+
+144
+00:09:29,170 --> 00:09:30,440
+I'm going to open it up.
+
+145
+00:09:30,640 --> 00:09:35,020
+Highlight all the data and expand it recursively so we can view it.
+
+146
+00:09:35,080 --> 00:09:38,620
+We have the name Jan. We have Mike we have Andrew Andrew and Andrew.
+
+147
+00:09:38,620 --> 00:09:40,260
+This is perfect data.
+
+148
+00:09:40,270 --> 00:09:43,840
+Now yours might look a little different but the goal is to use two methods.
+
+149
+00:09:43,840 --> 00:09:49,420
+First up look for any duplicates anything that has a name set to the name of another document in this
+
+150
+00:09:49,420 --> 00:09:52,070
+case I have three documents where name is Andrew.
+
+151
+00:09:52,150 --> 00:09:57,080
+What I want to do is use delete many to target all of these documents and remove them.
+
+152
+00:09:57,280 --> 00:10:02,890
+I also want to use find a one and delete to delete a no other document doesn't matter which one.
+
+153
+00:10:02,890 --> 00:10:05,500
+And I want you to delete it by deed.
+
+154
+00:10:05,650 --> 00:10:07,210
+You can break this up into two parts.
+
+155
+00:10:07,210 --> 00:10:12,520
+You can write both commands then you can comment one out run the script make sure it works and then
+
+156
+00:10:12,520 --> 00:10:15,740
+swap it commenting out the one you read on an on commenting.
+
+157
+00:10:15,760 --> 00:10:21,300
+The other one in the end both statements should show their effect over inside of Roboam Mongo.
+
+158
+00:10:21,430 --> 00:10:24,810
+When I'm done I'm hoping to see these three documents deleted.
+
+159
+00:10:24,850 --> 00:10:29,800
+They all have the name Andrew and I'm hoping to see this document deleted where the name is Mike because
+
+160
+00:10:29,830 --> 00:10:36,040
+I'm going to target this one by ID in my find one and delete method call.
+
+161
+00:10:36,040 --> 00:10:38,160
+Take a moment to knock this out.
+
+162
+00:10:38,170 --> 00:10:38,950
+Write these scripts.
+
+163
+00:10:38,950 --> 00:10:39,610
+Test them.
+
+164
+00:10:39,610 --> 00:10:43,020
+And when you're done go ahead and click play.
+
+165
+00:10:43,060 --> 00:10:43,810
+How do you do.
+
+166
+00:10:43,880 --> 00:10:47,660
+Hopefully you were able to get this done without too much trouble.
+
+167
+00:10:47,660 --> 00:10:53,390
+First up I'm going to write my scripts one for deleting users where the name is Andrew and one for deleting
+
+168
+00:10:53,450 --> 00:11:00,290
+the document with this ID in order to grab the idea I am going to go ahead and edit it and simply grab
+
+169
+00:11:00,290 --> 00:11:06,250
+the text inside of quotes right here and then I can cancel the update and move into Adam.
+
+170
+00:11:06,380 --> 00:11:11,480
+First up we're going to go ahead and tried to remove the duplicate users and I'm going to do this using
+
+171
+00:11:11,530 --> 00:11:13,300
+DBI dot collection.
+
+172
+00:11:14,610 --> 00:11:16,700
+We're going to target that users collection.
+
+173
+00:11:16,800 --> 00:11:22,470
+And in this particular case we're going to be using the delete the many method and Dot delete many just
+
+174
+00:11:22,470 --> 00:11:24,050
+like we did above here.
+
+175
+00:11:24,060 --> 00:11:30,860
+We're going to try to delete all of the users where the name property equals Andrew.
+
+176
+00:11:30,870 --> 00:11:37,110
+Now I could tack on a then call to check for success or errors or I could just leave it like this which
+
+177
+00:11:37,110 --> 00:11:37,970
+is what I'm going to do.
+
+178
+00:11:38,130 --> 00:11:44,490
+If you used a callback or you used the promise then method that is perfectly fine as long as the deletion
+
+179
+00:11:44,490 --> 00:11:46,470
+happens you're good to go.
+
+180
+00:11:46,470 --> 00:11:51,630
+Next up I'm going to write the other statement we're going to target the users collection once again.
+
+181
+00:11:52,910 --> 00:11:54,960
+This should be users and not user.
+
+182
+00:11:54,970 --> 00:11:59,080
+This statement would not have worked how to use the user collection.
+
+183
+00:11:59,080 --> 00:12:05,000
+Now we're going to go ahead and use the Find one and delete method.
+
+184
+00:12:05,110 --> 00:12:12,640
+Now in this particular case I am going to be deleting the to do where the ID equals the object id I
+
+185
+00:12:12,640 --> 00:12:21,860
+have copied to the clipboard which means I need to create a new object ID and I also need to go ahead
+
+186
+00:12:21,950 --> 00:12:27,380
+and pass in the value from the clipboard inside of quotes either single or double work.
+
+187
+00:12:27,470 --> 00:12:32,090
+Make sure the capitalization of object id here is identical to what you have up above.
+
+188
+00:12:32,090 --> 00:12:35,540
+Otherwise this creation will not happen.
+
+189
+00:12:35,540 --> 00:12:41,720
+Now that we have the ID created and passed in as the underscore ID property we can go ahead and tack
+
+190
+00:12:41,720 --> 00:12:43,570
+on a then callback.
+
+191
+00:12:43,640 --> 00:12:49,890
+Since I'm using find one end Doley I am going to print that document to the screen right here and I'll
+
+192
+00:12:49,890 --> 00:12:59,230
+get my argument results and I'm going to print to the screen using our pretty printing method Council
+
+193
+00:12:59,290 --> 00:13:10,570
+dialogue Jason docstring ify passing in those three arguments the results undefined and the spacing
+
+194
+00:13:10,580 --> 00:13:14,770
+which I'm going to use as to with this in place we are now ready to go.
+
+195
+00:13:14,960 --> 00:13:17,440
+Let's go ahead and comment out you find one and delete first.
+
+196
+00:13:17,510 --> 00:13:23,180
+We'll run the delete many statement over in the terminal I can shut down the current connection started
+
+197
+00:13:23,180 --> 00:13:29,790
+up again and if we go over to robo Mongo we should see that those three documents were deleted.
+
+198
+00:13:29,810 --> 00:13:34,570
+I'm going to right click up above to view the documents and what do we get.
+
+199
+00:13:34,570 --> 00:13:37,440
+We just get the two documents back anything.
+
+200
+00:13:37,460 --> 00:13:41,980
+Her name was Andrew is now removed which means our statement did work as expected.
+
+201
+00:13:41,980 --> 00:13:43,570
+And this is fantastic.
+
+202
+00:13:43,570 --> 00:13:49,840
+Next up we can run our find one and delete statement in this case we're expecting that that one document
+
+203
+00:13:50,140 --> 00:13:52,820
+the one where name equals Mike gets removed.
+
+204
+00:13:52,870 --> 00:13:54,870
+I'm going to go ahead and make sure I save the file.
+
+205
+00:13:54,910 --> 00:13:58,000
+Once I did I can move into the terminal and rerun the script.
+
+206
+00:13:58,970 --> 00:14:01,760
+This time around we get the document back where name is Mike.
+
+207
+00:14:01,760 --> 00:14:06,130
+We did target the correct one and it does appear that one item was deleted.
+
+208
+00:14:06,260 --> 00:14:11,040
+I can always go ahead and verify this by refreshing the collection over inside of Roboam Mongo.
+
+209
+00:14:11,060 --> 00:14:11,920
+And what do I get.
+
+210
+00:14:11,990 --> 00:14:17,440
+I get my collection with just one document inside of it with this in place we are now done.
+
+211
+00:14:17,510 --> 00:14:21,310
+We know how to delete documents from our Mongo DB collections.
+
+212
+00:14:21,380 --> 00:14:27,530
+We can delete multiple documents we can target just one or we can target one and get its value back
+
+213
+00:14:27,890 --> 00:14:32,690
+before we go let's go ahead and make a commit pushing it up to get her over in the terminal.
+
+214
+00:14:32,690 --> 00:14:37,350
+I can shut down the script and I can run get status to see what files we have on tracked.
+
+215
+00:14:37,360 --> 00:14:40,190
+Here we have our Mongo DB delete file.
+
+216
+00:14:40,190 --> 00:14:46,030
+I can add it using get add dot and then I can commit using get commit with the flag.
+
+217
+00:14:46,220 --> 00:14:52,280
+Here I can go ahead and provide a commit message add delete script.
+
+218
+00:14:52,280 --> 00:14:53,210
+Excellent.
+
+219
+00:14:53,240 --> 00:14:57,830
+I'm going to make that comment and I am going to push it up to get it using and get push which will
+
+220
+00:14:57,830 --> 00:15:00,310
+default to the Orjan remote.
+
+221
+00:15:00,320 --> 00:15:03,220
+Now when you only have one remote the first one is Orjan.
+
+222
+00:15:03,260 --> 00:15:08,130
+This is the default name just like Master is the default branch.
+
+223
+00:15:08,180 --> 00:15:11,900
+With this in place we are now done our code is up on get hub.
+
+224
+00:15:12,080 --> 00:15:15,680
+I'll see you next time as we continue looking at Mongo DB methods.
+
+225
+00:15:15,680 --> 00:15:20,480
+Next up is updating you're going to learn how to update documents inside of a collection.
+
+226
+00:15:20,480 --> 00:15:21,090
+Stay tuned.
+
+227
+00:15:21,100 --> 00:15:22,260
+I will see you then
+

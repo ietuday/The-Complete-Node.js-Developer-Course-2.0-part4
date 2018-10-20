@@ -1,0 +1,412 @@
+﻿1
+00:00:00,330 --> 00:00:06,300
+With our test suite in place it's now time to create our second route and we get to do's route which
+
+2
+00:00:06,390 --> 00:00:12,020
+will be responsible for returning all of your to do's and this would be useful for any to do application.
+
+3
+00:00:12,030 --> 00:00:16,050
+The first screen you're probably going to show a user is a list of all of their to do's and this is
+
+4
+00:00:16,050 --> 00:00:18,600
+the route you would use to get that information.
+
+5
+00:00:18,660 --> 00:00:20,370
+It's going to be a GET request.
+
+6
+00:00:20,520 --> 00:00:26,430
+So I'm going to use app ADOT get to register the route handler and the URL itself is going to match
+
+7
+00:00:26,430 --> 00:00:27,970
+the you are else we have above.
+
+8
+00:00:28,050 --> 00:00:32,740
+It's going to be get a forward slash to do's because we want to get all of that to do.
+
+9
+00:00:32,880 --> 00:00:36,720
+Later on when we get an individual to do the u r l will look something like this.
+
+10
+00:00:36,740 --> 00:00:40,660
+But for now we're going to match it with the post you are out.
+
+11
+00:00:40,710 --> 00:00:42,560
+Next up we can add our call back.
+
+12
+00:00:42,600 --> 00:00:48,990
+This is going to give us our request and response objects and inside of here we can get started.
+
+13
+00:00:49,020 --> 00:00:53,940
+All we need to do is get all of the dues in the collection and we actually already did that in the test
+
+14
+00:00:53,940 --> 00:00:56,480
+file inside of server test.
+
+15
+00:00:56,570 --> 00:00:57,020
+Yes.
+
+16
+00:00:57,150 --> 00:01:03,390
+We used to do find it to fetch all of the dues we're going to use that same technique right here to
+
+17
+00:01:03,390 --> 00:01:07,140
+do and find we're not passing in a query.
+
+18
+00:01:07,140 --> 00:01:10,950
+We want to return everything later on when we add authentication.
+
+19
+00:01:10,950 --> 00:01:13,390
+You'll get back just to do as you created.
+
+20
+00:01:13,410 --> 00:01:19,120
+But for now without authentication you're going to get everything in the to do's collection back.
+
+21
+00:01:19,140 --> 00:01:26,070
+Next up we're going to attach a then call this then call is going to take two functions and the success
+
+22
+00:01:26,070 --> 00:01:32,970
+Case function when the promise gets resolved and a function that gets fired when the promise gets rejected.
+
+23
+00:01:32,970 --> 00:01:38,430
+Now the success case will get called with all of the dues and all we're going to do is send that information
+
+24
+00:01:38,430 --> 00:01:46,290
+back using response Dot said we could pass in the array like this but this is not the best way to get
+
+25
+00:01:46,290 --> 00:01:47,360
+the job done.
+
+26
+00:01:47,550 --> 00:01:52,350
+When you pass back an array you're kind of locking yourself down if you want to add on another property
+
+27
+00:01:52,350 --> 00:01:54,930
+whether it's a custom status code or some other data.
+
+28
+00:01:54,960 --> 00:01:57,290
+You can't because you have an array.
+
+29
+00:01:57,330 --> 00:02:03,450
+The better solution would be to create an object and on that object specify to do's sending an equal
+
+30
+00:02:03,450 --> 00:02:04,390
+to the to use array.
+
+31
+00:02:04,410 --> 00:02:08,340
+Using ESX this would let you add other properties later on.
+
+32
+00:02:08,340 --> 00:02:15,060
+For example I could add some sort of custom status code setting an equal to whatever I like by using
+
+33
+00:02:15,060 --> 00:02:17,380
+an object as opposed to sending an array back.
+
+34
+00:02:17,520 --> 00:02:21,130
+We're opening ourselves up to a more flexible future.
+
+35
+00:02:21,390 --> 00:02:24,720
+With this in place our success case is good to go.
+
+36
+00:02:24,720 --> 00:02:30,030
+The only thing we need to do to wrap this one up is handle errors and the error handler is going to
+
+37
+00:02:30,030 --> 00:02:34,810
+look exactly like the one we have above response dot status.
+
+38
+00:02:34,860 --> 00:02:41,340
+We're going to be sending back a 400 and we'll be sending back the error object that got passed in to
+
+39
+00:02:41,340 --> 00:02:42,380
+the function.
+
+40
+00:02:42,480 --> 00:02:47,370
+Now that we have this in place we can go ahead and start up our server and test things out over inside
+
+41
+00:02:47,370 --> 00:02:48,660
+of postman.
+
+42
+00:02:48,690 --> 00:02:56,430
+I'm going to fire up the server using node server server data as an inside of post man.
+
+43
+00:02:56,530 --> 00:02:58,970
+We can get started by creating some to do's.
+
+44
+00:02:58,990 --> 00:03:04,850
+Currently our application and the tasks for the application use the same database to before each call
+
+45
+00:03:04,850 --> 00:03:10,210
+we were on in the last video unfortunately wiped everything which means we have no data to fetch.
+
+46
+00:03:10,360 --> 00:03:13,470
+The first thing I'm going to do in post man is try to fetch the data.
+
+47
+00:03:13,480 --> 00:03:17,080
+We should get back an empty array which should still work.
+
+48
+00:03:17,180 --> 00:03:20,700
+The U R L is going to be a localhost 3000.
+
+49
+00:03:20,740 --> 00:03:22,430
+Forward slash to do's.
+
+50
+00:03:22,540 --> 00:03:25,590
+And it is indeed going to be a GET request.
+
+51
+00:03:25,780 --> 00:03:26,900
+I can click send.
+
+52
+00:03:26,910 --> 00:03:30,460
+This is going to fire off the request and right here we get our data back.
+
+53
+00:03:30,490 --> 00:03:31,470
+We have an object.
+
+54
+00:03:31,570 --> 00:03:36,740
+We have our dues property and we have our empty array which is expected.
+
+55
+00:03:36,850 --> 00:03:41,680
+Now as you've noticed manually configuring a route every single time you want to use it gets pretty
+
+56
+00:03:41,680 --> 00:03:42,370
+tedious.
+
+57
+00:03:42,460 --> 00:03:46,960
+And we're going to be using a lot of the same routes over and over again with post man and we can actually
+
+58
+00:03:46,960 --> 00:03:53,800
+create a collection of routes so we can refire requests without having to manually enter all this information
+
+59
+00:03:54,130 --> 00:03:55,570
+over on the right hand side.
+
+60
+00:03:55,690 --> 00:04:00,100
+I can click the drop down arrow next to save and click save as.
+
+61
+00:04:00,160 --> 00:04:02,800
+Here I can give my request a little bit of detail.
+
+62
+00:04:02,890 --> 00:04:09,690
+I'm going to change the request name to get forward slash to do's and this is the naming convention.
+
+63
+00:04:09,700 --> 00:04:16,490
+I like to use the HTP method followed by the R-AL we can leave the description blank for now.
+
+64
+00:04:16,630 --> 00:04:20,230
+And the Double-O we can create a new collection since we don't have any.
+
+65
+00:04:20,230 --> 00:04:25,890
+The post man Ecko collection is an example collection post man gives you to explore this feature.
+
+66
+00:04:25,960 --> 00:04:32,420
+We're going to make one called to do app now any time we want to run that command all we do is we go
+
+67
+00:04:32,420 --> 00:04:37,900
+to collections we click get to do's we click send and the request fires.
+
+68
+00:04:38,090 --> 00:04:41,860
+Let's go ahead and set up a post request to create it to do.
+
+69
+00:04:42,020 --> 00:04:47,360
+And then we'll run that we'll save it and we'll rerun get to make sure it returns the newly created
+
+70
+00:04:47,450 --> 00:04:49,820
+to do to create the post request.
+
+71
+00:04:49,820 --> 00:04:55,450
+If you remember we do have to change the method to post and then you are Al will be the same local host
+
+72
+00:04:55,460 --> 00:04:57,960
+three thousand four slashed to dues.
+
+73
+00:04:57,980 --> 00:05:02,040
+Now in order for this request to succeed we also have to pass along a body.
+
+74
+00:05:02,090 --> 00:05:03,550
+This one is going to be a raw.
+
+75
+00:05:03,560 --> 00:05:08,860
+Jason abody right here we can specify the data we'd like to send.
+
+76
+00:05:08,990 --> 00:05:16,670
+In this case the only data property we're going to send is text and I'll set this to something to do
+
+77
+00:05:17,060 --> 00:05:19,270
+from postman.
+
+78
+00:05:19,410 --> 00:05:21,300
+Now we can go ahead and fire this off.
+
+79
+00:05:21,450 --> 00:05:27,370
+And below we get our newly created to do with a 200 status code which means everything went well.
+
+80
+00:05:27,570 --> 00:05:33,450
+We can save this to our collection so we can easily rerun this one later on in a change the request
+
+81
+00:05:33,450 --> 00:05:40,470
+name to post forward slash to Doo's following that same syntax then down below I can select an existing
+
+82
+00:05:40,470 --> 00:05:43,890
+collection need to do app collection and save it.
+
+83
+00:05:43,890 --> 00:05:49,890
+Now I can simply click the request use command enter or click the send button to fire off the request
+
+84
+00:05:50,100 --> 00:05:54,810
+and down below I get my dues array and everything looks great.
+
+85
+00:05:54,810 --> 00:05:57,050
+I can always click post out a second one.
+
+86
+00:05:57,210 --> 00:06:03,600
+I can tweak it if I like adding the number two then I can use command return to fire that one off I
+
+87
+00:06:03,600 --> 00:06:10,560
+can rerun the get request and I have my two Dewes in the database with this employees are get request
+
+88
+00:06:10,620 --> 00:06:12,020
+is now complete.
+
+89
+00:06:12,030 --> 00:06:17,730
+We also set up our collection and post man making it really easy to fire off any of these HTP requests
+
+90
+00:06:17,940 --> 00:06:19,330
+much faster.
+
+91
+00:06:19,350 --> 00:06:23,310
+I'm going to go ahead and wrap this video up by making a commit over in the terminal.
+
+92
+00:06:23,490 --> 00:06:28,920
+I'm going to shut the server down and run get status and this time around you see we just have one file
+
+93
+00:06:28,920 --> 00:06:35,870
+and it is modified which means instead of using GET add we can simply use get commit with the flag.
+
+94
+00:06:36,030 --> 00:06:40,240
+The flag adds all modified files to the next commit.
+
+95
+00:06:40,290 --> 00:06:45,000
+It does not work for new untracked files but modified files are perfectly fine.
+
+96
+00:06:45,000 --> 00:06:52,720
+And then I can tack on the flag to specify my commit message a good one for this will be ad get to do's
+
+97
+00:06:53,280 --> 00:06:54,010
+route.
+
+98
+00:06:54,240 --> 00:06:55,820
+Excellent last up.
+
+99
+00:06:55,980 --> 00:06:57,120
+We're going to push it up to get help.
+
+100
+00:06:57,120 --> 00:06:58,350
+And now we are done.
+
+101
+00:06:58,530 --> 00:07:03,000
+I will see you in the next video where we write test cases for get to do.
+
+102
+00:07:03,120 --> 00:07:03,860
+It's coming up next.
+
+103
+00:07:03,870 --> 00:07:06,190
+So stay tuned and we'll see you then.
+

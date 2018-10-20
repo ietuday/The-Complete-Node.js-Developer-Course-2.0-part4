@@ -1,0 +1,368 @@
+﻿1
+00:00:00,150 --> 00:00:02,270
+With are get to do is route now in place.
+
+2
+00:00:02,280 --> 00:00:08,270
+It is time to add a test case for it and a missing semicolon which I left off right here.
+
+3
+00:00:08,310 --> 00:00:11,900
+That's not going to cause the program to crash but it is a good idea.
+
+4
+00:00:11,910 --> 00:00:15,500
+Now before we can actually write the test case we have to deal with a different problem.
+
+5
+00:00:15,510 --> 00:00:20,700
+The first thing we do inside of our test file is delete all the to do's and this happens before every
+
+6
+00:00:20,700 --> 00:00:21,860
+single test.
+
+7
+00:00:21,870 --> 00:00:27,450
+Now they get to Doo's route pretty much lives off the fact that there is to do it can return it will
+
+8
+00:00:27,450 --> 00:00:32,730
+handle not to do it but for our test case we do want some data in that database in order to add this
+
+9
+00:00:32,730 --> 00:00:33,050
+data.
+
+10
+00:00:33,060 --> 00:00:37,610
+Well we're going to do is modify before each adding some seed data.
+
+11
+00:00:37,650 --> 00:00:40,470
+This means that our database is still going to be predictable.
+
+12
+00:00:40,470 --> 00:00:44,830
+It's always going to look exactly the same when it starts but it will have some items in it.
+
+13
+00:00:44,850 --> 00:00:50,040
+Now in order to do that the first thing we're going to do is make up an array of dummy to do's.
+
+14
+00:00:50,040 --> 00:00:55,020
+Now these to do is only need the text properties since everything else is going to get populated by
+
+15
+00:00:55,170 --> 00:00:56,760
+mongoose right here.
+
+16
+00:00:56,880 --> 00:01:02,330
+I can create a constant call that to do setting an equal to an array.
+
+17
+00:01:02,520 --> 00:01:07,720
+And we're going to have an array of objects where each object has a text property.
+
+18
+00:01:07,740 --> 00:01:14,370
+For example this one could have a text of first test to do that I can add on a second object as the
+
+19
+00:01:14,370 --> 00:01:21,120
+second item in the array with a text property equal to second test to do.
+
+20
+00:01:21,390 --> 00:01:22,350
+Excellent.
+
+21
+00:01:22,350 --> 00:01:28,980
+Now before we can actually write the test case we do have to modify before each using a brand new mongoose
+
+22
+00:01:28,980 --> 00:01:34,380
+method called insert many which takes an array like the one we have here and it inserts all of those
+
+23
+00:01:34,380 --> 00:01:36,780
+documents into the collection.
+
+24
+00:01:36,780 --> 00:01:42,300
+This means that we are going to need to tweak the code real quick instead of having a simple arrow function
+
+25
+00:01:42,300 --> 00:01:43,420
+that calls done.
+
+26
+00:01:43,500 --> 00:01:49,620
+I'm going to tack on some curly braces and inside of the callback function we're going to call to do
+
+27
+00:01:49,620 --> 00:01:56,350
+dot insert many and we're going to call insert many with the array we defined above.
+
+28
+00:01:56,360 --> 00:02:01,850
+This is going to insert all of that to do as in the array are two to do's and then we can do something
+
+29
+00:02:01,850 --> 00:02:02,640
+like calling.
+
+30
+00:02:02,680 --> 00:02:03,570
+Done.
+
+31
+00:02:03,620 --> 00:02:05,300
+I'm going to return the response.
+
+32
+00:02:05,300 --> 00:02:12,080
+This is going to a lot of chain callbacks and then I can tack on then and I can use a really simple
+
+33
+00:02:12,440 --> 00:02:14,670
+expression based arrow function.
+
+34
+00:02:14,760 --> 00:02:21,650
+All I'm going to do right here is call done using that expression syntax.
+
+35
+00:02:21,650 --> 00:02:26,300
+Now let's go ahead and run the test suite and I'll warn you the other tests are going to have problems
+
+36
+00:02:26,300 --> 00:02:30,910
+because of the numbers that they assert are now going to be incorrect over in the terminal I'm the start
+
+37
+00:02:30,950 --> 00:02:34,940
+of the test suite NPM run test watch.
+
+38
+00:02:35,060 --> 00:02:40,820
+And once that test suite gets started I'm going to move back into Adam and you can see as promised both
+
+39
+00:02:40,820 --> 00:02:42,630
+of the test cases failed.
+
+40
+00:02:42,650 --> 00:02:46,220
+We expected three to be one and we expected two to be zero.
+
+41
+00:02:46,220 --> 00:02:49,530
+Everything is now off by two to fix this.
+
+42
+00:02:49,550 --> 00:02:52,010
+We're going to use two different techniques for the first test.
+
+43
+00:02:52,010 --> 00:02:57,440
+What we're going to do is only find Dewes where the text equals the text we have above.
+
+44
+00:02:57,440 --> 00:03:02,360
+This means that the resulting length is still going to be won and the first item should still have a
+
+45
+00:03:02,360 --> 00:03:05,210
+Text property equal to the text above.
+
+46
+00:03:05,420 --> 00:03:09,130
+For the second test we're going to leave the fine call the way it is.
+
+47
+00:03:09,140 --> 00:03:14,990
+Instead we're going to make sure that the length of the database is to there should only be two documents
+
+48
+00:03:14,990 --> 00:03:17,990
+in the dues collection because that's all we added up above.
+
+49
+00:03:18,110 --> 00:03:22,090
+And this was testing a failure so a third one should not have been added.
+
+50
+00:03:22,190 --> 00:03:25,700
+With this in place you can see are two test cases are now passing.
+
+51
+00:03:25,700 --> 00:03:27,830
+So we're ready to move on adding a new.
+
+52
+00:03:27,860 --> 00:03:31,460
+Describe a block down below right here.
+
+53
+00:03:31,460 --> 00:03:34,050
+I'm going to add a describe block.
+
+54
+00:03:34,200 --> 00:03:41,490
+We're going to describe the get to Doo's route passing in our aero function and then we can add our
+
+55
+00:03:41,490 --> 00:03:43,470
+single test case.
+
+56
+00:03:43,470 --> 00:03:47,770
+It should it get all to do.
+
+57
+00:03:47,990 --> 00:03:52,720
+Now in this case all to do's refers to the two to do as we just added up above.
+
+58
+00:03:52,910 --> 00:03:58,750
+I'm going to pass in an Aero function with the Done argument and we are good to go.
+
+59
+00:03:58,760 --> 00:04:02,390
+All we have to do is start the super test request.
+
+60
+00:04:02,390 --> 00:04:05,540
+I'm going to request something on the Express application.
+
+61
+00:04:05,540 --> 00:04:06,740
+It's going to be a GET request.
+
+62
+00:04:06,770 --> 00:04:12,440
+So we'll call and get passing in the U R L forward slash to do is with this in place we're not ready
+
+63
+00:04:12,440 --> 00:04:17,210
+to make our assertions we're not sending any data in the request body but we are going to make some
+
+64
+00:04:17,210 --> 00:04:19,390
+assertions about what comes back.
+
+65
+00:04:19,580 --> 00:04:26,570
+We're going to expect that a 200 comes back and we're also going to create a custom assertion expecting
+
+66
+00:04:26,570 --> 00:04:32,090
+something about the body here will provide our callback function with the response and we're going to
+
+67
+00:04:32,090 --> 00:04:42,270
+expect that response dot body dot to do's has a length of two to be two.
+
+68
+00:04:42,420 --> 00:04:47,280
+Now that we had this in place oh we have to do is tack on an end call like we did in the previous section
+
+69
+00:04:47,280 --> 00:04:49,500
+and past done in as the argument.
+
+70
+00:04:49,500 --> 00:04:54,300
+There is no need to provide a function to end like we do up above because we're not doing anything a
+
+71
+00:04:54,340 --> 00:04:56,360
+synchronous with this in place.
+
+72
+00:04:56,430 --> 00:04:57,540
+We are now good to go.
+
+73
+00:04:57,660 --> 00:04:59,820
+We can save the server test file.
+
+74
+00:04:59,820 --> 00:05:05,040
+This is going to rerun the test suite using node mount and we should see our new test and it should
+
+75
+00:05:05,130 --> 00:05:06,190
+be passing.
+
+76
+00:05:06,270 --> 00:05:11,550
+If it is we're done and right here we get just that we have our section for post to dues both of those
+
+77
+00:05:11,550 --> 00:05:17,220
+tests are passing and we have our section for get to choose and the one test is indeed passing.
+
+78
+00:05:17,220 --> 00:05:22,230
+Now if I change the status to 201 the test is going to fail because that's not the status that came
+
+79
+00:05:22,230 --> 00:05:22,880
+back.
+
+80
+00:05:22,920 --> 00:05:30,090
+If I change the length to three it's going to fail because we only added two Dewes in as the seed data.
+
+81
+00:05:30,090 --> 00:05:30,810
+Now that we're done.
+
+82
+00:05:30,870 --> 00:05:33,870
+Let's go ahead and make a commit saving this code.
+
+83
+00:05:34,110 --> 00:05:39,870
+I'm going to shut down the test watch script run and get status and right here we have two modified
+
+84
+00:05:39,870 --> 00:05:45,670
+files which means I can use get commit with the flag and the flag.
+
+85
+00:05:45,750 --> 00:05:51,510
+Remember the a flag adds modified files to the next commit a good message for this commit is going to
+
+86
+00:05:51,510 --> 00:05:58,410
+be add tests for get forward slash to do's.
+
+87
+00:05:58,500 --> 00:05:59,670
+I'm going to make the commit.
+
+88
+00:05:59,820 --> 00:06:00,850
+Push it up to get a job.
+
+89
+00:06:00,870 --> 00:06:07,140
+And we are done with this in place we are ready to move on adding a brand new route that is coming up
+
+90
+00:06:07,140 --> 00:06:09,290
+next I am super excited to get to it.
+
+91
+00:06:09,300 --> 00:06:10,370
+So stay tuned.
+
+92
+00:06:10,390 --> 00:06:11,850
+I will see you then
+

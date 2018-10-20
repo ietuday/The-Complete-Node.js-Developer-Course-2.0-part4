@@ -1,0 +1,808 @@
+﻿1
+00:00:00,360 --> 00:00:05,950
+In this video you are going to create an API route for fetching an individual to do.
+
+2
+00:00:05,970 --> 00:00:10,590
+Now most of this video is going to be a challenge but there is one thing I want to show you before we
+
+3
+00:00:10,590 --> 00:00:11,340
+get started.
+
+4
+00:00:11,460 --> 00:00:16,250
+And that is how to fetch a variable that's passed in via the you are out.
+
+5
+00:00:16,350 --> 00:00:22,820
+Now as I mentioned the structure for this you are out is going to be a GET request to forward slash
+
+6
+00:00:22,820 --> 00:00:23,630
+to dues.
+
+7
+00:00:23,700 --> 00:00:29,880
+Then we're going to dive into the dues fetching an individual item where the idea gets passed like this.
+
+8
+00:00:29,880 --> 00:00:33,580
+This means that we need to make this part of the you are dynamic.
+
+9
+00:00:33,690 --> 00:00:39,330
+I want to be able to fetch that value wherever a user happens to pass in and use it to make the query
+
+10
+00:00:39,570 --> 00:00:46,180
+the query that we set up in mongoose queries like this one to fetch the do by ID.
+
+11
+00:00:46,230 --> 00:00:51,430
+Now in order to get that done let's go ahead and call and get passing in.
+
+12
+00:00:51,550 --> 00:00:56,480
+If you are out the first part we already know forward slash to Doo's forward slash.
+
+13
+00:00:56,610 --> 00:01:00,880
+But now what we need is a u r l parameter u r l parameters.
+
+14
+00:01:00,900 --> 00:01:02,230
+Follow this pattern.
+
+15
+00:01:02,400 --> 00:01:04,890
+It's a colon followed by a name.
+
+16
+00:01:04,890 --> 00:01:11,160
+Now I could call this to do ID or anything else but we're going to call it for this section is colon
+
+17
+00:01:11,220 --> 00:01:12,110
+ID.
+
+18
+00:01:12,150 --> 00:01:14,650
+This is going to create an ID variable.
+
+19
+00:01:14,700 --> 00:01:17,180
+It's going to be on the request object.
+
+20
+00:01:17,220 --> 00:01:21,170
+The one will set up in just a moment and we'll be able to access that variable.
+
+21
+00:01:21,210 --> 00:01:26,700
+That means when someone makes this request and this callback will fire the one we're going to specify
+
+22
+00:01:26,700 --> 00:01:33,240
+now and we'll be able to query by that ID they pass and now we are still going to get the request and
+
+23
+00:01:33,240 --> 00:01:34,880
+response object.
+
+24
+00:01:34,890 --> 00:01:39,240
+The only difference is we're now going to be using something off of a request.
+
+25
+00:01:39,270 --> 00:01:46,530
+This one is request dot Puranas request pro-ams is going to be an object it's going to have key value
+
+26
+00:01:46,530 --> 00:01:52,470
+pairs where the key is the R parameter like ID and the value is whatever value was actually put here
+
+27
+00:01:52,890 --> 00:01:54,400
+in order to demonstrate this.
+
+28
+00:01:54,450 --> 00:02:03,000
+I am going to simply call response send sending back the request harams object.
+
+29
+00:02:03,030 --> 00:02:10,050
+This is going to let us test out this route inside of postman and see exactly how it works over inside
+
+30
+00:02:10,050 --> 00:02:12,900
+of the terminal I can start up our server.
+
+31
+00:02:13,130 --> 00:02:19,280
+I'm going to use node on server forward slash server just to start things up.
+
+32
+00:02:19,280 --> 00:02:23,110
+Now the servers on localhost three thousand and we can make a get request to this.
+
+33
+00:02:23,110 --> 00:02:25,640
+You are out over inside of post man.
+
+34
+00:02:25,640 --> 00:02:27,170
+I'm going to do just that.
+
+35
+00:02:27,230 --> 00:02:33,940
+We have the get method that you are Al is a local host and it's still on port three thousand.
+
+36
+00:02:33,950 --> 00:02:36,320
+Forward slash to Doo's forward slash.
+
+37
+00:02:36,320 --> 00:02:37,670
+And then we can type whatever we like.
+
+38
+00:02:37,670 --> 00:02:39,850
+For example one two three.
+
+39
+00:02:39,950 --> 00:02:45,260
+Now when I send this off when we get back is that request Paramo object and right here you can see it
+
+40
+00:02:45,260 --> 00:02:48,360
+has an ID property set to 1 2 3.
+
+41
+00:02:48,380 --> 00:02:55,910
+That means we are able to access the value here using request Dopp harams dot ID and that is exactly
+
+42
+00:02:55,910 --> 00:02:58,880
+what you're going to need to do for the challenge.
+
+43
+00:02:58,880 --> 00:03:07,690
+Over inside of Adam I'll start things off by creating that variable a VAR Id set equal to request dot
+
+44
+00:03:07,820 --> 00:03:14,450
+harams dot ID with this in place you now know everything you need in order to complete the challenge
+
+45
+00:03:14,630 --> 00:03:17,930
+which is going to be to finish filling out this route.
+
+46
+00:03:17,960 --> 00:03:23,670
+First up youre going to validate the idea using that object ID is a valid method that we explored over
+
+47
+00:03:23,670 --> 00:03:28,650
+in the mongooses queries file up above I'll leave a little comment here.
+
+48
+00:03:28,940 --> 00:03:33,620
+Validate ID using is Vout.
+
+49
+00:03:33,650 --> 00:03:38,540
+Now if it's not valid what you're going to do is stop the function execution and you're going to respond
+
+50
+00:03:38,540 --> 00:03:39,490
+with a 4.
+
+51
+00:03:39,500 --> 00:03:44,400
+0 4 because the ID passed in is not valid there's no way it's ever going to be in the collection.
+
+52
+00:03:44,540 --> 00:03:49,190
+We're going to respond with a or for letting the user know that the to do was not found.
+
+53
+00:03:49,280 --> 00:03:56,300
+And you can send back an empty body which means you can just call send without passing in any value.
+
+54
+00:03:56,300 --> 00:04:02,210
+It would be similar to this statement with no error here and you would also change this from a 400 to
+
+55
+00:04:02,210 --> 00:04:03,940
+a 404.
+
+56
+00:04:03,950 --> 00:04:06,490
+Now after that you're going to start querying the database.
+
+57
+00:04:06,500 --> 00:04:10,120
+And this is going to happen using find by ID.
+
+58
+00:04:10,250 --> 00:04:15,580
+I want you to take this idea and query that to do collection looking for a matching document.
+
+59
+00:04:15,650 --> 00:04:17,290
+And there's two ways this could go.
+
+60
+00:04:17,330 --> 00:04:22,620
+There's the success case and there is the error case.
+
+61
+00:04:22,780 --> 00:04:28,270
+If we get an error that one is pretty self-explanatory all we're going to do is send back a 400 letting
+
+62
+00:04:28,270 --> 00:04:31,190
+the user know that the request was not valid.
+
+63
+00:04:31,300 --> 00:04:34,450
+And we're also going to go ahead and send back nothing.
+
+64
+00:04:34,450 --> 00:04:39,970
+We're not going to be sending back that error argument because the error that prints for this error
+
+65
+00:04:39,970 --> 00:04:42,550
+message it could contain private information.
+
+66
+00:04:42,550 --> 00:04:45,940
+Now we're going to be beefing out our air handling later currently.
+
+67
+00:04:45,970 --> 00:04:51,790
+As you can see we have the function duplicated in quite a few places that will get moved into one location
+
+68
+00:04:51,790 --> 00:04:52,230
+later.
+
+69
+00:04:52,300 --> 00:04:59,140
+But for now you can respond with a 400 and send empty body back.
+
+70
+00:04:59,140 --> 00:05:01,830
+This brings us to the success case.
+
+71
+00:05:02,080 --> 00:05:11,340
+Now if there is a to do if to do you're going to go ahead and send it back if there is no to do it no
+
+72
+00:05:11,340 --> 00:05:15,680
+to do this means the call did succeed.
+
+73
+00:05:15,750 --> 00:05:18,320
+But the idea was not found in the collection.
+
+74
+00:05:18,420 --> 00:05:26,450
+All you're going to do is go ahead and send back a 4 or 4 with an empty body.
+
+75
+00:05:26,460 --> 00:05:29,050
+Now both of these statements are going to look really similar.
+
+76
+00:05:29,070 --> 00:05:34,560
+You're sending back a 404 or letting the user know that the ID they passed in does not match any ID
+
+77
+00:05:34,710 --> 00:05:37,510
+of a document in the to do's collection.
+
+78
+00:05:37,560 --> 00:05:38,980
+Now you know how to do all of this.
+
+79
+00:05:39,000 --> 00:05:41,780
+You can use anything you need to get this done.
+
+80
+00:05:41,790 --> 00:05:44,220
+That means you can use the mongoose queries file.
+
+81
+00:05:44,220 --> 00:05:47,490
+You can use the mongoose Jay ask.com and documentation.
+
+82
+00:05:47,490 --> 00:05:50,310
+You can use stack overflow Google or anything else.
+
+83
+00:05:50,310 --> 00:05:53,550
+It's not about memorizing exactly how to get stuff done.
+
+84
+00:05:53,550 --> 00:05:56,810
+It's about working through those problems on your own.
+
+85
+00:05:56,940 --> 00:06:00,780
+Eventually you will memorize a lot of these techniques as they come up again and again.
+
+86
+00:06:00,840 --> 00:06:04,560
+But for now your goal is to just get it working when you're done.
+
+87
+00:06:04,560 --> 00:06:06,380
+Go ahead and fire off this request.
+
+88
+00:06:06,390 --> 00:06:12,420
+Over in the postman application that means you're going to want to grab an ID that is valid from robo
+
+89
+00:06:12,420 --> 00:06:14,630
+Mongo and paste it right here.
+
+90
+00:06:14,640 --> 00:06:20,400
+You can also test what happens with IDs that are valid but don't exist in the database and IDs that
+
+91
+00:06:20,400 --> 00:06:27,870
+are invalid like one two three which is not a valid object id or this place you are ready to start the
+
+92
+00:06:27,870 --> 00:06:28,650
+challenge.
+
+93
+00:06:28,710 --> 00:06:30,500
+Take a moment to pause the video.
+
+94
+00:06:30,570 --> 00:06:31,440
+Fill this out.
+
+95
+00:06:31,440 --> 00:06:31,940
+Test it.
+
+96
+00:06:31,950 --> 00:06:32,850
+Make sure it works.
+
+97
+00:06:32,850 --> 00:06:39,340
+And when you're done go ahead and click play.
+
+98
+00:06:39,370 --> 00:06:40,630
+How'd you do on this one.
+
+99
+00:06:40,630 --> 00:06:44,370
+This was by far the biggest challenge I've given you but that's the goal.
+
+100
+00:06:44,410 --> 00:06:50,100
+The goal is to start giving you more work to do on your own because that's where the real learning happens.
+
+101
+00:06:50,110 --> 00:06:54,490
+Now the first thing I'm going to do is fill out the code for these comments right here.
+
+102
+00:06:54,520 --> 00:06:57,780
+We're going to validate the idea and we're going to send back a 404.
+
+103
+00:06:57,790 --> 00:07:03,010
+If it's not valid now up at the very top of the file I do not have object id imported.
+
+104
+00:07:03,010 --> 00:07:06,320
+I'm going to have to go ahead and do that just below body parser.
+
+105
+00:07:06,430 --> 00:07:16,180
+I can create a variable object id uppercase I uppercase D and set that equal to the return result from
+
+106
+00:07:16,180 --> 00:07:17,170
+require.
+
+107
+00:07:17,290 --> 00:07:25,090
+And we're requiring the Mongo NDB library now that we have object idea in place we can go ahead and
+
+108
+00:07:25,090 --> 00:07:26,680
+use it down below.
+
+109
+00:07:26,860 --> 00:07:33,180
+Right here we'll write an IF statement if object id dot is valid.
+
+110
+00:07:33,250 --> 00:07:38,020
+Now obviously we only want to run this code if it's not valid it's going to flip the return result using
+
+111
+00:07:38,020 --> 00:07:41,700
+an exclamation mark and then I'm going to pass the ID in.
+
+112
+00:07:41,740 --> 00:07:47,030
+Now we have an IF condition that's only going to pass if the ID the one that got passed in as a D u
+
+113
+00:07:47,050 --> 00:07:50,260
+r l parameter was not valid in that case.
+
+114
+00:07:50,260 --> 00:07:53,390
+We're going to use return to prevent function execution.
+
+115
+00:07:53,440 --> 00:08:01,060
+Then I'm going to go ahead and respond using response dot status setting an equal to a 4 0 4 and I'm
+
+116
+00:08:01,060 --> 00:08:05,660
+going to call send with no arguments so I can send back an empty body.
+
+117
+00:08:05,710 --> 00:08:06,440
+And there we go.
+
+118
+00:08:06,550 --> 00:08:13,030
+Our first thing is complete with this in place we can now go ahead and move down below creating the
+
+119
+00:08:13,030 --> 00:08:13,780
+query.
+
+120
+00:08:13,900 --> 00:08:19,030
+At this point we actually do have something we can test we can pass in invalid IDs and make sure we
+
+121
+00:08:19,030 --> 00:08:21,900
+get that 404 back over inside of the terminal.
+
+122
+00:08:21,910 --> 00:08:24,030
+I ran the application using no demands.
+
+123
+00:08:24,040 --> 00:08:26,740
+It automatically restarted in post man.
+
+124
+00:08:26,860 --> 00:08:32,300
+I can rerun this request and right here we get our 404 which is fantastic.
+
+125
+00:08:32,320 --> 00:08:34,540
+This is not a valid object ID.
+
+126
+00:08:34,570 --> 00:08:38,620
+The condition failed and the 404 was indeed returned.
+
+127
+00:08:38,620 --> 00:08:46,530
+Next up we're going to make that query to do a dot find by ID here.
+
+128
+00:08:46,540 --> 00:08:49,960
+We're going to pass in the ID which we have in the ID variable.
+
+129
+00:08:50,050 --> 00:08:57,860
+And then we're going to attach our success and error handlers then passing in our success call back.
+
+130
+00:08:57,860 --> 00:09:03,410
+This is going to get called potentially with the individual to do document and I am going to call catch
+
+131
+00:09:03,440 --> 00:09:09,170
+as well getting the error and we can do the air handler first if there is an error.
+
+132
+00:09:09,230 --> 00:09:17,760
+We're going to keep things really simple response dot status setting an equal to a 400 then we're going
+
+133
+00:09:17,760 --> 00:09:23,010
+to go ahead and call send leaving out the error object intentionally with this in place.
+
+134
+00:09:23,010 --> 00:09:26,370
+The only thing left to do is fill out the success handler.
+
+135
+00:09:26,460 --> 00:09:31,230
+Now the first thing we need to do is make sure that it to do is actually found this query if successful
+
+136
+00:09:31,230 --> 00:09:35,140
+might not always result in an actual document being returned.
+
+137
+00:09:35,280 --> 00:09:41,100
+Right here I'm going to use an IF statement to check if there is no to do if there is no to do we want
+
+138
+00:09:41,100 --> 00:09:44,100
+to respond with a 404 just like we did up above.
+
+139
+00:09:44,400 --> 00:09:50,310
+We're going to return to stop the function execution response dot status.
+
+140
+00:09:50,480 --> 00:09:56,100
+The status here will be 404 and we will be using send to respond with no data.
+
+141
+00:09:56,100 --> 00:09:57,060
+Perfect.
+
+142
+00:09:57,060 --> 00:10:02,220
+Now that we have this case in place the last case is the happy path the success case when everything
+
+143
+00:10:02,220 --> 00:10:03,230
+goes as planned.
+
+144
+00:10:03,240 --> 00:10:09,650
+The idea is valid and we find a document in the dues collection that has an I.D. matching the I.D. passed
+
+145
+00:10:09,690 --> 00:10:10,860
+in in that case.
+
+146
+00:10:10,870 --> 00:10:16,770
+All we're going to do is respond using response and send sending back that to do.
+
+147
+00:10:16,770 --> 00:10:18,700
+Now you could have sent it in like this.
+
+148
+00:10:18,720 --> 00:10:20,010
+This will indeed work.
+
+149
+00:10:20,040 --> 00:10:25,050
+But what I want to do is tweak it just a little bit instead of sending back to do as the body.
+
+150
+00:10:25,050 --> 00:10:31,380
+I'm going to send back an object where the two do is attached as the to do property using the six object
+
+151
+00:10:31,380 --> 00:10:33,900
+definition which is identical to this.
+
+152
+00:10:33,900 --> 00:10:36,020
+This gives me a little flexibility down the line.
+
+153
+00:10:36,120 --> 00:10:41,220
+I could always add other properties onto the response like custom status codes or anything else.
+
+154
+00:10:41,280 --> 00:10:47,190
+It's similar to the technique we used up above for get to Dewes right here instead of responding with
+
+155
+00:10:47,190 --> 00:10:47,900
+the array.
+
+156
+00:10:47,940 --> 00:10:53,300
+We responded with an object that has to do is property and that is the array.
+
+157
+00:10:53,490 --> 00:10:56,960
+Now that we have this in place we are done and we can test things out.
+
+158
+00:10:57,000 --> 00:11:01,920
+I'm going to save the file remove all of our comments at a semi-colon where needed.
+
+159
+00:11:02,010 --> 00:11:07,820
+And we're going to grab an I.D. from Roboam Mongo over inside of robo Mongo.
+
+160
+00:11:08,010 --> 00:11:09,980
+I can grab an ID for one of my to do.
+
+161
+00:11:09,990 --> 00:11:11,960
+I'm going to go with the second one.
+
+162
+00:11:12,120 --> 00:11:14,790
+I'll edit the document and copy it to the clipboard.
+
+163
+00:11:15,150 --> 00:11:18,000
+Now over in post man we can go ahead and make the request.
+
+164
+00:11:18,120 --> 00:11:22,130
+Setting the ID equal to the ID value we just copied.
+
+165
+00:11:22,200 --> 00:11:23,610
+I'm going to send it off and what do we get.
+
+166
+00:11:23,610 --> 00:11:26,460
+We get our object where we have it to do property.
+
+167
+00:11:26,490 --> 00:11:34,020
+And on that to do property we have all of the properties for the document ID text completed at and completed.
+
+168
+00:11:34,020 --> 00:11:40,020
+Now the last case I want to test is what happens when we request a to do with a valid object id but
+
+169
+00:11:40,020 --> 00:11:42,010
+one that just happens to not exist.
+
+170
+00:11:42,030 --> 00:11:48,750
+I'm going to do this by taking the last number in my ID and replacing it from 9 to zero if I send this
+
+171
+00:11:48,750 --> 00:11:49,150
+off.
+
+172
+00:11:49,200 --> 00:11:51,770
+We get our 404 which is fantastic.
+
+173
+00:11:51,780 --> 00:11:57,550
+This is exactly what I expect to happen when I make a request for it to do the object ID is valid.
+
+174
+00:11:57,600 --> 00:12:03,330
+It's just not in the collection now that we've made this request we can actually save this inside of
+
+175
+00:12:03,330 --> 00:12:05,420
+our to do app collection.
+
+176
+00:12:05,460 --> 00:12:11,790
+So later down the line it's a lot easier to fire off this one I'm going to save it using Save As we
+
+177
+00:12:11,790 --> 00:12:18,240
+can leave the description empty and we can change the name to get forward slash to Dewes forward slash
+
+178
+00:12:18,270 --> 00:12:19,680
+colon ID.
+
+179
+00:12:19,770 --> 00:12:21,990
+And I am going to add it to our existing collection.
+
+180
+00:12:22,000 --> 00:12:24,350
+Need to do app collection.
+
+181
+00:12:24,480 --> 00:12:26,150
+Now we have three routes.
+
+182
+00:12:26,160 --> 00:12:30,330
+The only thing left to do for this route is to add some test cases and that's going to be the topic
+
+183
+00:12:30,330 --> 00:12:32,190
+of the next video to wrap this one up.
+
+184
+00:12:32,190 --> 00:12:36,590
+Let's commit our changes and push them up to get up.
+
+185
+00:12:36,740 --> 00:12:39,950
+I'm going to shut down the server and run and get status.
+
+186
+00:12:39,950 --> 00:12:42,120
+Here we see we have our modified file.
+
+187
+00:12:42,140 --> 00:12:47,720
+This means I can run and get commit with the a flag and the flag and then I'm going to provide a my
+
+188
+00:12:47,720 --> 00:12:49,220
+commit message.
+
+189
+00:12:49,220 --> 00:12:55,130
+Now if you're using a flag and the flag you can actually use a shortcut the AM flag which does the exact
+
+190
+00:12:55,130 --> 00:12:55,750
+same thing.
+
+191
+00:12:55,940 --> 00:12:58,920
+It's going out all of our modified files to the commit.
+
+192
+00:12:58,940 --> 00:13:06,640
+It's also going to give us a place to add a message a good message for this one would be ADD get to
+
+193
+00:13:06,700 --> 00:13:08,520
+do's ID.
+
+194
+00:13:08,620 --> 00:13:09,380
+Excellent.
+
+195
+00:13:09,400 --> 00:13:11,360
+With this in place I'm going to make the commit.
+
+196
+00:13:11,410 --> 00:13:12,300
+Push it up to get help.
+
+197
+00:13:12,310 --> 00:13:13,450
+And we are done.
+
+198
+00:13:13,490 --> 00:13:18,840
+I will see you next time where we are going to go ahead and write test cases for this route.
+
+199
+00:13:18,850 --> 00:13:21,320
+It's going to be mostly a challenge like this one was.
+
+200
+00:13:21,400 --> 00:13:22,750
+So get ready for it.
+
+201
+00:13:22,750 --> 00:13:23,560
+Stay tuned.
+
+202
+00:13:23,650 --> 00:13:25,120
+I will see you them
+

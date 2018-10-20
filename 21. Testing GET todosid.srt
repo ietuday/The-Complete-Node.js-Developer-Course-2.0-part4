@@ -1,0 +1,616 @@
+﻿1
+00:00:00,500 --> 00:00:04,310
+In this video we're going to create three test cases for this route.
+
+2
+00:00:04,330 --> 00:00:09,010
+The one that fetches an individual to do Item one is going to make sure that when we pass in an invalid
+
+3
+00:00:09,010 --> 00:00:15,190
+object id we get a for a for another one is going to verify that when we pass in a valid object id but
+
+4
+00:00:15,190 --> 00:00:16,390
+it doesn't match a doc.
+
+5
+00:00:16,420 --> 00:00:17,760
+We get a 404 back.
+
+6
+00:00:17,860 --> 00:00:23,560
+And lastly we'll write a test case that makes sure when we pass in an object ID that does match a doc
+
+7
+00:00:23,620 --> 00:00:30,370
+that Doc actually comes back in the response body we're going to write the test case for the valid call
+
+8
+00:00:30,370 --> 00:00:31,100
+together.
+
+9
+00:00:31,180 --> 00:00:36,880
+Then you'll be writing these two test cases on your own that will be the challenge for this video over
+
+10
+00:00:36,880 --> 00:00:38,610
+inside of server test.
+
+11
+00:00:38,770 --> 00:00:44,100
+Yes we can get started down at the very bottom by adding a describe block right here.
+
+12
+00:00:44,440 --> 00:00:52,380
+I'm going to call the scrub and this describe block will be named get forward slash to Doo's a forward
+
+13
+00:00:52,380 --> 00:00:59,450
+slash colon ID and we can at our aero function as the callback function inside of our describe call
+
+14
+00:00:59,450 --> 00:00:59,790
+back.
+
+15
+00:00:59,780 --> 00:01:02,490
+We can now set up the test case that we're going to create together.
+
+16
+00:01:02,610 --> 00:01:07,540
+It should return to do doc.
+
+17
+00:01:07,560 --> 00:01:12,360
+This is going to be the test that makes sure when we pass in a valid ID that does match a doc the Doc
+
+18
+00:01:12,360 --> 00:01:13,590
+comes back.
+
+19
+00:01:13,590 --> 00:01:19,120
+It's going to be an asynchronous test so we will be specifying the Done argument right here.
+
+20
+00:01:19,140 --> 00:01:24,630
+Now in order to run this test case we're going to need the ID of a to do that is actually inside of
+
+21
+00:01:24,630 --> 00:01:25,490
+the collection.
+
+22
+00:01:25,620 --> 00:01:30,780
+And if you remember we do add two to dues to the collection but unfortunately we don't have the IDs
+
+23
+00:01:30,780 --> 00:01:31,230
+here.
+
+24
+00:01:31,290 --> 00:01:35,140
+The Ids are auto generated behind the scenes in order to fix this.
+
+25
+00:01:35,160 --> 00:01:39,750
+What we're going to do is add the id property underscore ID.
+
+26
+00:01:39,810 --> 00:01:45,660
+This means we'll be able to access the ID in our test case and everything will work as expected.
+
+27
+00:01:45,660 --> 00:01:51,360
+Now in order to do this we do have to load an object id off of Mongo D-B which we've done before.
+
+28
+00:01:51,360 --> 00:01:55,290
+I'm going to make a constant using E-S six the destructuring.
+
+29
+00:01:55,500 --> 00:02:02,440
+I'm going to grab object id off of the return result from requiring Mongo D.
+
+30
+00:02:02,620 --> 00:02:03,480
+B.
+
+31
+00:02:03,630 --> 00:02:11,070
+Now right here inside of the array we can add an id property for both of our to Dewes new object ID
+
+32
+00:02:11,640 --> 00:02:12,380
+with a comma.
+
+33
+00:02:12,530 --> 00:02:18,360
+This is for the first to do and a down below we can add an ID for the second to to do as well.
+
+34
+00:02:18,360 --> 00:02:20,700
+New Object I.
+
+35
+00:02:20,760 --> 00:02:21,370
+D.
+
+36
+00:02:21,420 --> 00:02:22,190
+Excellent.
+
+37
+00:02:22,410 --> 00:02:28,200
+Now that we have ideas and we can access those IDs by accessing them off the to do's array we're ready
+
+38
+00:02:28,200 --> 00:02:31,800
+to write the test case down below inside of this test case.
+
+39
+00:02:31,800 --> 00:02:35,720
+We're going to get started by creating our super test request.
+
+40
+00:02:35,820 --> 00:02:40,500
+We're going to request something from the app express application.
+
+41
+00:02:40,500 --> 00:02:41,950
+It is going to be a get request.
+
+42
+00:02:41,970 --> 00:02:48,480
+That is the you are Alwar testing and the actual You are L is going to be a forward slash to Doo's forward
+
+43
+00:02:48,480 --> 00:02:53,640
+slash ID where the ID equals one of these IDs up above.
+
+44
+00:02:53,640 --> 00:02:58,440
+I'm going to go ahead and use the ID of the first to do down below.
+
+45
+00:02:58,440 --> 00:03:05,010
+We can fix this by changing our string to a template string so we can inject the ID forward slash to
+
+46
+00:03:05,010 --> 00:03:10,780
+Doo's forward slash and then we're going to add our syntax for injecting a value into the template string.
+
+47
+00:03:10,860 --> 00:03:13,920
+In this case we're accessing something from the Duzer.
+
+48
+00:03:14,460 --> 00:03:20,990
+We want to grab the first item this is the first to do and we're looking for it's underscore ideal property.
+
+49
+00:03:21,000 --> 00:03:25,410
+Now this is an object idea we need to convert this into a string because that is what we're going to
+
+50
+00:03:25,410 --> 00:03:29,450
+pass in as the you are able to convert an object ID to a string.
+
+51
+00:03:29,490 --> 00:03:34,230
+We can use the two hex string method.
+
+52
+00:03:34,230 --> 00:03:35,100
+There we go.
+
+53
+00:03:35,100 --> 00:03:40,650
+Now we've generated the proper ID and we can start making some assertions about what should happen when
+
+54
+00:03:40,650 --> 00:03:42,610
+this request gets fired.
+
+55
+00:03:42,660 --> 00:03:46,880
+First up the HTP status code that should be a 200.
+
+56
+00:03:46,980 --> 00:03:51,160
+So I can call expect right here passing in 200.
+
+57
+00:03:51,180 --> 00:03:57,150
+Next up we do want to verify that the body that comes back matches the body up above.
+
+58
+00:03:57,150 --> 00:04:01,570
+Most notably that the text property equals the text property we set.
+
+59
+00:04:01,650 --> 00:04:05,670
+I'm going to create a custom expect call right here to get that done.
+
+60
+00:04:05,760 --> 00:04:09,460
+We'll pass in our function that gets called with the response object.
+
+61
+00:04:09,570 --> 00:04:13,990
+And now we can make an assertion using the expect library.
+
+62
+00:04:14,110 --> 00:04:23,970
+I'm going to expect that the response body has to do property which we set up right here when we use
+
+63
+00:04:23,970 --> 00:04:26,110
+the 6 object's syntax.
+
+64
+00:04:26,400 --> 00:04:33,900
+And that to do property has a text property that equals using to be the text property of our first to
+
+65
+00:04:33,900 --> 00:04:34,480
+do.
+
+66
+00:04:34,740 --> 00:04:39,660
+That's going to be to Doo's grabbing the first one the zero indexed to do.
+
+67
+00:04:39,660 --> 00:04:43,880
+And we're going to grab its text property with this in place.
+
+68
+00:04:43,890 --> 00:04:45,410
+All of our assertions are done.
+
+69
+00:04:45,420 --> 00:04:50,720
+We can call and passing in done which is going to wrap up the test case.
+
+70
+00:04:50,730 --> 00:04:57,600
+Now we can go ahead and run this test over inside of the terminal by running NPM run test hyphen watch.
+
+71
+00:04:57,910 --> 00:05:02,400
+This is going to kick off our test suite and we should have our new section with our test case that
+
+72
+00:05:02,460 --> 00:05:03,510
+is passing.
+
+73
+00:05:03,630 --> 00:05:09,470
+Right here we get should return to do dock and that is passing which is fantastic.
+
+74
+00:05:09,480 --> 00:05:13,100
+Now it's time for you to write two test cases on your own.
+
+75
+00:05:13,110 --> 00:05:14,530
+I'll give you the calls.
+
+76
+00:05:14,550 --> 00:05:19,560
+So we're on the same page there but you are going to be responsible for filling out the actual test
+
+77
+00:05:19,800 --> 00:05:21,220
+function.
+
+78
+00:05:22,420 --> 00:05:32,250
+Should return a 404 if you do not found this is going to be an sink test so will specify the done argument
+
+79
+00:05:32,470 --> 00:05:38,770
+and your job inside of here is going to be to make a request using a real object I.D. and you're going
+
+80
+00:05:38,770 --> 00:05:41,270
+to college to hex string method.
+
+81
+00:05:41,320 --> 00:05:46,750
+That means you're going to call the method we have here and you're going to call new object ID to make
+
+82
+00:05:46,750 --> 00:05:47,530
+a new one.
+
+83
+00:05:47,550 --> 00:05:50,550
+It is going to be a valid ID but it won't be found in the collection.
+
+84
+00:05:50,550 --> 00:05:52,520
+So we should get a 404 back.
+
+85
+00:05:52,540 --> 00:05:56,140
+Now the only expectation you need to set up is the status code.
+
+86
+00:05:56,140 --> 00:06:04,560
+Make sure make sure you get a 404 back.
+
+87
+00:06:04,560 --> 00:06:09,510
+Now the second test you're going to write is going to verify that when we have an invalid ID we get
+
+88
+00:06:09,510 --> 00:06:11,160
+back a 404.
+
+89
+00:06:11,160 --> 00:06:19,020
+It should return 404 for non object IDs.
+
+90
+00:06:19,190 --> 00:06:21,300
+This is also going to be an async test.
+
+91
+00:06:21,320 --> 00:06:26,770
+So we'll specify done right here for this one you're going to pass in a u r l something like this.
+
+92
+00:06:26,900 --> 00:06:31,020
+Forward slash to Doo's forward slash One two three.
+
+93
+00:06:31,040 --> 00:06:32,340
+This is indeed a valid.
+
+94
+00:06:32,360 --> 00:06:33,090
+You are out.
+
+95
+00:06:33,110 --> 00:06:38,840
+But when we try to convert one to three to an object ID it's going to fail that should trigger the code
+
+96
+00:06:38,840 --> 00:06:43,820
+right here and we should get a 404 back once again and the only expectation you need to set up for this
+
+97
+00:06:43,820 --> 00:06:50,100
+test is that when you make the request to the you R-AL of 404 is the status code.
+
+98
+00:06:50,150 --> 00:06:56,600
+Take a moment to knock out both of these test cases making sure they work as expected when you actually
+
+99
+00:06:56,600 --> 00:06:57,890
+have the calls set up.
+
+100
+00:06:57,890 --> 00:07:02,510
+If all of your test cases are passing over in the terminal when you're done then you are ready to move
+
+101
+00:07:02,510 --> 00:07:03,050
+on.
+
+102
+00:07:03,080 --> 00:07:10,340
+Take a moment to knock this out pause the video and when you're done click play.
+
+103
+00:07:10,340 --> 00:07:10,900
+All right.
+
+104
+00:07:10,940 --> 00:07:15,610
+Hopefully you didn't have too much trouble getting these calls set up for the first one.
+
+105
+00:07:15,620 --> 00:07:19,940
+I'm going to go ahead and get that hex string by creating a variable.
+
+106
+00:07:19,940 --> 00:07:23,500
+Now you didn't need to create a variable you could have done it slightly differently.
+
+107
+00:07:23,810 --> 00:07:32,330
+I'm going to make a variable called hex ID sending an equal to a new object ID.
+
+108
+00:07:32,370 --> 00:07:37,850
+Now on this object id we do want to call that two hex string method which we used above.
+
+109
+00:07:37,860 --> 00:07:43,520
+This takes our object id and gives us a string and we can specify that string as part of the U r l.
+
+110
+00:07:43,560 --> 00:07:45,990
+Now it's fine if you did this inside of the call.
+
+111
+00:07:45,990 --> 00:07:47,300
+Kind of like we do up here.
+
+112
+00:07:47,340 --> 00:07:51,600
+Either way works as long as the test case passes right here.
+
+113
+00:07:51,780 --> 00:07:54,980
+We're going to call request passing in our app.
+
+114
+00:07:54,990 --> 00:07:57,410
+Next up we are going to make a get request.
+
+115
+00:07:57,420 --> 00:08:00,980
+So I'll call that get method and we can set up r u r l.
+
+116
+00:08:01,200 --> 00:08:06,210
+This one is going to be forward slash to Doo's forward slash and we're going to inject in our template
+
+117
+00:08:06,210 --> 00:08:09,590
+string that Hex ID value.
+
+118
+00:08:09,600 --> 00:08:13,550
+Now the only expectation we need to set up is that a 404 comes back.
+
+119
+00:08:13,740 --> 00:08:15,270
+We're expecting a 4.
+
+120
+00:08:15,270 --> 00:08:22,400
+0 4 we can wrap this test case up by calling and passing in our Done function.
+
+121
+00:08:22,410 --> 00:08:27,660
+Now we can save the file on this test case should rerun the last test is still going to fail but that's
+
+122
+00:08:27,660 --> 00:08:28,230
+fine.
+
+123
+00:08:28,230 --> 00:08:34,410
+And over here you can see we get exactly that should return to Dudack passes should return 4 or 4 if
+
+124
+00:08:34,450 --> 00:08:40,780
+to do not found passes in the last test to write is what happens when we have an invalid object ID.
+
+125
+00:08:41,250 --> 00:08:46,830
+I'm going to call Everquest passing an app and then I'm going to go ahead and call get setting up the
+
+126
+00:08:46,950 --> 00:08:47,680
+R L.
+
+127
+00:08:47,730 --> 00:08:52,260
+We don't need to use template strings here since we're just going to be passing in a plain straight
+
+128
+00:08:52,710 --> 00:08:55,020
+forward slash to Doo's forward slash.
+
+129
+00:08:55,050 --> 00:08:57,870
+One two three ABC indeed.
+
+130
+00:08:57,930 --> 00:09:00,760
+An invalid object id the object ID.
+
+131
+00:09:00,780 --> 00:09:05,610
+As we talked about have a very specific structure and this does not pass that criteria to find out more
+
+132
+00:09:05,610 --> 00:09:06,840
+about object IDs.
+
+133
+00:09:06,870 --> 00:09:12,170
+You can always go back to the object id video in the beginning of this section right here.
+
+134
+00:09:12,210 --> 00:09:18,240
+We're going to start setting up our assertions by calling expect and expecting a 404 comes back and
+
+135
+00:09:18,240 --> 00:09:25,260
+we can wrap this test up by calling the end method and passing in done with this in place our test suite
+
+136
+00:09:25,290 --> 00:09:28,380
+forget to use by ID is complete.
+
+137
+00:09:28,470 --> 00:09:32,280
+Over in the terminal it just reran and all of the test cases passed.
+
+138
+00:09:32,280 --> 00:09:34,430
+And this is fantastic.
+
+139
+00:09:34,470 --> 00:09:38,510
+We don't have a complete test suite set up for the route which means we are done.
+
+140
+00:09:38,640 --> 00:09:44,430
+And if the data comes back incorrectly for example if the body data has an extra character appended
+
+141
+00:09:44,700 --> 00:09:50,520
+like the character one the test cases are going to fail everything is working really really well.
+
+142
+00:09:50,550 --> 00:09:55,760
+The last thing left to do is commit our changes over inside of the terminal I'm going to shut down and
+
+143
+00:09:55,780 --> 00:10:01,770
+node man and run it get status here the only changes we have are changes to the server test file which
+
+144
+00:10:01,770 --> 00:10:08,250
+is a modified file get is already tracking it which means I can use get commit with the AM flag or the
+
+145
+00:10:08,280 --> 00:10:18,670
+combined am flag providing a message add test cases for get to Dewes by ID.
+
+146
+00:10:18,670 --> 00:10:22,930
+I'm going to make the commit and push it up to get up in the next video we're going to switch things
+
+147
+00:10:22,930 --> 00:10:27,030
+up a little bit instead of continuing on adding new routes which we will do a little later.
+
+148
+00:10:27,040 --> 00:10:32,950
+We are going to deploy our application to Heroku using a real world Mongo DB database.
+
+149
+00:10:32,950 --> 00:10:35,610
+That means all the calls we're making in post man we can make.
+
+150
+00:10:35,620 --> 00:10:41,370
+But to a real server and anybody can make those calls not just people on our local machine because the
+
+151
+00:10:41,500 --> 00:10:46,660
+RL will no longer be a local host that is coming up next I am super excited to show you how to set up
+
+152
+00:10:46,660 --> 00:10:48,550
+Heroku with Mongo D-B.
+
+153
+00:10:48,550 --> 00:10:49,250
+Stay tuned.
+
+154
+00:10:49,260 --> 00:10:50,600
+We'll see you then
+

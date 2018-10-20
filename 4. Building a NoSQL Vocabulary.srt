@@ -1,0 +1,168 @@
+﻿1
+00:00:01,210 --> 00:00:05,670
+In this video we're going to go over some notes vocabulary that's going to set us up for the rest of
+
+2
+00:00:05,670 --> 00:00:06,360
+the course.
+
+3
+00:00:06,420 --> 00:00:11,820
+And if you are familiar with Escuela databases we'll be doing a little comparing and contrasting comparing
+
+4
+00:00:11,820 --> 00:00:15,270
+which term best maps up to a term in the other database.
+
+5
+00:00:15,270 --> 00:00:20,230
+Now it's not a perfect one to one map but as you'll see the general principles are the same.
+
+6
+00:00:20,250 --> 00:00:22,310
+It's really just the details that are different.
+
+7
+00:00:22,500 --> 00:00:27,660
+To get started the term database is used in both and Eskew allein might have a database for my to do
+
+8
+00:00:27,660 --> 00:00:32,640
+app and the same would be true in no as well both of those databases are going to contain various sets
+
+9
+00:00:32,640 --> 00:00:33,730
+of information.
+
+10
+00:00:33,810 --> 00:00:39,820
+If it's a weather app I might have a set of users a set of locations and a set of temperatures.
+
+11
+00:00:39,870 --> 00:00:42,720
+Now that data is stored inside of your database.
+
+12
+00:00:42,720 --> 00:00:48,090
+This is a little different inside of su l we have a table like structure instead of notes.
+
+13
+00:00:48,150 --> 00:00:51,030
+Well we have more of an array like structure.
+
+14
+00:00:51,030 --> 00:00:55,860
+Now the table is called a table and the horæ like structure is called a collection.
+
+15
+00:00:55,860 --> 00:01:01,560
+So if I have a weather app I might have a table of users and a table of temperatures inside of notes
+
+16
+00:01:01,830 --> 00:01:06,330
+that would be a collection of users and a collection of temperatures.
+
+17
+00:01:06,330 --> 00:01:07,890
+Now let's take that table of users.
+
+18
+00:01:07,890 --> 00:01:13,320
+What do you call an individual user and asks Who else you could call that user a row or a record.
+
+19
+00:01:13,320 --> 00:01:19,410
+That's what I have highlighted in red right here in no S Q L an individual user in the users collection
+
+20
+00:01:19,410 --> 00:01:23,700
+would be called a document that's going to start right here at that curly brace and it's going to end
+
+21
+00:01:23,700 --> 00:01:26,630
+at the end of my Jasen like object.
+
+22
+00:01:26,640 --> 00:01:33,210
+Here we have various properties just like we have various columns over here name Andrew name Andrew.
+
+23
+00:01:33,210 --> 00:01:38,860
+Now let's talk about those individual properties inside of su l you might have called this a column.
+
+24
+00:01:38,940 --> 00:01:42,510
+We have an e-mail column A Name column and so on and so forth.
+
+25
+00:01:42,510 --> 00:01:45,520
+And this is because su l is schema based.
+
+26
+00:01:45,570 --> 00:01:47,970
+So the Name column is going to exist for all records.
+
+27
+00:01:47,970 --> 00:01:52,920
+It's going to be of a specific type and it can pretty much be guaranteed to be there for anything in
+
+28
+00:01:52,920 --> 00:01:54,710
+this table instead of No.
+
+29
+00:01:54,710 --> 00:01:56,220
+Q Well it's not the same.
+
+30
+00:01:56,220 --> 00:02:00,110
+Your documents in a collection they don't all need to have the same properties.
+
+31
+00:02:00,210 --> 00:02:05,130
+The properties could be completely different although there's not usually a lot of value in that unless
+
+32
+00:02:05,130 --> 00:02:10,350
+you're doing some data mining or they could be the same which is what we're going to be doing.
+
+33
+00:02:10,350 --> 00:02:15,600
+We want to store some data like users and users are going to have the same properties those are going
+
+34
+00:02:15,600 --> 00:02:17,850
+to be called the fields inside of no as.
+
+35
+00:02:17,940 --> 00:02:20,680
+Well here we have a name field email field.
+
+36
+00:02:20,700 --> 00:02:24,810
+I might also call them properties since it's an object like syntax.
+
+37
+00:02:24,840 --> 00:02:30,420
+Either way though these are pretty much the big differences between STOVL and Nolst Well in terms of
+
+38
+00:02:30,420 --> 00:02:31,660
+vocabulary.
+
+39
+00:02:31,680 --> 00:02:36,180
+So we're going to create a database for the to do app we're going to have a collection of users will
+
+40
+00:02:36,180 --> 00:02:40,900
+have individual user documents and those documents will have fields.
+
+41
+00:02:40,900 --> 00:02:41,980
+Enough of this vocab.
+
+42
+00:02:41,980 --> 00:02:44,960
+Let's go ahead and actually start using Mongo D-B
+

@@ -1,0 +1,792 @@
+﻿1
+00:00:00,550 --> 00:00:06,190
+The delete route is now set up and tested it's time to start on the final route for managing our to
+
+2
+00:00:06,190 --> 00:00:07,320
+do resources.
+
+3
+00:00:07,330 --> 00:00:12,340
+This is going to be the route that lets you update to do item whether you want to change the tax to
+
+4
+00:00:12,340 --> 00:00:15,790
+something else or whether you want to toggle it as completed.
+
+5
+00:00:15,790 --> 00:00:18,320
+Now this is going to be the most complex route.
+
+6
+00:00:18,330 --> 00:00:21,940
+We write everything so far has been relatively straightforward.
+
+7
+00:00:21,970 --> 00:00:26,950
+We're going to need to do a few extra things to get this updating route to work as expected.
+
+8
+00:00:26,980 --> 00:00:31,600
+The first thing I want to do before we go ahead and create the route down below is install that low
+
+9
+00:00:31,600 --> 00:00:35,160
+dash library we used in one of the previous sections for this course.
+
+10
+00:00:35,260 --> 00:00:40,390
+If you remember low Dasch provides a few really great utility functions and will be taking advantage
+
+11
+00:00:40,390 --> 00:00:44,610
+of a couple of those inside of our update route right here.
+
+12
+00:00:44,740 --> 00:00:48,850
+I'm going to use NPM II with the Save flag to install it.
+
+13
+00:00:48,970 --> 00:00:55,780
+The module name itself is called EHLO dash low dash and we'll be using the most recent version at four
+
+14
+00:00:56,200 --> 00:00:58,930
+point fifteen point zero.
+
+15
+00:00:58,930 --> 00:01:04,310
+Now once this is installed we can require it up top and then we can go ahead and add our route.
+
+16
+00:01:04,420 --> 00:01:10,120
+At the very top of the file we can make a constant will use underscore as the name for the variable
+
+17
+00:01:10,120 --> 00:01:12,160
+that stores the low dash library.
+
+18
+00:01:12,160 --> 00:01:15,940
+Then we'll go ahead and require it requiring low dash.
+
+19
+00:01:15,970 --> 00:01:20,030
+Now I've used regular variables here instead of constants for my other imports.
+
+20
+00:01:20,080 --> 00:01:23,270
+I can go ahead and switch these to constants as well.
+
+21
+00:01:25,500 --> 00:01:26,140
+Perfect.
+
+22
+00:01:26,220 --> 00:01:30,930
+Now that we have this in place we are ready to move to the bottom of the file and start adding the new
+
+23
+00:01:30,930 --> 00:01:31,680
+route.
+
+24
+00:01:31,680 --> 00:01:38,520
+This route is going to use the HTP patch method patch is what you use when you want to update a resource.
+
+25
+00:01:38,520 --> 00:01:41,300
+Now remember none of this is really set in stone.
+
+26
+00:01:41,400 --> 00:01:46,520
+I could have a delete route that creates new to do's and I could have a post route that deletes to Dewes
+
+27
+00:01:46,740 --> 00:01:53,370
+but these are just the general guidelines and best practices for API development right here.
+
+28
+00:01:53,370 --> 00:01:56,570
+We're going to set up a patch route by calling up patch.
+
+29
+00:01:56,580 --> 00:02:00,650
+This is what is going to allow us to update to do items.
+
+30
+00:02:00,780 --> 00:02:05,880
+Now that you are going to be the exact same you are Al as it has been when we're managing an individual
+
+31
+00:02:05,880 --> 00:02:10,140
+to do item forward slash to Doo's forward slash colon ID.
+
+32
+00:02:10,350 --> 00:02:16,250
+Then we can set up our callback with our request and response arguments inside of the callback.
+
+33
+00:02:16,260 --> 00:02:20,700
+One of the first things that we're going to need to do is grab that Id just like we do for all our other
+
+34
+00:02:20,700 --> 00:02:21,630
+routes.
+
+35
+00:02:21,630 --> 00:02:29,160
+I'm going to make a variable called Id set equal to request dot harams dot ID.
+
+36
+00:02:29,190 --> 00:02:33,780
+Now on the next line we're going to go ahead and create a variable called a body.
+
+37
+00:02:33,900 --> 00:02:36,330
+And this is the reason I loaded in low dash.
+
+38
+00:02:36,390 --> 00:02:41,730
+The body of the request body that's where the updates are going to be stored if I want to set a to do
+
+39
+00:02:41,790 --> 00:02:43,160
+text to something else.
+
+40
+00:02:43,200 --> 00:02:44,820
+I would make a patch request.
+
+41
+00:02:44,910 --> 00:02:49,690
+I would set the text property equal to whatever I want the to do text to be.
+
+42
+00:02:49,860 --> 00:02:53,060
+The problem here is that someone can send any property along.
+
+43
+00:02:53,250 --> 00:02:55,830
+They can send along properties that are on the to do items.
+
+44
+00:02:55,850 --> 00:03:01,760
+Or they could send along properties we don't want them to update for example completed at completed
+
+45
+00:03:01,770 --> 00:03:06,180
+at is going to be a property that gets updated but it's not going to be updated by the user.
+
+46
+00:03:06,180 --> 00:03:12,480
+It's going to be updated by us when the user updates the completed property completed and is going to
+
+47
+00:03:12,480 --> 00:03:19,020
+be generated by the program which means we do not want a user to be able to update it in order to pull
+
+48
+00:03:19,020 --> 00:03:21,810
+off just the properties we want users to update.
+
+49
+00:03:21,840 --> 00:03:28,000
+We're going to be using the pick method underscore dot pick pick is fantastic.
+
+50
+00:03:28,020 --> 00:03:29,380
+It takes an object.
+
+51
+00:03:29,520 --> 00:03:34,350
+We're going to pass and request dot body then it takes an array of properties that you want to pull
+
+52
+00:03:34,350 --> 00:03:35,940
+off if they exist.
+
+53
+00:03:35,940 --> 00:03:42,300
+For example if the text property exists we want to pull that off of a request body adding it to body.
+
+54
+00:03:42,300 --> 00:03:47,030
+This is something that users should be able to update and we'll do the same thing for completed.
+
+55
+00:03:47,040 --> 00:03:50,160
+These are the only two properties a user is going to be able to update.
+
+56
+00:03:50,160 --> 00:03:55,710
+We don't need users updating ideas or adding any other properties that aren't specified in the mongoose
+
+57
+00:03:55,800 --> 00:03:56,480
+model.
+
+58
+00:03:56,820 --> 00:04:01,350
+Now that we have this in place we can get started down the usual path kicking things off by validating
+
+59
+00:04:01,350 --> 00:04:02,240
+our ID.
+
+60
+00:04:02,330 --> 00:04:06,220
+There is no need to rewrite this code since we've written it before and we know what it does.
+
+61
+00:04:06,240 --> 00:04:08,890
+We can simply copy and paste it right there.
+
+62
+00:04:08,890 --> 00:04:14,340
+And now we can go ahead and move on to the slightly complex part of Patch which is going to be checking
+
+63
+00:04:14,400 --> 00:04:18,960
+the completed value and using that value to set completed at.
+
+64
+00:04:19,140 --> 00:04:24,870
+If a user is setting a to do do's completed property to True we want to set completed that to a time
+
+65
+00:04:24,870 --> 00:04:25,350
+stamp.
+
+66
+00:04:25,440 --> 00:04:30,140
+If they're setting it to false we want to clear that time stamp because that to do won't be completed.
+
+67
+00:04:30,390 --> 00:04:35,910
+Right here we're going to add an if statement checking if the completed property is a boolean and it's
+
+68
+00:04:35,910 --> 00:04:36,730
+on body.
+
+69
+00:04:36,810 --> 00:04:42,250
+We're going to use the underscore dot is Boolean utility method to get that done.
+
+70
+00:04:42,300 --> 00:04:47,280
+We want to check if body dot completed is a boolean.
+
+71
+00:04:47,280 --> 00:04:53,570
+If it is a boolean and that boolean is true body completed then we're going to go ahead and run some
+
+72
+00:04:53,570 --> 00:04:54,230
+code.
+
+73
+00:04:54,230 --> 00:04:57,200
+This code is going to run if it's a boolean and it's true.
+
+74
+00:04:57,200 --> 00:05:02,210
+Else we're going to run some code if it's not a boolean or it's not true.
+
+75
+00:05:02,420 --> 00:05:09,320
+If it is a boolean and it is true we're going to set body and Dot completed at everything we set on
+
+76
+00:05:09,320 --> 00:05:11,870
+body is eventually going to be updated in the model.
+
+77
+00:05:11,870 --> 00:05:14,450
+Now we don't want the user to update everything.
+
+78
+00:05:14,450 --> 00:05:19,070
+So we've picked off certain ones from the request body but right here we can make some modifications
+
+79
+00:05:19,070 --> 00:05:19,970
+of our own.
+
+80
+00:05:19,970 --> 00:05:23,090
+We're going to set this equal to the current time stamp.
+
+81
+00:05:23,090 --> 00:05:27,560
+We're going to create a new date which we've done before but instead of calling to string which is the
+
+82
+00:05:27,560 --> 00:05:34,340
+method we used in the previous section we'll be using a method called get time and get time returns
+
+83
+00:05:34,370 --> 00:05:36,220
+a javascript time stamp.
+
+84
+00:05:36,230 --> 00:05:41,660
+This is the number of milliseconds since midnight on January 1st of the year 1970.
+
+85
+00:05:41,660 --> 00:05:48,170
+It's just a regular number values greater than zero are milliseconds from that moment forward values
+
+86
+00:05:48,290 --> 00:05:50,420
+less than zero are in the past.
+
+87
+00:05:50,420 --> 00:05:57,680
+So if I had a number of minus a thousand it would be 1000 milliseconds before that Unix APIC which is
+
+88
+00:05:57,680 --> 00:06:03,370
+the name for that date that January 1st at midnight on Nineteen seventy.
+
+89
+00:06:03,470 --> 00:06:08,520
+Now that we have that in place we can go ahead and fill out the else clause inside of the else clause.
+
+90
+00:06:08,660 --> 00:06:16,640
+If it is not a billion or it's not true we're going to go ahead and set body completed equal to false.
+
+91
+00:06:16,720 --> 00:06:23,050
+And we're also going to clear completed at body dot completed at is going to get set equal to.
+
+92
+00:06:23,830 --> 00:06:28,620
+When you want to remove a value from the database you can simply set it to not.
+
+93
+00:06:28,630 --> 00:06:31,300
+Now we're going to go ahead and follow a usual pattern.
+
+94
+00:06:31,310 --> 00:06:36,820
+We're going to be making a query to actually update the database the query that we're going to be making
+
+95
+00:06:37,020 --> 00:06:42,410
+is going to be really similar to the one we made in our Mongo db update file inside of here.
+
+96
+00:06:42,430 --> 00:06:45,400
+We used a method called Find one an update.
+
+97
+00:06:45,400 --> 00:06:53,050
+It took a query the update object and a set of options were going to be using a method called Find a
+
+98
+00:06:53,050 --> 00:06:58,760
+by id and update which takes a really similar set of arguments right here and server.
+
+99
+00:06:59,020 --> 00:07:07,690
+We will call to do dot find by id and update the first argument for fine by id and update is going to
+
+100
+00:07:07,690 --> 00:07:09,500
+be the idea itself.
+
+101
+00:07:09,640 --> 00:07:14,980
+Since we're using a find by id method we can simply pass in the ID as opposed to passing in a query.
+
+102
+00:07:14,980 --> 00:07:19,990
+Now we can go ahead and set the values on our object which is the second argument.
+
+103
+00:07:19,990 --> 00:07:22,320
+Remember you can't just set key value pairs.
+
+104
+00:07:22,330 --> 00:07:27,800
+You have to use those Mongo DB operators things like increment or in our case set.
+
+105
+00:07:28,000 --> 00:07:31,350
+Now set as we explored takes a set of key value pairs.
+
+106
+00:07:31,360 --> 00:07:33,730
+And these are going to get set in this case.
+
+107
+00:07:33,730 --> 00:07:36,600
+We've already generated the object I have highlighted here.
+
+108
+00:07:36,700 --> 00:07:40,270
+We just happen to generate it appear and it happens to be called a body.
+
+109
+00:07:40,270 --> 00:07:46,090
+So I will set the dollar signs set operator equal to the body variable.
+
+110
+00:07:46,090 --> 00:07:48,840
+Now we can go ahead and move on to the final options.
+
+111
+00:07:48,880 --> 00:07:52,750
+These are just some options that let you tweak how the function works.
+
+112
+00:07:52,750 --> 00:07:57,570
+If you remember in Mago D-B update we set return original to false.
+
+113
+00:07:57,580 --> 00:08:00,880
+This means we get the new object back the updated one.
+
+114
+00:08:00,880 --> 00:08:04,380
+We're going to use a similar option with a different name it's called new.
+
+115
+00:08:04,450 --> 00:08:06,000
+It has similar functionality.
+
+116
+00:08:06,010 --> 00:08:11,770
+It just has a different name because that's what the mongoose developers chose with the query in place
+
+117
+00:08:11,770 --> 00:08:12,870
+though we are done.
+
+118
+00:08:13,000 --> 00:08:18,780
+We can tack on and then call back and catch call back and add our success and error code.
+
+119
+00:08:19,000 --> 00:08:23,790
+If things go well we're going to get our to do dock back if things don't go well.
+
+120
+00:08:23,830 --> 00:08:34,240
+We are going to get an error argument and we can go ahead and send back a 400 response status 400 dot
+
+121
+00:08:34,600 --> 00:08:40,190
+send now inside of here we are going to need to check if the to do object exists.
+
+122
+00:08:40,210 --> 00:08:46,870
+If it doesn't if there is no to do then we're going to go ahead and respond with a floor for return
+
+123
+00:08:47,500 --> 00:08:54,610
+response dot status 4 0 4 dot send if it need to do does exist.
+
+124
+00:08:54,610 --> 00:09:01,560
+That means we were able to find it and it was updated so we can simply send it back response dot send.
+
+125
+00:09:01,870 --> 00:09:07,120
+And we're going to send it back as the to do property where to do equals the to do variable using the
+
+126
+00:09:07,180 --> 00:09:09,160
+Yes 6 syntax.
+
+127
+00:09:09,340 --> 00:09:11,380
+With this in place we are now done.
+
+128
+00:09:11,410 --> 00:09:15,350
+It's not too bad but it was a little more complex than any of the routes we've done before.
+
+129
+00:09:15,370 --> 00:09:17,700
+So I want to walk you through it step by step.
+
+130
+00:09:17,710 --> 00:09:21,370
+Let's take just a quick moment to recap what we did and why we did it.
+
+131
+00:09:21,370 --> 00:09:25,560
+First up the first unusual thing we did is we created this body variable.
+
+132
+00:09:25,570 --> 00:09:29,400
+This has a subset of the things the user passed to us.
+
+133
+00:09:29,440 --> 00:09:32,560
+We don't want the user to be able to update anything they choose.
+
+134
+00:09:32,560 --> 00:09:37,150
+Next up we update the completed property based off of the completed property.
+
+135
+00:09:37,150 --> 00:09:43,600
+And finally we make our call to find by id and update with these three steps we are able to successfully
+
+136
+00:09:43,600 --> 00:09:47,100
+update our dues when we make the patch call.
+
+137
+00:09:47,200 --> 00:09:52,230
+Now to test this out I'm going to save the server file and start up the server over in the terminal.
+
+138
+00:09:52,230 --> 00:09:58,250
+I'll use clear to clear the terminal output and we can run NPM start to start up the app.
+
+139
+00:09:58,360 --> 00:10:03,820
+The app is up and running on port 3000 so over inside a postman we can make some requests to see exactly
+
+140
+00:10:03,820 --> 00:10:04,950
+how this works.
+
+141
+00:10:05,050 --> 00:10:10,450
+I'm going to switch to the to do app local environment and make a get to Doo's request so we can get
+
+142
+00:10:10,450 --> 00:10:16,120
+a real ID for one of our to do items and you can see we have some old data from our tests right here.
+
+143
+00:10:16,150 --> 00:10:22,390
+I'm going to grab the second one with a text equal to second test to do and then I'm going to go ahead
+
+144
+00:10:22,570 --> 00:10:26,860
+and create a new request changing the method from get to patch.
+
+145
+00:10:27,070 --> 00:10:29,120
+Right here we're going to provide our YOU R-AL.
+
+146
+00:10:29,250 --> 00:10:35,560
+It will be the curly braces you Arel with closing curly braces then we'll have Thorens slash to Doo's
+
+147
+00:10:35,770 --> 00:10:41,590
+forward slash the ID we copied never remember that Patrick Quest is all about updating the data.
+
+148
+00:10:41,590 --> 00:10:45,030
+So we have to provide that data as the request body.
+
+149
+00:10:45,030 --> 00:10:46,650
+I'm going to go to body raw.
+
+150
+00:10:46,780 --> 00:10:50,130
+Jason in order to do just that right here.
+
+151
+00:10:50,260 --> 00:10:52,390
+Let's go ahead and make some updates to the to do.
+
+152
+00:10:52,510 --> 00:10:58,450
+I'm going to set completed equal to true.
+
+153
+00:10:58,660 --> 00:11:03,120
+And if you look in the get to do tab you can see that that to do as a completed value of false.
+
+154
+00:11:03,120 --> 00:11:08,550
+So it should change and the completed property should get added with the request set up.
+
+155
+00:11:08,580 --> 00:11:11,370
+I'm going to go ahead and send it off and down below what do we get.
+
+156
+00:11:11,370 --> 00:11:17,790
+We get our to do completed is set to True and the completed act is set to the time stamp.
+
+157
+00:11:17,790 --> 00:11:23,150
+Now I can also go ahead and tweak this change and completed true to completed false to send off the
+
+158
+00:11:23,150 --> 00:11:24,020
+request.
+
+159
+00:11:24,020 --> 00:11:30,110
+This now sets completed equal to false and clears completed at last Lastly we could go ahead and do
+
+160
+00:11:30,110 --> 00:11:36,110
+something like setting the text I'm going to send it back to true and add a second property text setting
+
+161
+00:11:36,110 --> 00:11:44,720
+that equal to updates from postman I can fire off this request and down below we get our to do looking
+
+162
+00:11:44,750 --> 00:11:46,790
+just as we had expected to look.
+
+163
+00:11:46,790 --> 00:11:48,340
+We have our text update.
+
+164
+00:11:48,440 --> 00:11:53,940
+We also have our completed update and the time stamp showing up in the completed at field.
+
+165
+00:11:54,110 --> 00:11:59,750
+With this in place we don't have the ability to get delete update and create to do items.
+
+166
+00:11:59,750 --> 00:12:02,810
+Those are the four main crud actions.
+
+167
+00:12:02,810 --> 00:12:07,820
+The next thing we're going to do is write some tests that verify patch works as expected so we can automatically
+
+168
+00:12:07,820 --> 00:12:11,330
+run them and catch any regressions in our code.
+
+169
+00:12:11,330 --> 00:12:16,820
+For now that is it we're going to go ahead and in the terminal make a commit and push our changes we'll
+
+170
+00:12:16,820 --> 00:12:22,430
+push them up to Heroku and test that out as well get status reveals that we have just those two changed
+
+171
+00:12:22,430 --> 00:12:29,120
+files which means we can use a get commit with ATHM flag to make the commit a good message for this
+
+172
+00:12:29,120 --> 00:12:36,830
+one ad patch forward slash to Doo's forward slash colon ID.
+
+173
+00:12:36,910 --> 00:12:39,560
+I'm going to make the commit and push it up to get hub.
+
+174
+00:12:39,700 --> 00:12:49,420
+And once it's on get hub we can push it up to Heroku using get push Heroku master.
+
+175
+00:12:49,630 --> 00:12:53,780
+Remember the master branch is the only branch Heroku has access to.
+
+176
+00:12:53,800 --> 00:12:57,670
+We're not going to be using branching in this course but in case you already know branching and running
+
+177
+00:12:57,670 --> 00:13:04,300
+into any issues you do need to push to the Heroku M. branch to have your app redeploy.
+
+178
+00:13:04,300 --> 00:13:09,490
+Like I said that is not an issue if you're using all the commands as I use them in the videos.
+
+179
+00:13:09,490 --> 00:13:12,460
+Now that the app is deployed we can go ahead and open it up.
+
+180
+00:13:12,520 --> 00:13:16,100
+We're going to open it up by making requests inside a postman.
+
+181
+00:13:16,180 --> 00:13:21,580
+I'm going to switch to the to do app Heroku environment then I'm going to go ahead and inside of get
+
+182
+00:13:21,580 --> 00:13:23,710
+to Doo's fire off the request.
+
+183
+00:13:23,710 --> 00:13:26,590
+These are all the to do is available on Heroku.
+
+184
+00:13:26,770 --> 00:13:33,590
+I'm going to grab this first one I'm going to go over to the Patrick Quest swapped out the ID and we
+
+185
+00:13:33,590 --> 00:13:34,990
+can keep the same body.
+
+186
+00:13:35,090 --> 00:13:42,330
+I'm going to set completed equal to true and text equal to updates from postman when I send that off.
+
+187
+00:13:42,330 --> 00:13:43,210
+What do we get back.
+
+188
+00:13:43,290 --> 00:13:49,350
+We get back the updated to do completed looks great complete it looks great and text looks great as
+
+189
+00:13:49,350 --> 00:13:50,430
+well.
+
+190
+00:13:50,430 --> 00:13:54,390
+Now I'm going to go ahead and add this to my collection the patch call is going to come in handy down
+
+191
+00:13:54,390 --> 00:13:54,940
+the line.
+
+192
+00:13:55,110 --> 00:14:00,070
+So I will save it as giving it the name we have used for all of ours.
+
+193
+00:14:00,110 --> 00:14:04,110
+The GTP method followed by that you are Al.
+
+194
+00:14:04,280 --> 00:14:08,240
+I am going to save it to our existing collection to do app perfect.
+
+195
+00:14:08,360 --> 00:14:09,850
+With this in place we are done.
+
+196
+00:14:09,920 --> 00:14:14,860
+We have our patch route working and it's time to move on to the next video where we will test this code.
+
+197
+00:14:14,870 --> 00:14:15,490
+Stay tuned.
+
+198
+00:14:15,500 --> 00:14:17,000
+We'll see you then.
+

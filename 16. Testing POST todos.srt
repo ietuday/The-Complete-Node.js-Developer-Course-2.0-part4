@@ -1,0 +1,1108 @@
+﻿1
+00:00:00,480 --> 00:00:05,580
+In this video you're going to learn how to set up the test suite for the to do API similar to what we
+
+2
+00:00:05,580 --> 00:00:12,060
+did in the test section and we'll be writing to test cases for forward slash to do is we're going to
+
+3
+00:00:12,060 --> 00:00:17,940
+verify that when we send the correct data as the body we get a 200 back with the completed doc including
+
+4
+00:00:17,940 --> 00:00:24,360
+the ID and if we send bad data what we expect back is a 400 with the error object.
+
+5
+00:00:24,360 --> 00:00:28,920
+Now before we can do any of this we do have to install all of those modules we installed in the test
+
+6
+00:00:28,920 --> 00:00:29,610
+section.
+
+7
+00:00:29,670 --> 00:00:33,990
+Expect for assertions Moka for the entire test suite.
+
+8
+00:00:34,050 --> 00:00:40,680
+Super tests to test our express routes and node man gnomon is going to let us create that test watch
+
+9
+00:00:40,680 --> 00:00:44,940
+script we had so we can automatically restart the test suite.
+
+10
+00:00:44,940 --> 00:00:50,250
+Now I know you have gnomon installed globally but since we are using it inside of a package Jason script
+
+11
+00:00:50,460 --> 00:00:53,420
+it's a great idea to install it locally as well.
+
+12
+00:00:54,490 --> 00:01:02,020
+We're going to run NPM II with expect version one point twenty point to the most recent.
+
+13
+00:01:02,020 --> 00:01:07,110
+Next up is going to be Moka the most recent version it's 3 0 2.
+
+14
+00:01:07,510 --> 00:01:17,890
+After that is known to man version 1 10 2 and last but not least is super test app version 2.0.
+
+15
+00:01:17,890 --> 00:01:19,240
+Point zero.
+
+16
+00:01:19,450 --> 00:01:23,160
+With this in place all we have to do is tack on that C dev flag.
+
+17
+00:01:23,320 --> 00:01:28,040
+We do want to save these but not as regular dependencies there for testing purposes only.
+
+18
+00:01:28,150 --> 00:01:31,070
+So we're going to save them as dev dependencies.
+
+19
+00:01:31,100 --> 00:01:36,040
+Now we can go ahead and run this command and once it's done we'll be able to start setting up the test
+
+20
+00:01:36,040 --> 00:01:42,640
+files inside of atom over inside of atom inside of my package database and file.
+
+21
+00:01:42,640 --> 00:01:45,770
+I now have it my dev dependencies list it out.
+
+22
+00:01:45,820 --> 00:01:49,040
+Now my output for this command might look a little different than yours.
+
+23
+00:01:49,120 --> 00:01:52,740
+NPM is caching some of my modules that I've installed recently.
+
+24
+00:01:52,780 --> 00:01:56,150
+So as you can see here it's just grabbing the local copy.
+
+25
+00:01:56,170 --> 00:02:02,110
+They did indeed get installed though and I can prove that by opening up the node modules directory would
+
+26
+00:02:02,110 --> 00:02:08,260
+this emplace we're now going to create a folder inside a server where we can store all of our test files
+
+27
+00:02:08,620 --> 00:02:11,260
+and this folder is going to be called tests.
+
+28
+00:02:11,410 --> 00:02:16,270
+And the only file We're going to worry about creating for this video is a test file for server.
+
+29
+00:02:16,310 --> 00:02:21,890
+Yes I'm going to make a new file in tests called Server dot test Dot.
+
+30
+00:02:21,970 --> 00:02:26,650
+Yes this is the extension we used in the previous section it's the extension will be using for test
+
+31
+00:02:26,650 --> 00:02:31,560
+files in this section as well inside of the server test file.
+
+32
+00:02:31,570 --> 00:02:36,940
+We can now kick things off by requiring a lot of those modules were going to require the super test
+
+33
+00:02:36,940 --> 00:02:41,490
+module and expect Moka and gnomon do not need to be required.
+
+34
+00:02:41,500 --> 00:02:42,780
+That's not how they're used.
+
+35
+00:02:43,630 --> 00:02:52,820
+Konst expect we'll get equal to require expect and we'll do the exact same thing for Super Test Konst
+
+36
+00:02:53,090 --> 00:02:58,410
+request equals require super test.
+
+37
+00:02:58,420 --> 00:02:59,400
+Excellent.
+
+38
+00:02:59,470 --> 00:03:05,310
+Now that we have these in place we do need to load in some of our local files we need to load in server.
+
+39
+00:03:05,380 --> 00:03:09,570
+So we have access to the Express app we need that for super test.
+
+40
+00:03:09,640 --> 00:03:14,860
+And we also want to load in our to do model as you'll see a little later we're going to be querying
+
+41
+00:03:14,860 --> 00:03:18,700
+the database and having access to this model is going to be necessary.
+
+42
+00:03:18,700 --> 00:03:23,750
+Now the model already exports something but server dot J s currently exports nothing.
+
+43
+00:03:23,800 --> 00:03:30,670
+We can fix this by adding module that exports it to the very bottom sending an equal to an object on
+
+44
+00:03:30,680 --> 00:03:31,400
+that object.
+
+45
+00:03:31,420 --> 00:03:38,860
+All we're going to do is set the app property equal to the app variable using the E.S. 6 object syntax.
+
+46
+00:03:38,960 --> 00:03:46,090
+With this in place we are now ready to load those two files in First up let's go ahead and create a
+
+47
+00:03:46,090 --> 00:03:52,780
+local variable called app and we're going to be using E.S. 60 structuring to pull it off of the return
+
+48
+00:03:52,780 --> 00:03:56,260
+result from requiring the server file here.
+
+49
+00:03:56,350 --> 00:04:01,540
+We're going to start by getting the relative path then we're going to go back one directory from tests
+
+50
+00:04:01,630 --> 00:04:07,190
+into server then the filename is simply server without the extension.
+
+51
+00:04:07,190 --> 00:04:10,990
+And we can do the exact same thing for the to do model as well.
+
+52
+00:04:11,020 --> 00:04:17,590
+We're going to make a constant call to do we're using as 60 structuring to pull that off of the export
+
+53
+00:04:17,980 --> 00:04:22,130
+and the file is from the relative path backup directory.
+
+54
+00:04:22,510 --> 00:04:24,710
+Then we have to go into the models directory.
+
+55
+00:04:24,790 --> 00:04:28,220
+And finally the file name is called to do.
+
+56
+00:04:28,390 --> 00:04:32,590
+And now that we have all of this loaded and we are ready to create our describe a block and add our
+
+57
+00:04:32,590 --> 00:04:34,030
+test cases.
+
+58
+00:04:34,030 --> 00:04:39,190
+I'm going to use describe to group all of the routes I'm going to have multiple test cases for some
+
+59
+00:04:39,190 --> 00:04:45,370
+routes and it's nice to add a describe block so you can quickly glance at the test output in the terminal
+
+60
+00:04:45,940 --> 00:04:51,310
+the describe block for posts to Dewes will simply be called Post forward slash to Dewes.
+
+61
+00:04:51,310 --> 00:04:56,560
+Then we can add our arrow function and inside of here we can start laying out our test cases.
+
+62
+00:04:56,620 --> 00:05:01,930
+The first task is going to verify that when we send the appropriate data everything goes as expected.
+
+63
+00:05:01,930 --> 00:05:07,250
+It should create a new to do.
+
+64
+00:05:07,250 --> 00:05:08,260
+Excellent.
+
+65
+00:05:08,270 --> 00:05:10,350
+Now we can add our callback function.
+
+66
+00:05:10,370 --> 00:05:15,680
+This function is going to take the done argument because this is going to be an asynchronous test.
+
+67
+00:05:15,740 --> 00:05:21,090
+You have to specify done otherwise this test is not going to work as expected in here.
+
+68
+00:05:21,170 --> 00:05:24,150
+What we're going to do is create a variable called text.
+
+69
+00:05:24,170 --> 00:05:26,450
+This is the only set of data we really need.
+
+70
+00:05:26,450 --> 00:05:29,960
+We just need a string and we're going to use that string throughout.
+
+71
+00:05:29,960 --> 00:05:32,010
+Go ahead and give this any value you like.
+
+72
+00:05:32,030 --> 00:05:36,010
+I'm going to use test to do text perfect.
+
+73
+00:05:36,020 --> 00:05:40,810
+Now it's time to start making that request via super test which we've done in the past.
+
+74
+00:05:40,820 --> 00:05:46,110
+Now we only made get requests previously but post requests are just as easy.
+
+75
+00:05:46,130 --> 00:05:48,430
+We're going to call her quest passing in the app.
+
+76
+00:05:48,440 --> 00:05:50,530
+We want to make the request on.
+
+77
+00:05:50,570 --> 00:05:56,670
+Next up we're going to call datt post which sets up a post request.
+
+78
+00:05:56,670 --> 00:06:03,150
+We're going to go to a forward slash to do's and the new thing is actually sending in data in order
+
+79
+00:06:03,150 --> 00:06:05,940
+to send data along with the request as the body.
+
+80
+00:06:05,940 --> 00:06:09,660
+We have to call send and we're going to pass in an object.
+
+81
+00:06:09,660 --> 00:06:15,210
+This object is going to get converted to Jason by super test so there's no need for us to worry about
+
+82
+00:06:15,210 --> 00:06:15,710
+that.
+
+83
+00:06:15,720 --> 00:06:19,750
+Just another great reason to use the super test library in here.
+
+84
+00:06:19,770 --> 00:06:25,370
+We're going to set text equal to the text variable above and we can use the E.S. 6 syntax like this
+
+85
+00:06:25,380 --> 00:06:27,350
+to get that done.
+
+86
+00:06:27,360 --> 00:06:31,720
+Now that we've sent the request we can start making assertions about the request.
+
+87
+00:06:31,770 --> 00:06:38,490
+First up the status I'm going to expect that the status equals 200 which should be the case when we
+
+88
+00:06:38,490 --> 00:06:40,980
+send across valid data.
+
+89
+00:06:40,980 --> 00:06:45,290
+After this we can go ahead and make an assertion about the body that comes back.
+
+90
+00:06:45,390 --> 00:06:50,970
+We want to make sure the body is an object and it has the text property equal to the one we specified
+
+91
+00:06:50,970 --> 00:06:56,850
+up above that's exactly what it should be doing when it sends the body back right here over inside of
+
+92
+00:06:56,850 --> 00:06:57,980
+server dot test.
+
+93
+00:06:58,110 --> 00:07:05,180
+Yes we can get that done by creating a custom expect assertion.
+
+94
+00:07:05,230 --> 00:07:10,930
+If you remember our custom expect calls do get passed the response and we can use that response inside
+
+95
+00:07:10,930 --> 00:07:11,910
+of the function.
+
+96
+00:07:12,070 --> 00:07:20,350
+We're going to expect that the response body has a text property and that text property equals using
+
+97
+00:07:20,410 --> 00:07:23,890
+to be the text string defined above.
+
+98
+00:07:23,950 --> 00:07:26,770
+If that's the case great then this will pass.
+
+99
+00:07:26,770 --> 00:07:28,750
+If not that's fine too.
+
+100
+00:07:28,750 --> 00:07:31,860
+We're just going to throw an error and the test will fail.
+
+101
+00:07:31,900 --> 00:07:36,660
+Now the next thing we need to do is call and to wrap things up but we're not quite done yet.
+
+102
+00:07:36,700 --> 00:07:42,160
+What we want to do is actually check what got stored in the Mongo DB collection.
+
+103
+00:07:42,270 --> 00:07:48,270
+And this is why we loaded in the model up above instead of passing done in to end like we did previously.
+
+104
+00:07:48,280 --> 00:07:49,800
+We're going to pass in a function.
+
+105
+00:07:49,900 --> 00:07:56,820
+This function will get called with an error if any and there are spots this callback function is going
+
+106
+00:07:56,820 --> 00:07:58,590
+to allow us to do a few things.
+
+107
+00:07:58,590 --> 00:08:01,960
+First up let's handle any errors that might have occurred up above.
+
+108
+00:08:02,100 --> 00:08:07,830
+This would be if the status wasn't 200 or if the body does not have a text property equal to the text
+
+109
+00:08:07,890 --> 00:08:08,770
+we sent in.
+
+110
+00:08:09,000 --> 00:08:13,930
+All we have to do here is check if an error exists if an error does exist.
+
+111
+00:08:13,950 --> 00:08:16,150
+All we're going to do is pass it into done.
+
+112
+00:08:16,290 --> 00:08:19,130
+This is going to wrap up the test printing the error to the screen.
+
+113
+00:08:19,140 --> 00:08:21,310
+So the test will indeed fail.
+
+114
+00:08:21,330 --> 00:08:23,220
+I'm also going to return this result.
+
+115
+00:08:23,220 --> 00:08:25,080
+Now returning it doesn't do anything special.
+
+116
+00:08:25,080 --> 00:08:27,910
+All it does is it stops the function execution.
+
+117
+00:08:27,930 --> 00:08:31,870
+So anything we have down below is not going to run down below.
+
+118
+00:08:31,890 --> 00:08:37,650
+We're going to make a request to the database fetching all the dues and verifying that are one to do
+
+119
+00:08:37,710 --> 00:08:40,650
+was indeed added to do that.
+
+120
+00:08:40,740 --> 00:08:48,360
+We have to call to do dot find now to do that fine is really similar to the Mongo D-B native find method
+
+121
+00:08:48,360 --> 00:08:53,340
+we used we can call it with no arguments to fetch everything in that collection.
+
+122
+00:08:53,430 --> 00:08:56,300
+In this case we'll be fetching all of that to Dewes.
+
+123
+00:08:56,400 --> 00:08:59,350
+Next up we can attach a then call back.
+
+124
+00:08:59,460 --> 00:09:05,810
+We're going to get this function called with all the do's and we can make some assertions about that.
+
+125
+00:09:05,940 --> 00:09:10,530
+In this case we're going to assert that that to do we created does exist right here.
+
+126
+00:09:10,530 --> 00:09:21,210
+We'll get started by expecting to Doo's ADOT length to equal to be the number one because we've added
+
+127
+00:09:21,270 --> 00:09:25,110
+one to do item we're going to make one more assertion.
+
+128
+00:09:25,110 --> 00:09:33,770
+We're going to expect that that one and only item has a text property equal using to be the text variable.
+
+129
+00:09:33,880 --> 00:09:39,730
+We have up above if both of these pass them we can be pretty sure that everything worked as expected.
+
+130
+00:09:39,730 --> 00:09:45,190
+The status code is correct if the response is correct and the database looks correct as well.
+
+131
+00:09:45,190 --> 00:09:46,600
+Now it's time to call.
+
+132
+00:09:46,610 --> 00:09:49,140
+Done wrapping up the test case.
+
+133
+00:09:49,150 --> 00:09:50,710
+Now we're not done quite yet.
+
+134
+00:09:50,860 --> 00:09:57,480
+If either of these fail the test is still going to pass but we have to do is tack on a catch call catch
+
+135
+00:09:57,490 --> 00:10:02,440
+is going to get any errors that might occur inside of a callback then we're going to be able to take
+
+136
+00:10:02,440 --> 00:10:05,350
+that error argument and using aero function.
+
+137
+00:10:05,470 --> 00:10:09,040
+We're going to be able to pass it into done just like this.
+
+138
+00:10:09,040 --> 00:10:14,580
+Notice here I'm using the Stayman syntax as opposed to the arrow function expression syntax.
+
+139
+00:10:14,800 --> 00:10:17,860
+With this in place our test case is now good to go.
+
+140
+00:10:17,920 --> 00:10:21,950
+We have a great test case and all we need to do is set up the scripts in package.
+
+141
+00:10:21,970 --> 00:10:25,390
+Jason to actually run it before we run the test.
+
+142
+00:10:25,390 --> 00:10:28,900
+We're gonna set out the scripts just like we had in the test section.
+
+143
+00:10:28,900 --> 00:10:35,560
+We're going to have to test which just runs the tests and we're going to have a second one test watch
+
+144
+00:10:35,770 --> 00:10:38,830
+which runs the test script through gnomon.
+
+145
+00:10:38,860 --> 00:10:46,480
+This means that any time we change our app the tests will be run right here we'll be running Moka and
+
+146
+00:10:46,480 --> 00:10:52,010
+the only other argument we need to provide is the globbing pattern for the test files.
+
+147
+00:10:52,060 --> 00:10:56,950
+We're going to fetch everything in the server directory and it could be in a subdirectory which it will
+
+148
+00:10:56,950 --> 00:10:57,700
+be later.
+
+149
+00:10:57,730 --> 00:11:02,890
+So we use two stars that could have any file name as long as it ends with the dot test.
+
+150
+00:11:02,980 --> 00:11:08,770
+J.S. extension now for test watch all we're going to do is run node man.
+
+151
+00:11:09,150 --> 00:11:15,220
+We're going to be using the X E.S. flag to specify a custom command to run inside of a single quotes
+
+152
+00:11:15,460 --> 00:11:16,570
+the command we're going to run.
+
+153
+00:11:16,590 --> 00:11:23,980
+NPM test the test script on it's own is useful and test watch simply reruns the test script every time
+
+154
+00:11:24,040 --> 00:11:25,390
+something changes.
+
+155
+00:11:25,420 --> 00:11:29,730
+Now there is still a major flaw we need to fix before we can move on.
+
+156
+00:11:29,890 --> 00:11:33,710
+As you notice inside of the server test file we make a really big assumption.
+
+157
+00:11:33,730 --> 00:11:36,610
+We assume that there's nothing already in the database.
+
+158
+00:11:36,640 --> 00:11:41,970
+We assume this because we expect the dues to be a length of one after adding one.
+
+159
+00:11:42,010 --> 00:11:44,860
+Which means that we assumed it started at zero.
+
+160
+00:11:44,860 --> 00:11:50,050
+Now this assumption is not going to be correct if I were to run the test suite right now it would fail.
+
+161
+00:11:50,050 --> 00:11:52,680
+I already have to do's in the database.
+
+162
+00:11:52,680 --> 00:11:55,550
+Well we're going to do is add a testing lifecycle method.
+
+163
+00:11:55,660 --> 00:12:02,020
+This one is called before each before each is going to let us run some code before every single test
+
+164
+00:12:02,020 --> 00:12:02,710
+case.
+
+165
+00:12:02,710 --> 00:12:07,660
+We're going to use before each to set up the database in a way that's useful for now all we're going
+
+166
+00:12:07,660 --> 00:12:11,820
+to do is make sure the database is empty right here.
+
+167
+00:12:11,890 --> 00:12:16,620
+We're going to pass in a function that function is going to get called with a Done argument.
+
+168
+00:12:16,630 --> 00:12:19,170
+Just like our individual test cases are.
+
+169
+00:12:19,360 --> 00:12:23,860
+This function is going to run before every test case and it's only going to move on to the test case
+
+170
+00:12:24,040 --> 00:12:28,260
+once we called done which means we can do something asynchronous inside of here.
+
+171
+00:12:28,270 --> 00:12:34,860
+What I'm going to do is call to do dot remove which is similar to the Mongo D-B native method.
+
+172
+00:12:34,870 --> 00:12:37,330
+All we need to do is pass in an empty object.
+
+173
+00:12:37,330 --> 00:12:45,000
+This is going to wipe all of our dues and then we can tack on and then call back and inside of the then
+
+174
+00:12:45,030 --> 00:12:45,770
+call back.
+
+175
+00:12:45,900 --> 00:12:48,760
+We're going to call done just like this.
+
+176
+00:12:48,780 --> 00:12:56,100
+Now we can also shorten this using the expression syntax perfect with this in place.
+
+177
+00:12:56,120 --> 00:13:00,980
+Our database is going to be empty before every request and now our assumption is correct we're assuming
+
+178
+00:13:00,980 --> 00:13:07,850
+we start with 0 to do's and we will indeed start with 0 to do's since we just deleted everything.
+
+179
+00:13:07,850 --> 00:13:09,980
+I'm going to go ahead and move into the terminal.
+
+180
+00:13:09,980 --> 00:13:11,410
+Clear the terminal output.
+
+181
+00:13:11,420 --> 00:13:18,330
+And now we can start running in the test suite using NPM run test hyphen watch.
+
+182
+00:13:18,560 --> 00:13:24,020
+This is going to start up gnomon which will start up the test suite and right here we get 1 test passing
+
+183
+00:13:24,050 --> 00:13:26,600
+should create a new to do.
+
+184
+00:13:26,720 --> 00:13:28,650
+And this is fantastic.
+
+185
+00:13:28,700 --> 00:13:32,710
+We can verify that everything is working as expected by tweaking some values.
+
+186
+00:13:32,870 --> 00:13:38,280
+I can add on one here just to prove that it actually is doing what it says it's doing.
+
+187
+00:13:38,330 --> 00:13:42,920
+Here you can see that we're getting an error because the two are not equal the same thing holds true
+
+188
+00:13:42,920 --> 00:13:44,120
+with our status.
+
+189
+00:13:44,150 --> 00:13:49,670
+If I change the status to something else like 201 the test suite is going to rerun and it is going to
+
+190
+00:13:49,670 --> 00:13:50,370
+fail.
+
+191
+00:13:50,450 --> 00:13:57,110
+Last but not least down below if I change this to three it's going to fail because we're always wiping
+
+192
+00:13:57,110 --> 00:14:01,110
+the database so the only correct value here would be 1.
+
+193
+00:14:01,190 --> 00:14:04,400
+Now that we have this in place we can add our second test case.
+
+194
+00:14:04,400 --> 00:14:10,730
+This is going to be the test case that verifies that a to do does not get created when we send bad data
+
+195
+00:14:11,360 --> 00:14:12,880
+to get started with this one.
+
+196
+00:14:12,920 --> 00:14:20,000
+We will be using it to create a brand new test case the text for this one could be something like should
+
+197
+00:14:20,000 --> 00:14:30,330
+not create to do with invalid body data now we can pass in our callback with the dawn argument and start
+
+198
+00:14:30,390 --> 00:14:36,200
+making our super test request this time around there is no need to make a text variable since we're
+
+199
+00:14:36,240 --> 00:14:41,820
+not going to be passing text in what we're going to be doing is passing in nothing at all.
+
+200
+00:14:41,820 --> 00:14:44,340
+Now this is going to be your challenge for the video.
+
+201
+00:14:44,340 --> 00:14:47,520
+What I'd like you to do is make a request just like we do above.
+
+202
+00:14:47,640 --> 00:14:50,190
+You're going to make a post request the same you are.
+
+203
+00:14:50,310 --> 00:14:56,700
+But instead you're going to send send as an empty object and this empty object is going to cause the
+
+204
+00:14:56,700 --> 00:15:02,490
+test to fail because we won't be able to save the model then you're going to expect we get a 400 which
+
+205
+00:15:02,490 --> 00:15:05,630
+would be the case we send a 400 back right here.
+
+206
+00:15:05,640 --> 00:15:09,480
+You don't need to make any assumptions about the body that comes back.
+
+207
+00:15:09,540 --> 00:15:14,520
+Last but not least you are going to use the same format we have here where we pass a callback to and
+
+208
+00:15:14,850 --> 00:15:18,620
+we check for any errors and then we make some assumptions about the database.
+
+209
+00:15:18,630 --> 00:15:23,690
+The assumption you're going to make is that the length of the to do's is zero.
+
+210
+00:15:23,800 --> 00:15:29,580
+Since this code does not create it to do no to Doo's should be there before each is going to run before
+
+211
+00:15:29,580 --> 00:15:30,820
+every test case.
+
+212
+00:15:30,840 --> 00:15:35,670
+So the to do that gets created here is going to get deleted before this case runs.
+
+213
+00:15:35,670 --> 00:15:40,280
+So go ahead and set that up make the request verify that the length is zero.
+
+214
+00:15:40,350 --> 00:15:45,270
+You don't need to have this assertion since this assertion asserts something about the array and the
+
+215
+00:15:45,270 --> 00:15:47,370
+array is going to be empty.
+
+216
+00:15:47,370 --> 00:15:51,310
+You can also leave this off since we're not going to make any assertions about the body.
+
+217
+00:15:51,450 --> 00:15:53,130
+When you're done save the test file.
+
+218
+00:15:53,130 --> 00:16:00,460
+Make sure both of your tests pass and when you're done go ahead and click play.
+
+219
+00:16:00,510 --> 00:16:01,470
+How'd you do that one.
+
+220
+00:16:01,470 --> 00:16:05,950
+Was a little open ended but hopefully you were able to get it done without too much trouble.
+
+221
+00:16:06,150 --> 00:16:12,120
+The first thing I'm going to do is call Everquest passing in our app we want to make another post request
+
+222
+00:16:12,390 --> 00:16:16,340
+so called post again and you are also going to be the same.
+
+223
+00:16:16,470 --> 00:16:21,320
+Now at this point we are going to be calling send but we're not going to be passing invalid data.
+
+224
+00:16:21,330 --> 00:16:26,460
+The whole point of this test case is to see what happens when we pass in invalid data.
+
+225
+00:16:26,460 --> 00:16:28,860
+What should happen is we get a 400.
+
+226
+00:16:28,920 --> 00:16:33,150
+So I'm going to expect that a 400 is what comes back from the server.
+
+227
+00:16:33,420 --> 00:16:39,810
+Now we don't need to make any assertions about the body so we can go ahead and move on to dot and where
+
+228
+00:16:39,810 --> 00:16:45,810
+we're going to pass an our function that gets called with the error if any and the response just like
+
+229
+00:16:45,840 --> 00:16:46,820
+this.
+
+230
+00:16:46,980 --> 00:16:48,430
+Just like we do up above.
+
+231
+00:16:48,510 --> 00:16:51,690
+The first thing we want to do is handle any potential errors.
+
+232
+00:16:51,930 --> 00:16:55,170
+If there is an error we're going to return.
+
+233
+00:16:55,260 --> 00:16:59,890
+Which stops the function execution and we're going to call done passing in and that error.
+
+234
+00:16:59,910 --> 00:17:06,030
+So the test properly fails and now we can fetch from the database and make some assertions about the
+
+235
+00:17:06,030 --> 00:17:09,000
+length of the to do's collection.
+
+236
+00:17:09,020 --> 00:17:14,400
+I'm going to use to do find to fetch every single to do inside of the collection.
+
+237
+00:17:14,400 --> 00:17:19,280
+Then I'll check on it then call back so I can do something with that data.
+
+238
+00:17:19,280 --> 00:17:25,500
+In this case I'll get the tattoos and I'm going to assert something about its length.
+
+239
+00:17:25,610 --> 00:17:34,650
+We're going to expect that to Doo's da length equals to be the number 0.
+
+240
+00:17:34,720 --> 00:17:38,330
+There should be no to do's in the database before this test case runs.
+
+241
+00:17:38,410 --> 00:17:43,470
+And since we're sending in bad data this test case should not create any to do.
+
+242
+00:17:43,630 --> 00:17:48,760
+Now we can call done and we can also tack on our catch callback which we're going to need to do.
+
+243
+00:17:48,760 --> 00:17:50,000
+Just like we did above.
+
+244
+00:17:50,270 --> 00:17:54,740
+I meant to put a little space here and we can call catch.
+
+245
+00:17:54,880 --> 00:18:01,200
+I'm going to call catch taking that error argument and passing it in to done.
+
+246
+00:18:01,340 --> 00:18:02,980
+And now we are done.
+
+247
+00:18:03,020 --> 00:18:04,290
+I can save the file.
+
+248
+00:18:04,310 --> 00:18:09,950
+This is going to restart gnomon it's going to restart our test suite and what we should see is our two
+
+249
+00:18:09,950 --> 00:18:10,880
+test cases.
+
+250
+00:18:10,880 --> 00:18:17,900
+Both of them passing over in the terminal we get just that we have two test cases for post to do's and
+
+251
+00:18:17,990 --> 00:18:20,180
+both are indeed passing.
+
+252
+00:18:20,330 --> 00:18:21,950
+And this is fantastic.
+
+253
+00:18:21,980 --> 00:18:26,870
+Now it took a little while to set up the basic test suite in this video but in the future as we add
+
+254
+00:18:26,870 --> 00:18:27,670
+more routes.
+
+255
+00:18:27,770 --> 00:18:29,690
+Testing is going to be much easier.
+
+256
+00:18:29,690 --> 00:18:32,410
+We're not going to have to set up the infrastructure up above.
+
+257
+00:18:32,420 --> 00:18:36,250
+We're not going to need to create the test scripts or install new modules.
+
+258
+00:18:36,260 --> 00:18:39,610
+This one took a little longer but the future videos will not.
+
+259
+00:18:39,680 --> 00:18:41,990
+The last thing to do is make a commit.
+
+260
+00:18:42,140 --> 00:18:46,370
+We added some meaningful code so we're going to want to save that work.
+
+261
+00:18:46,370 --> 00:18:51,800
+If I run get status you can see we have a few changed files as well as some on Tracht ones so I will
+
+262
+00:18:51,800 --> 00:18:55,440
+use GET add to add all of those to the next commit.
+
+263
+00:18:55,460 --> 00:19:01,820
+Now I can use get commit with the M flag to actually make the commit and a good commit message for this
+
+264
+00:19:01,820 --> 00:19:07,880
+one would be test post to Doo's route.
+
+265
+00:19:07,880 --> 00:19:08,830
+Excellent.
+
+266
+00:19:08,900 --> 00:19:10,340
+I'm going to make the commit.
+
+267
+00:19:10,340 --> 00:19:15,060
+And lastly I'll be pushing this up to get it using get push.
+
+268
+00:19:15,080 --> 00:19:17,380
+Now you can use get push for this particular case.
+
+269
+00:19:17,390 --> 00:19:22,820
+I need to go ahead and use get push force which is going to overwrite everything on get Hobb.
+
+270
+00:19:22,820 --> 00:19:26,150
+This is only something I need to do in this specific situation.
+
+271
+00:19:26,150 --> 00:19:30,390
+You should just be running get Pusch.
+
+272
+00:19:30,510 --> 00:19:34,500
+Now once you run that your code should get pushed up to get help and you are done.
+
+273
+00:19:34,500 --> 00:19:39,180
+We have two test cases for our row and it's time to move on to add a new route.
+
+274
+00:19:39,210 --> 00:19:43,390
+The extra hour is going to be a get request to fetch all dues.
+
+275
+00:19:43,390 --> 00:19:44,990
+I'm super excited to get to it.
+
+276
+00:19:45,060 --> 00:19:45,920
+So stay tuned.
+
+277
+00:19:45,960 --> 00:19:47,690
+I will see you next time.
+

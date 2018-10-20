@@ -1,0 +1,952 @@
+﻿1
+00:00:00,290 --> 00:00:06,100
+In this video you're going to learn a few alternative ways that you can use mongoose to query your data.
+
+2
+00:00:06,240 --> 00:00:11,520
+Now inside of the server test file we already looked at one way to do dot find.
+
+3
+00:00:11,530 --> 00:00:17,520
+We're going to look at two more and then we're also going to explore how to validate object IDs in order
+
+4
+00:00:17,520 --> 00:00:21,150
+to do all of this we are going to make a new file in the playground folder.
+
+5
+00:00:21,240 --> 00:00:25,450
+I'm going to call this one mongoose hyphen queries.
+
+6
+00:00:26,680 --> 00:00:33,640
+Jay Yes and the first thing we need to do is load in the mongoose file here and we need to do file here.
+
+7
+00:00:33,690 --> 00:00:40,390
+I'm going to use 60 structuring like we've used for all files where this happens and then we can require
+
+8
+00:00:40,390 --> 00:00:47,560
+in the local file using the relative path we need to go up a directory out of playground into server
+
+9
+00:00:47,620 --> 00:00:48,430
+into D-B.
+
+10
+00:00:48,430 --> 00:00:52,810
+And finally the file name we're looking for is called mongoose.
+
+11
+00:00:52,840 --> 00:00:55,680
+We can do the same thing for to do.
+
+12
+00:00:55,730 --> 00:01:02,600
+We're going to make that constant to do from the require return results and the file here is going to
+
+13
+00:01:02,600 --> 00:01:03,620
+follow the same path.
+
+14
+00:01:03,620 --> 00:01:10,980
+We need to go back a directory and into server but instead of going into D-B we'll go into models then
+
+15
+00:01:11,220 --> 00:01:13,460
+we'll get the file to do.
+
+16
+00:01:13,610 --> 00:01:19,080
+Now before we can actually do any querying we are going to grab an idea for one of our existing to do's
+
+17
+00:01:19,100 --> 00:01:22,970
+over in Rabo Mongo in the to do app database.
+
+18
+00:01:22,970 --> 00:01:27,630
+I'm going to explore all of our documents and I'll just grab the first one.
+
+19
+00:01:27,650 --> 00:01:29,120
+All right click to edit it.
+
+20
+00:01:29,300 --> 00:01:35,450
+Then I can grab the ID excluding the quotes parentheses and the object id identifier with this ID in
+
+21
+00:01:35,450 --> 00:01:37,550
+the Clipboard back inside of Adam.
+
+22
+00:01:37,580 --> 00:01:44,690
+I can make a variable called ID and set it equal to the idea just copied inside a single quotes.
+
+23
+00:01:44,690 --> 00:01:48,380
+And now we have an idea and we can use this for all of our queries.
+
+24
+00:01:48,560 --> 00:01:53,410
+Now I understand you've already used to do fine before but we are going to talk about a few other things.
+
+25
+00:01:53,420 --> 00:01:58,010
+So for the moment we will be starting with that to do not find.
+
+26
+00:01:58,070 --> 00:02:00,730
+It lets you query as many to do's as you like.
+
+27
+00:02:00,740 --> 00:02:06,740
+You can pass no arguments to get all your to do it back or you can query by anything right here.
+
+28
+00:02:06,770 --> 00:02:08,980
+We're going to query by ID now.
+
+29
+00:02:08,990 --> 00:02:10,510
+Mongoose is fantastic.
+
+30
+00:02:10,510 --> 00:02:13,490
+It doesn't require you to pass in object IDs.
+
+31
+00:02:13,520 --> 00:02:15,280
+It can actually do that for you.
+
+32
+00:02:15,410 --> 00:02:17,990
+In this case what we have is perfectly valid.
+
+33
+00:02:17,990 --> 00:02:23,120
+We pass in a string as the value Mongoose is going to take that string it's going to convert it to an
+
+34
+00:02:23,120 --> 00:02:26,280
+object id and then it's going to run the query.
+
+35
+00:02:26,300 --> 00:02:31,170
+This means we don't need to manually convert our string into an object ID.
+
+36
+00:02:31,310 --> 00:02:35,440
+Now after we make the query we can attach a a then call back.
+
+37
+00:02:35,600 --> 00:02:41,390
+We're going to get all of our to do's will name that argument right here and we can go ahead and print
+
+38
+00:02:41,390 --> 00:02:43,970
+them to the screen console dialog.
+
+39
+00:02:45,460 --> 00:02:46,330
+To Duse.
+
+40
+00:02:46,360 --> 00:02:50,230
+And the second argument will be the actual do's array.
+
+41
+00:02:50,410 --> 00:02:56,230
+Nothing new here aside from the fact that you can indeed pass in an ID as a string.
+
+42
+00:02:56,230 --> 00:03:04,030
+The next method we're going to look at is one called to do dot find one now to do not find one is very
+
+43
+00:03:04,030 --> 00:03:08,730
+similar to find the only difference is that it returns 1 document at most.
+
+44
+00:03:08,800 --> 00:03:13,540
+And that means it simply grabs the first one that matches the queery you have now in our case we're
+
+45
+00:03:13,550 --> 00:03:15,580
+querying by a unique ID.
+
+46
+00:03:15,670 --> 00:03:18,010
+So it's only going to find a one matching item.
+
+47
+00:03:18,010 --> 00:03:23,890
+But if there were other results for example if we queried all to do with completed false the first doc
+
+48
+00:03:23,890 --> 00:03:28,540
+would be the only one that returns even though there's two that match the query.
+
+49
+00:03:28,570 --> 00:03:33,460
+What we can do to call Find one is identical to what we did with find and to prove it.
+
+50
+00:03:33,460 --> 00:03:36,690
+I'm actually going to copy the code I'm not even going to rewrite it.
+
+51
+00:03:36,880 --> 00:03:41,260
+All we need to do is change a few things instead of to do's.
+
+52
+00:03:41,290 --> 00:03:42,710
+We get to do.
+
+53
+00:03:42,790 --> 00:03:46,550
+We're just going to get a single document not an array of documents.
+
+54
+00:03:46,600 --> 00:03:53,040
+That means I can print a to do string followed by I need to do variable with this in place.
+
+55
+00:03:53,080 --> 00:03:58,810
+We now have enough examples where it makes sense to run the file and see exactly what happens over inside
+
+56
+00:03:58,810 --> 00:04:00,030
+of the terminal.
+
+57
+00:04:00,040 --> 00:04:07,530
+I'm going to kick things off by running this file and I'll run it through gnomon gnomon playground forward
+
+58
+00:04:07,530 --> 00:04:14,840
+slash mongoose queries Dhananjay as when I run the file what do we get.
+
+59
+00:04:14,840 --> 00:04:20,160
+We get our to use array our array of one document and we get our to do object.
+
+60
+00:04:20,300 --> 00:04:26,150
+If you know you're just trying to fetch one individual item I recommend using find one over find you
+
+61
+00:04:26,150 --> 00:04:29,380
+get back the document as opposed to an array.
+
+62
+00:04:29,570 --> 00:04:34,560
+This also makes it a lot easier when the ID of the to do you're looking for doesn't exist.
+
+63
+00:04:34,610 --> 00:04:39,470
+Instead of getting an empty array as the result you'll get null back and you can work with that doing
+
+64
+00:04:39,470 --> 00:04:40,190
+whatever you like.
+
+65
+00:04:40,190 --> 00:04:46,450
+Maybe that means you return a 404 or maybe you want to do something else if the ID is not found.
+
+66
+00:04:46,730 --> 00:04:49,310
+The last method we're going to look at is to do
+
+67
+00:04:52,250 --> 00:05:01,580
+dot find by ID now find by ID is fantastic if you are just looking for a document by its identifier.
+
+68
+00:05:01,580 --> 00:05:07,400
+There is no way to query by anything else other than the ID and all you do is you pass in the ID as
+
+69
+00:05:07,400 --> 00:05:08,170
+the argument.
+
+70
+00:05:08,300 --> 00:05:13,710
+You dont have to make a query object and you dont have to set an underscore ID Propp with this in place.
+
+71
+00:05:13,820 --> 00:05:19,940
+We can now do the exact same thing we did with find one I'm going to prove that by taking the then call
+
+72
+00:05:20,780 --> 00:05:27,750
+pasting it right here and just changing this from to do two to do by de.
+
+73
+00:05:27,760 --> 00:05:30,970
+Now if I save the file gnomon is going to rerun and what do we get.
+
+74
+00:05:30,970 --> 00:05:33,580
+We get the exact same result for both.
+
+75
+00:05:33,580 --> 00:05:38,560
+If you want to find one document by something other than ID I'd recommend using find one if you want
+
+76
+00:05:38,560 --> 00:05:40,810
+to find one documented by ID.
+
+77
+00:05:40,810 --> 00:05:44,490
+I always recommend using find by ID.
+
+78
+00:05:44,590 --> 00:05:47,030
+Now all of this and more is available on the docks.
+
+79
+00:05:47,050 --> 00:05:54,220
+So if you want to dive into anything I discussed here you can always go to mongoose J.S. dot com.
+
+80
+00:05:54,370 --> 00:05:57,990
+Click on the Read the docs link and over on the left hand side.
+
+81
+00:05:58,000 --> 00:05:59,560
+They have a couple links.
+
+82
+00:05:59,560 --> 00:06:03,160
+The one that we're looking for is the one on queries right here.
+
+83
+00:06:03,160 --> 00:06:07,420
+You can learn more about how to query your docs but we pretty much covered everything this page talks
+
+84
+00:06:07,420 --> 00:06:08,710
+about.
+
+85
+00:06:08,710 --> 00:06:14,200
+Now the next thing I want to talk about is what happens when the ID isn't correct and this is going
+
+86
+00:06:14,200 --> 00:06:19,180
+to be the case because remember our API is going to be getting this idea from the user which means that
+
+87
+00:06:19,180 --> 00:06:22,240
+if the ID isn't correct we don't want our code to fail.
+
+88
+00:06:22,240 --> 00:06:25,750
+We want to elegantly handle these errors to prove this.
+
+89
+00:06:25,750 --> 00:06:28,140
+I'm going to go ahead and tweak the idea a little bit.
+
+90
+00:06:28,150 --> 00:06:30,100
+IDS do have specific protocols.
+
+91
+00:06:30,100 --> 00:06:33,950
+So what I want you to do for this example is find a number in your ID.
+
+92
+00:06:34,090 --> 00:06:37,750
+I'm going to go with the first character because it happens to be a number and just increment it by
+
+93
+00:06:37,750 --> 00:06:38,410
+one.
+
+94
+00:06:38,410 --> 00:06:40,900
+I'm going to go from five to six.
+
+95
+00:06:40,930 --> 00:06:47,140
+Now we have a valid ID but the ID is not going to be in the database because I tweaked it and obviously
+
+96
+00:06:47,140 --> 00:06:51,780
+the other to do in the database does not match this ID.
+
+97
+00:06:51,790 --> 00:06:57,400
+Now with this in place you can see as we restart the server we get an empty array for the Find call
+
+98
+00:06:57,550 --> 00:07:05,110
+and we get null for both find one and find a by ID when your ID does not match anything in the database.
+
+99
+00:07:05,110 --> 00:07:06,850
+An error is not going to get thrown.
+
+100
+00:07:06,850 --> 00:07:09,070
+It's still going to fire the success case.
+
+101
+00:07:09,070 --> 00:07:14,980
+It's just going to fire it either with an empty array or with NULL which means when we want to handle
+
+102
+00:07:14,980 --> 00:07:20,260
+that case where the ID doesn't exist in the database all we have to do is add an if statement right
+
+103
+00:07:20,260 --> 00:07:21,010
+here.
+
+104
+00:07:21,100 --> 00:07:24,550
+I can add an if statement if there is no to do.
+
+105
+00:07:24,580 --> 00:07:29,080
+We're going to do something and that something is going to be to use return which prevents the rest
+
+106
+00:07:29,080 --> 00:07:38,680
+of the function from executing and we'll print a little message console log Id not found us.
+
+107
+00:07:38,860 --> 00:07:43,270
+Now if I save the file and the last call should look a little different right here instead of getting
+
+108
+00:07:43,270 --> 00:07:46,740
+to do with no we get ID not found.
+
+109
+00:07:46,810 --> 00:07:48,640
+And this is perfect.
+
+110
+00:07:48,640 --> 00:07:51,700
+Now we know how to query using Find one and find by ID.
+
+111
+00:07:51,700 --> 00:07:57,370
+And we also know how to handle situations where the ID you're querying for doesn't actually exist inside
+
+112
+00:07:57,370 --> 00:07:58,160
+of the collection.
+
+113
+00:07:58,180 --> 00:08:03,950
+I'm going to set the ID back to its original value changing the 6 to 5 and if I saved the file No-Man's
+
+114
+00:08:04,090 --> 00:08:04,770
+going to restart.
+
+115
+00:08:04,780 --> 00:08:07,080
+And we're going to get our document back.
+
+116
+00:08:07,180 --> 00:08:10,820
+Now the last thing I want to talk about is how to validate an object ID.
+
+117
+00:08:10,930 --> 00:08:13,830
+What we've done so far is we've created a valid object ID.
+
+118
+00:08:13,930 --> 00:08:16,460
+It's just of a value that is not in the collection.
+
+119
+00:08:16,510 --> 00:08:21,760
+But if we were to do something like tack on to ones we would actually have an invalid ID which is going
+
+120
+00:08:21,760 --> 00:08:23,770
+to cause errors in the program.
+
+121
+00:08:23,770 --> 00:08:25,400
+Now you might think why would this ever happen.
+
+122
+00:08:25,390 --> 00:08:30,970
+But it could happen because the user is the one specifying the ID double L.
+
+123
+00:08:31,040 --> 00:08:35,590
+We're going to add a catch call on to find Abidi.
+
+124
+00:08:35,680 --> 00:08:41,940
+We're going to get that error and simply printed to the screen using console dot lock.
+
+125
+00:08:42,000 --> 00:08:46,560
+Now to illustrate this we don't need all three queries in order to clean up the terminal output.
+
+126
+00:08:46,560 --> 00:08:52,130
+I'm going to go ahead and comment out find and find one with this emplace are invalid ID.
+
+127
+00:08:52,170 --> 00:08:54,910
+And the catch callback we can save the file.
+
+128
+00:08:54,960 --> 00:08:58,750
+And over in the terminal we should get a really long error message.
+
+129
+00:08:58,860 --> 00:08:59,510
+Here we go.
+
+130
+00:08:59,610 --> 00:09:05,360
+We have an error message cast error cast to object id failed for the following value.
+
+131
+00:09:05,370 --> 00:09:10,770
+This is warning you that your object id doesn't not just exist in the collection it's actually completely
+
+132
+00:09:10,770 --> 00:09:13,840
+invalid now running in this with a catch method.
+
+133
+00:09:13,830 --> 00:09:15,390
+It does let us handle the error.
+
+134
+00:09:15,390 --> 00:09:20,940
+We could do something here like tell the user hey the ID that you sent through is invalid.
+
+135
+00:09:21,030 --> 00:09:23,680
+But there's also another way to get it done that I prefer.
+
+136
+00:09:23,750 --> 00:09:29,640
+What we're going to do is load in the object id off of the Mongo D-B native driver and that's something
+
+137
+00:09:29,640 --> 00:09:32,560
+we did before right here in Mongo DB connect.
+
+138
+00:09:32,580 --> 00:09:38,990
+We loaded it in object ID inside of mongoose queries we're going to do the same thing.
+
+139
+00:09:39,150 --> 00:09:43,850
+I'm going to make a constant called object ID.
+
+140
+00:09:44,280 --> 00:09:49,100
+And we're going to get it from the Mongo DB library.
+
+141
+00:09:49,380 --> 00:09:55,020
+Now on object idea we have a lot of utility methods we've looked at how we can create new object IDs.
+
+142
+00:09:55,080 --> 00:10:00,890
+But one thing we also have access to is a method called object ID.
+
+143
+00:10:00,960 --> 00:10:05,120
+Dot is a valid is valid takes the value.
+
+144
+00:10:05,160 --> 00:10:10,050
+In this case it's our string right here and it returns true if it's valid and false.
+
+145
+00:10:10,050 --> 00:10:17,190
+If it's not valid which means we can add if conditions to validate the ID before we ever run the query
+
+146
+00:10:17,760 --> 00:10:23,250
+in order to do this we're going to add an if statement and we're going to check if the value is not
+
+147
+00:10:23,250 --> 00:10:24,020
+valid.
+
+148
+00:10:24,060 --> 00:10:31,380
+I'm going to flip it using exclamation mark and then we can call object ID is valid by flipping it.
+
+149
+00:10:31,380 --> 00:10:37,280
+We've essentially created a method that tests whether an object ID is not about the value.
+
+150
+00:10:37,280 --> 00:10:39,930
+I'm going to pass in is just going to be the string up above.
+
+151
+00:10:40,080 --> 00:10:44,500
+And now we can add some code to run when the ID is not valid.
+
+152
+00:10:44,640 --> 00:10:45,030
+Consul
+
+153
+00:10:47,850 --> 00:10:52,320
+dialog Id not about.
+
+154
+00:10:52,560 --> 00:10:57,300
+Now if I go ahead and save the file we should get our id not an invalid message.
+
+155
+00:10:57,390 --> 00:11:02,490
+And then after that we should get our error message printing to the terminal because we do still have
+
+156
+00:11:02,490 --> 00:11:05,950
+our catch call and this query is still going to run.
+
+157
+00:11:06,090 --> 00:11:09,880
+Over here we get just that Id not valid prints to the screen.
+
+158
+00:11:10,020 --> 00:11:14,940
+But now we know how to validate IDs and that's going to come in handy in the next video.
+
+159
+00:11:15,180 --> 00:11:20,940
+With this in place it's now time for a challenge before I set up the challenge and comment out the ID
+
+160
+00:11:21,030 --> 00:11:22,590
+and our is valid call.
+
+161
+00:11:22,680 --> 00:11:25,680
+And down below I'll comment out fine by ID.
+
+162
+00:11:25,680 --> 00:11:30,390
+I'm going to leave them here and you can use them as a reference for what to do in the challenge.
+
+163
+00:11:30,390 --> 00:11:34,180
+Your challenge is going to be to query the users collection.
+
+164
+00:11:34,200 --> 00:11:39,300
+That means that you're going to want to go ahead and move into Roboam mango and grab an ID from your
+
+165
+00:11:39,300 --> 00:11:40,620
+users collection.
+
+166
+00:11:40,710 --> 00:11:45,510
+Here I have just one document if you have 0 documents for whatever reason you can always right click
+
+167
+00:11:45,780 --> 00:11:49,350
+insert a document and all you have to do is specify the email.
+
+168
+00:11:49,380 --> 00:11:55,170
+Now in order to make that query over inside an atom you are going to need to load in the user mongoose
+
+169
+00:11:55,230 --> 00:11:59,350
+model because currently we only have that to do on a required down below.
+
+170
+00:11:59,400 --> 00:12:08,120
+I want you to use user ADOT find by ID to query the ID that you picked over in Roble Mongo then you're
+
+171
+00:12:08,130 --> 00:12:10,470
+going to go ahead and handle the three cases.
+
+172
+00:12:10,470 --> 00:12:15,930
+There's going to be the case where the query works like we have here but there is no user in that case
+
+173
+00:12:15,930 --> 00:12:18,380
+you're going to print something like user not found.
+
+174
+00:12:18,450 --> 00:12:21,300
+You're also going to handle the case where the user was found.
+
+175
+00:12:21,330 --> 00:12:24,090
+I want you to go ahead and print the user to the screen.
+
+176
+00:12:24,090 --> 00:12:27,540
+And finally you're going to handle any errors that might have occurred.
+
+177
+00:12:27,540 --> 00:12:30,240
+You can simply print the error object to the screen.
+
+178
+00:12:30,270 --> 00:12:34,010
+For that there's no need to use is valid for this one.
+
+179
+00:12:34,020 --> 00:12:39,050
+All you have to do is fill out the find by id call when you're done.
+
+180
+00:12:39,060 --> 00:12:39,900
+Go ahead and test it.
+
+181
+00:12:39,900 --> 00:12:43,290
+Save the file make sure that the user shows up.
+
+182
+00:12:43,290 --> 00:12:47,250
+Then tweak the ID making sure your other cases work as well.
+
+183
+00:12:47,250 --> 00:12:48,860
+Take a moment to pause the video.
+
+184
+00:12:48,930 --> 00:12:54,710
+Knock that out and when you're done click play and you do.
+
+185
+00:12:54,770 --> 00:13:00,060
+Hopefully you are able to get that done using the find by id method.
+
+186
+00:13:00,260 --> 00:13:04,130
+Now the first thing I'm going to do is import the user file.
+
+187
+00:13:04,250 --> 00:13:06,060
+I'm going to make a constant.
+
+188
+00:13:06,260 --> 00:13:12,140
+I'm going to grab the user variable off of the return result from a choir and we're going to follow
+
+189
+00:13:12,140 --> 00:13:13,750
+the same path we have here.
+
+190
+00:13:13,850 --> 00:13:18,780
+We have to go out of the playground directory into the server model's directory.
+
+191
+00:13:18,890 --> 00:13:25,760
+And finally the file name is user now that we have user imported we can query it down below.
+
+192
+00:13:25,940 --> 00:13:30,010
+Before I write the query I am going to fetch an ID over in Roboam mango.
+
+193
+00:13:30,050 --> 00:13:31,300
+I have one right here.
+
+194
+00:13:31,460 --> 00:13:37,490
+I can edit the document highlight it copy it and move back into Atam inside of Adam.
+
+195
+00:13:37,520 --> 00:13:45,680
+I'm going to set up my user find by id call all I have to do is pass in the ID I have that in the Clipboard
+
+196
+00:13:45,680 --> 00:13:47,160
+I'm going to wrap it in quotes.
+
+197
+00:13:47,300 --> 00:13:48,230
+Excellent.
+
+198
+00:13:48,230 --> 00:13:50,200
+Next up the callbacks.
+
+199
+00:13:50,510 --> 00:13:54,290
+I'm going to attach a then call back passing in two functions.
+
+200
+00:13:54,290 --> 00:13:59,870
+The first one is when the promise gets resolved and the second one is when the promise gets rejected
+
+201
+00:14:00,380 --> 00:14:01,300
+for rejections.
+
+202
+00:14:01,320 --> 00:14:03,040
+Oh we're going to do is print that error.
+
+203
+00:14:03,050 --> 00:14:08,440
+Object to the screen which means we can use console dialog.
+
+204
+00:14:08,840 --> 00:14:14,570
+Now if things go well there are still a few exceptions we want to make sure that the user actually does
+
+205
+00:14:14,570 --> 00:14:15,060
+exist.
+
+206
+00:14:15,080 --> 00:14:20,630
+The query is still going to pass if the ID doesn't match anything found inside of the collection.
+
+207
+00:14:20,630 --> 00:14:27,510
+If there is no user we are going to stop function execution using return.
+
+208
+00:14:27,690 --> 00:14:36,960
+Then we're going to go ahead and print using console dot log unable to find user.
+
+209
+00:14:36,980 --> 00:14:42,380
+Now the last case we need to handle is if things actually go well which means that the query was indeed
+
+210
+00:14:42,380 --> 00:14:48,030
+valid and the I.D. was found inside of the user's collection right here.
+
+211
+00:14:48,140 --> 00:14:53,440
+I'm going to console log using our pretty printing technique the user variable.
+
+212
+00:14:53,630 --> 00:15:01,910
+Jason docstring a by passing in our three arguments user undefined and the number two with this in place.
+
+213
+00:15:02,030 --> 00:15:05,910
+I can now go ahead and save the file and open up the terminal since it's currently hidden.
+
+214
+00:15:05,930 --> 00:15:06,800
+And what do we get.
+
+215
+00:15:06,830 --> 00:15:09,790
+We get our user showing up in the terminal.
+
+216
+00:15:09,800 --> 00:15:14,210
+This is fantastic if you're seeing this you successfully completed the challenge.
+
+217
+00:15:14,210 --> 00:15:17,560
+Now I can also test that my other cases are working as expected.
+
+218
+00:15:17,630 --> 00:15:18,860
+I'm going to change this.
+
+219
+00:15:18,870 --> 00:15:22,610
+6 at the end of my ID to a 7 save the file.
+
+220
+00:15:22,700 --> 00:15:26,760
+And when it restarts I get unable to find user which is expected.
+
+221
+00:15:26,990 --> 00:15:33,710
+Next up I'm going to change it back to basics but I am going to tack on a few ones or any other characters
+
+222
+00:15:33,980 --> 00:15:37,270
+in this case I'll use two ones and two a characters.
+
+223
+00:15:37,280 --> 00:15:38,660
+This time we do get our error.
+
+224
+00:15:38,690 --> 00:15:42,120
+We're unable to cast that value to an object.
+
+225
+00:15:42,130 --> 00:15:43,020
+I d.
+
+226
+00:15:43,180 --> 00:15:47,050
+Well let's undo the change to the ID and now we're done.
+
+227
+00:15:47,180 --> 00:15:50,210
+I'm going to wrap this video up by committing our changes.
+
+228
+00:15:50,210 --> 00:15:53,810
+I'm going to shut down gnomon run and get status.
+
+229
+00:15:53,810 --> 00:15:59,430
+And we have one new file I can use and get add to add it to the next commit and then I can use it get
+
+230
+00:15:59,450 --> 00:16:08,950
+commit to make the commit message for this one is add queries playground file.
+
+231
+00:16:08,990 --> 00:16:09,830
+Awesome.
+
+232
+00:16:09,960 --> 00:16:11,990
+With this in place I'm going to push it up to get help.
+
+233
+00:16:12,000 --> 00:16:13,160
+And we are done.
+
+234
+00:16:13,180 --> 00:16:18,480
+I will see you next time where you will be responsible for creating an entire API request.
+
+235
+00:16:18,480 --> 00:16:19,830
+This one is going to be a challenge.
+
+236
+00:16:19,830 --> 00:16:21,360
+I am super excited to get to it.
+
+237
+00:16:21,360 --> 00:16:22,430
+So stay tuned.
+
+238
+00:16:22,490 --> 00:16:24,190
+I will see you then.
+

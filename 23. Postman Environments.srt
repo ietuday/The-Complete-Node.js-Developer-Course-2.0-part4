@@ -1,0 +1,328 @@
+﻿1
+00:00:00,120 --> 00:00:05,640
+Before we get back to creating our express routes we're going to take a quick moment to explore a feature
+
+2
+00:00:05,640 --> 00:00:11,460
+of post man that's going to make it a lot easier to switch between your local environment and the Heroku
+
+3
+00:00:11,670 --> 00:00:12,710
+application.
+
+4
+00:00:12,720 --> 00:00:15,530
+This is called post man environments.
+
+5
+00:00:15,530 --> 00:00:21,270
+Now in order to illustrate this I am going to start up my local server by running node server server
+
+6
+00:00:21,310 --> 00:00:23,980
+J.S. and over inside of post.
+
+7
+00:00:24,000 --> 00:00:29,370
+We're going to start making a few requests now if you remember in the last video we made a request to
+
+8
+00:00:29,370 --> 00:00:37,320
+our Heroku application I clicked send on the get to Doo's you Arel and I get the two do's back as expected.
+
+9
+00:00:37,320 --> 00:00:43,080
+The problem is that over here the actual items saved in the collection and they all use that localhost
+
+10
+00:00:43,110 --> 00:00:46,830
+you are Owl and there's no good way to switch between the two.
+
+11
+00:00:47,190 --> 00:00:52,690
+To fix this issue we're going to create environments one for our local machine and one for Heroku.
+
+12
+00:00:52,770 --> 00:00:58,530
+And this is going to let us create a variable as the are Owl and we can change that variable by flicking
+
+13
+00:00:58,530 --> 00:01:04,080
+a switch over here in the environments dropdown to illustrate exactly how this is going to work.
+
+14
+00:01:04,080 --> 00:01:09,990
+I am going to be copying the Heroku you are all right now and then I'm going to head over to the know
+
+15
+00:01:09,990 --> 00:01:13,040
+environment dropdown and click manage environments.
+
+16
+00:01:13,080 --> 00:01:17,940
+Here we currently have none but we can go ahead and add it to the first environment.
+
+17
+00:01:17,940 --> 00:01:22,000
+I'm going to call to do app local.
+
+18
+00:01:22,080 --> 00:01:27,540
+This is going to be the local to do application and we can set up a set of key value pairs.
+
+19
+00:01:27,540 --> 00:01:32,640
+Now the only key We're going to set is you are all we're going to set a local host you are all for the
+
+20
+00:01:32,640 --> 00:01:39,000
+to do app local environment and we'll set the Heroku you are Al for the to do app Heroku environment
+
+21
+00:01:39,000 --> 00:01:45,300
+which will create in just a socket right here local host Colan three thousand.
+
+22
+00:01:45,380 --> 00:01:49,560
+We're leaving off path's because that is going to depend on the individual route.
+
+23
+00:01:49,650 --> 00:01:54,000
+I'm going to go ahead and add in that environment then we can create a second one.
+
+24
+00:01:54,180 --> 00:02:01,320
+This one will be called to do app Heroku and we're going to set the U R L key once again this time though
+
+25
+00:02:01,320 --> 00:02:04,330
+we're setting it equal to the value I copy to the clipboard.
+
+26
+00:02:04,410 --> 00:02:07,510
+This is the Heroku application you are out.
+
+27
+00:02:07,720 --> 00:02:13,730
+I'm going to add that now we have our two environments and I can close that window manager.
+
+28
+00:02:13,860 --> 00:02:19,080
+I'm going to close all of my tabs and I'm not going to make any changes by saving then I'm going to
+
+29
+00:02:19,080 --> 00:02:21,110
+go to get to do's.
+
+30
+00:02:21,300 --> 00:02:25,410
+Now currently get to deuse automatically fetches from localhost.
+
+31
+00:02:25,590 --> 00:02:31,860
+But we're going to do is replace the U R L everything before the slash with the following syntax which
+
+32
+00:02:31,860 --> 00:02:35,460
+will look similar if you're familiar with any templating engines.
+
+33
+00:02:35,640 --> 00:02:42,030
+Curly braces followed by the variable name u r l followed by two closing braces.
+
+34
+00:02:42,030 --> 00:02:47,730
+This is going to inject the u r l right here meaning that the get to Duzer Quest is now dynamic.
+
+35
+00:02:47,730 --> 00:02:53,550
+We can change which endpoint requests from localhost or Heroku based on the environment.
+
+36
+00:02:53,640 --> 00:02:56,660
+I'm going to save this request and fire it off.
+
+37
+00:02:56,940 --> 00:03:00,070
+And you'll notice when you try to fire this request we get an error.
+
+38
+00:03:00,120 --> 00:03:04,770
+It's trying to make a request to a u r l that starts with the curly braces.
+
+39
+00:03:04,770 --> 00:03:10,530
+This is the uncoated character you R-AL the closing curly braces and to Dewes That's because the U R
+
+40
+00:03:10,530 --> 00:03:12,530
+L variable is currently not defined.
+
+41
+00:03:12,630 --> 00:03:18,510
+We need to switch to an environment over in the environments list we now have to do app Heroku and to
+
+42
+00:03:18,510 --> 00:03:19,800
+do app local.
+
+43
+00:03:19,920 --> 00:03:23,320
+If I click to do app local and send that request off what do I get.
+
+44
+00:03:23,460 --> 00:03:26,610
+I get my two items in the local database.
+
+45
+00:03:26,700 --> 00:03:33,690
+If I switch over to to do app Heroku this is going to make a request to the Heroku application it's
+
+46
+00:03:33,690 --> 00:03:39,260
+going to be updating this you R-AL and when I fire it off we get a different set of data this time around.
+
+47
+00:03:39,360 --> 00:03:44,940
+All we have is our 1 to do item and the one that's available on the Heroku application.
+
+48
+00:03:45,030 --> 00:03:50,400
+With this in place get to Dewes can now easily be used to fetch local host or Heroku items and we can
+
+49
+00:03:50,400 --> 00:03:57,460
+do the same thing with our post to request right here I'm going to replace the R L with the curly braces
+
+50
+00:03:58,570 --> 00:04:02,850
+and inside of those curly braces will have the U R L variable.
+
+51
+00:04:02,860 --> 00:04:08,890
+Now I can go ahead and save this request fire it off and it's going to make a new to do on the Heroku
+
+52
+00:04:08,890 --> 00:04:09,830
+application.
+
+53
+00:04:09,940 --> 00:04:16,550
+If I switch to the local environment we can fire that off and now we have a new do on the local environment.
+
+54
+00:04:16,620 --> 00:04:20,740
+The last request to change is going to be the get to do is by ID request.
+
+55
+00:04:20,740 --> 00:04:22,890
+We're going to take that localhost three thousand.
+
+56
+00:04:22,930 --> 00:04:26,590
+Once again then we're going to go ahead and replace it with.
+
+57
+00:04:26,590 --> 00:04:27,230
+You are out.
+
+58
+00:04:27,280 --> 00:04:28,540
+Just like this.
+
+59
+00:04:28,630 --> 00:04:33,340
+And now we are done we can save the request and we can go ahead and fire it off.
+
+60
+00:04:33,340 --> 00:04:35,310
+Now this one has a second variable.
+
+61
+00:04:35,320 --> 00:04:38,180
+This is the actual to do ID.
+
+62
+00:04:38,260 --> 00:04:41,020
+You could add this as a variable as well.
+
+63
+00:04:41,020 --> 00:04:46,240
+For now though since it's going to change as we add and delete to Dewes I'm going to simply grab one
+
+64
+00:04:46,300 --> 00:04:53,860
+from the local database move into the get to Doo's requests swap it out here and send it off and we
+
+65
+00:04:53,860 --> 00:04:55,540
+get to do back.
+
+66
+00:04:55,630 --> 00:05:00,610
+If I make it a to do object id that doesn't exist by changing one of the numbers to 6.
+
+67
+00:05:00,610 --> 00:05:07,040
+We get a 404 everything is still working as expected and it's also going to work on the Heroku environment.
+
+68
+00:05:07,270 --> 00:05:11,950
+I'm going to fetch all the dues on the Heroku environment grab one of the Ids.
+
+69
+00:05:11,950 --> 00:05:19,490
+Move to the get to do by ID request swap out the ID send it off and we get that to do item.
+
+70
+00:05:19,690 --> 00:05:24,640
+Hopefully you're starting to see why these postman environments are so convenient you can easily switch
+
+71
+00:05:24,640 --> 00:05:29,320
+between two environments changing exactly what happens to the request.
+
+72
+00:05:29,320 --> 00:05:33,970
+Now in this case we happened to only have one variable you are Al you could add others and we will a
+
+73
+00:05:33,970 --> 00:05:35,220
+little bit later.
+
+74
+00:05:35,230 --> 00:05:36,330
+For now though that is it.
+
+75
+00:05:36,340 --> 00:05:41,200
+We have a way to swap between the two environments inside of postman.
+
+76
+00:05:41,200 --> 00:05:45,490
+Now that we have this in place we're going to move back into the Adam editor and we're going to start
+
+77
+00:05:45,520 --> 00:05:46,630
+adding new routes.
+
+78
+00:05:46,630 --> 00:05:48,960
+There's two more to go in the next video.
+
+79
+00:05:48,970 --> 00:05:52,270
+You're going to learn how to delete to do's by ID.
+
+80
+00:05:52,270 --> 00:05:53,100
+That's coming up next.
+
+81
+00:05:53,110 --> 00:05:54,160
+So stay tuned.
+
+82
+00:05:54,160 --> 00:05:55,600
+I will see you then
+

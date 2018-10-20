@@ -1,0 +1,820 @@
+﻿1
+00:00:00,630 --> 00:00:06,030
+Now that all of our to do routes are set up and tested in this final video we're going to be exploring
+
+2
+00:00:06,030 --> 00:00:09,870
+how to create a separate test database for our application.
+
+3
+00:00:09,900 --> 00:00:15,600
+That means when we run the test suite we're not going to be deleting all of the data inside of our to
+
+4
+00:00:15,600 --> 00:00:17,260
+do app database.
+
+5
+00:00:17,310 --> 00:00:23,770
+We'll have a separate database alongside of testen to do app that's used for the testing D-B.
+
+6
+00:00:23,910 --> 00:00:28,800
+Now in order to settle that up we need a way to differentiate between running our app locally and running
+
+7
+00:00:28,800 --> 00:00:30,430
+our test suite locally.
+
+8
+00:00:30,480 --> 00:00:36,300
+And that's exactly where we're going to start this whole issue stems from the fact that in our mongoose
+
+9
+00:00:36,350 --> 00:00:42,630
+J.S. file we either use the Mongo DB are-I environment variable or we use this string.
+
+10
+00:00:42,630 --> 00:00:46,290
+This string is used for both testing and for development.
+
+11
+00:00:46,320 --> 00:00:51,120
+And when I say testing I mean when we run our test script and when I say development I mean when we
+
+12
+00:00:51,120 --> 00:00:54,920
+run our app locally so we can use it inside of tools like post man.
+
+13
+00:00:55,050 --> 00:00:59,700
+What we really need is a way to set environment variables locally as well.
+
+14
+00:00:59,790 --> 00:01:07,400
+So we always use the Mongo DB variable and we never had a default string like the one we have here.
+
+15
+00:01:07,470 --> 00:01:11,370
+And in order to get that done we're going to look at an environment variable that's actually pretty
+
+16
+00:01:11,370 --> 00:01:12,060
+special.
+
+17
+00:01:12,180 --> 00:01:14,020
+It's process dot.
+
+18
+00:01:14,050 --> 00:01:16,510
+Ian the dot node EMV.
+
+19
+00:01:16,650 --> 00:01:17,940
+And you don't have to write this code.
+
+20
+00:01:17,940 --> 00:01:19,360
+I'm writing on line 9.
+
+21
+00:01:19,410 --> 00:01:21,510
+I'm going to be deleting it in just a moment.
+
+22
+00:01:21,570 --> 00:01:27,870
+This node Ian the environment variable was made popular by the Express library but it now has been adopted
+
+23
+00:01:27,870 --> 00:01:30,940
+by pretty much any and node hosting company.
+
+24
+00:01:31,020 --> 00:01:38,410
+For example Heroku sets this value equal to the string production by default.
+
+25
+00:01:38,450 --> 00:01:41,010
+That means that we're going to have three environments total.
+
+26
+00:01:41,090 --> 00:01:42,820
+We already have a production environment.
+
+27
+00:01:42,830 --> 00:01:45,870
+This is what we call our app on Heroku.
+
+28
+00:01:45,920 --> 00:01:52,990
+We're going to have a development environment when we run our app locally and we'll have a test environment
+
+29
+00:01:53,200 --> 00:01:55,850
+when we run our app through moka.
+
+30
+00:01:55,960 --> 00:02:01,750
+This means we'll be able to set up a different value for Mongo DB You are for all three of those creating
+
+31
+00:02:01,750 --> 00:02:04,840
+a separate test database to kick things off.
+
+32
+00:02:04,840 --> 00:02:08,510
+We're going to add some code in the server J.S. file up at the very top.
+
+33
+00:02:08,680 --> 00:02:13,300
+We'll be moving this code out of server JSA a little bit later but for now we're going to tack it on
+
+34
+00:02:13,360 --> 00:02:14,580
+right here.
+
+35
+00:02:14,650 --> 00:02:23,720
+Let's make a variable called envy and we're going to set it equal to process dot NVI dot node envy.
+
+36
+00:02:23,740 --> 00:02:27,140
+Now this variable currently is only set on Heroku.
+
+37
+00:02:27,220 --> 00:02:30,400
+We don't have this environment variable set locally.
+
+38
+00:02:30,400 --> 00:02:35,980
+Now environment variables in general are used for much more than just node your machine has probably
+
+39
+00:02:36,020 --> 00:02:41,620
+close to two dozen environment variables telling the computer all sorts of things where certain programs
+
+40
+00:02:41,620 --> 00:02:45,120
+exist what versions of libraries you want to use that sort of stuff.
+
+41
+00:02:45,310 --> 00:02:50,910
+The node EMV variable however is something that we're going to need to configure in side of our package.
+
+42
+00:02:50,920 --> 00:02:57,280
+Jason File for our development and test environments then just down below we'll be able to add some
+
+43
+00:02:57,340 --> 00:03:01,960
+if else statements to configure our app depending on the environment.
+
+44
+00:03:02,020 --> 00:03:04,180
+If we're in development we'll use one database.
+
+45
+00:03:04,180 --> 00:03:06,390
+If we're in test we'll use a different one.
+
+46
+00:03:06,850 --> 00:03:11,950
+Now to kick things off inside of package that Jason we are going to need to tweak the test script setting
+
+47
+00:03:11,950 --> 00:03:14,760
+the node in the environment variable.
+
+48
+00:03:14,770 --> 00:03:19,110
+Now you can set environment variables by chaining together multiple commands.
+
+49
+00:03:19,120 --> 00:03:23,440
+The code we're about to write is going to have a fallback for Windows as well.
+
+50
+00:03:23,440 --> 00:03:28,390
+So you can write the exact same line if you're on OSX Linux or a windows.
+
+51
+00:03:28,390 --> 00:03:31,210
+This is going to work everywhere including her Roku.
+
+52
+00:03:31,210 --> 00:03:37,720
+The goal here is to just set node NVI equal to test before we run the test suite.
+
+53
+00:03:38,080 --> 00:03:43,250
+Now in order to do that we're going to start by using the export command the export command.
+
+54
+00:03:43,340 --> 00:03:46,570
+This is available in OS X and Linux this is the way to get it done.
+
+55
+00:03:46,660 --> 00:03:52,500
+Type this even if you're in Windows because when you deployed to Heroku you are going to be using Linux.
+
+56
+00:03:52,570 --> 00:03:57,940
+We're going to export node NVI setting an equal to test.
+
+57
+00:03:57,940 --> 00:04:00,340
+Now if you're on Windows This command is going to fail.
+
+58
+00:04:00,340 --> 00:04:05,850
+Export is going to trigger an error something along the lines of export command not found.
+
+59
+00:04:05,950 --> 00:04:12,640
+For Windows users we're going to add this or block where we will call set.
+
+60
+00:04:12,640 --> 00:04:19,000
+Now set is the same as export only it's the Windows version of the command right after it will be providing
+
+61
+00:04:19,000 --> 00:04:26,450
+the exact same argument node envy equals test after the final test.
+
+62
+00:04:26,500 --> 00:04:30,100
+We're going to add to ampersands to change these commands together.
+
+63
+00:04:30,100 --> 00:04:33,660
+So let's go ahead and break down exactly what's going to happen if you're on Linux.
+
+64
+00:04:33,760 --> 00:04:35,010
+You're going to run this command.
+
+65
+00:04:35,170 --> 00:04:37,810
+This command is never going to run because the first one did.
+
+66
+00:04:38,020 --> 00:04:41,690
+Then we're going to change on a second command running moka.
+
+67
+00:04:41,920 --> 00:04:46,870
+If you're on Windows This command is going to fail which means you will run the second command.
+
+68
+00:04:46,870 --> 00:04:49,480
+Either way you get the node in the variable set.
+
+69
+00:04:49,570 --> 00:04:52,520
+Then finally your chain on a call to moka.
+
+70
+00:04:52,720 --> 00:04:58,490
+With this in place we now have a way to set our node EMV variable right inside a package.
+
+71
+00:04:58,510 --> 00:05:01,700
+Jason this is a quick cross OS update.
+
+72
+00:05:01,720 --> 00:05:05,700
+As you can see here we have a modified version of that test script.
+
+73
+00:05:05,710 --> 00:05:09,860
+The original test script had a problem on the Windows side of things.
+
+74
+00:05:09,940 --> 00:05:16,090
+It would set the environment variables equal to the string test with a space at the end as opposed to
+
+75
+00:05:16,120 --> 00:05:17,380
+just the string.
+
+76
+00:05:17,380 --> 00:05:18,870
+Ts t.
+
+77
+00:05:19,030 --> 00:05:26,470
+In order to properly set the ENP variable to just ts t and not ts t space we're going to be wrapping
+
+78
+00:05:26,620 --> 00:05:33,400
+the entire set argument inside of quotes and we're escaping those quotes since we use quotes inside
+
+79
+00:05:33,460 --> 00:05:35,060
+of our Jason File.
+
+80
+00:05:35,140 --> 00:05:38,970
+This command is going to work on Linux OSX and Windows.
+
+81
+00:05:38,980 --> 00:05:39,470
+All right.
+
+82
+00:05:39,550 --> 00:05:40,220
+That's it.
+
+83
+00:05:42,110 --> 00:05:46,620
+No I'm actually not going at this for the start script the start script which is for the development
+
+84
+00:05:46,620 --> 00:05:48,700
+environment will just be the default.
+
+85
+00:05:48,780 --> 00:05:54,360
+We'll have it set to production on Heroku We'll have it set to test inside of our test script and in
+
+86
+00:05:54,360 --> 00:06:00,030
+the case of this script we'll just default it inside of servisez ass because we tend to run in this
+
+87
+00:06:00,060 --> 00:06:04,350
+file without actually going through the start script right here in a server.
+
+88
+00:06:04,350 --> 00:06:12,020
+J.S. also had a default to development if run production this is going to be set if we're on test this
+
+89
+00:06:12,020 --> 00:06:16,670
+is going to be set if we're on development this won't be set and development will be used which means
+
+90
+00:06:16,670 --> 00:06:24,800
+we are ready to add some if statements if the EMV is development we want to do something.
+
+91
+00:06:24,800 --> 00:06:28,860
+The thing we want to do is set up the Mongo DB you r l else.
+
+92
+00:06:28,910 --> 00:06:35,090
+If the environment is the test environment in that case we also want to set up some custom database
+
+93
+00:06:35,150 --> 00:06:37,840
+you R-AL and we would do that right in here.
+
+94
+00:06:37,850 --> 00:06:40,910
+Now we can go ahead and actually set up our environment variables.
+
+95
+00:06:40,910 --> 00:06:46,130
+We have two environment variables being used throughout the app both of which are set on her Roku.
+
+96
+00:06:46,130 --> 00:06:49,340
+So theres no reason to worry about that environment in the production environment.
+
+97
+00:06:49,340 --> 00:06:53,630
+We have our port environment variable right here and we have our Mongo.
+
+98
+00:06:53,660 --> 00:06:57,280
+DD You are I variable over inside of server.
+
+99
+00:06:57,310 --> 00:07:04,390
+Yes if we are in the development environment I'm going to go ahead and set process Dotti and we dot
+
+100
+00:07:04,400 --> 00:07:07,000
+port equal to 3000.
+
+101
+00:07:07,010 --> 00:07:10,580
+This means that we can actually remove the default right here.
+
+102
+00:07:10,700 --> 00:07:13,970
+There's no need to have a default because port is already going to be set.
+
+103
+00:07:13,970 --> 00:07:16,120
+It will be set on Heroku for production.
+
+104
+00:07:16,190 --> 00:07:20,210
+It'll be set locally for development and right here we'll set it for our final environment.
+
+105
+00:07:20,210 --> 00:07:25,360
+The test environment setting in equal to three thousand.
+
+106
+00:07:25,520 --> 00:07:28,230
+The next thing we're going to do is set a mongo DB.
+
+107
+00:07:28,250 --> 00:07:33,770
+You are my environment variable for development and test which is the exact same name for the variable
+
+108
+00:07:33,770 --> 00:07:35,240
+we have on production.
+
+109
+00:07:35,240 --> 00:07:38,300
+I'm going to remove our default taking the string and cutting it out.
+
+110
+00:07:38,300 --> 00:07:43,060
+So it's in my clipboard then I can remove all the excess code for setting that default.
+
+111
+00:07:43,130 --> 00:07:48,380
+And what we're left with is just a reference to the environment variable over inside of server.
+
+112
+00:07:48,410 --> 00:07:51,870
+Yes we can now set that environment variable for both environments.
+
+113
+00:07:51,900 --> 00:07:59,800
+Process dot EMV dot Mongo D-B underscore you are.
+
+114
+00:07:59,990 --> 00:08:02,930
+And we're going to set that equal to the string I just copied.
+
+115
+00:08:02,930 --> 00:08:06,780
+All right here we are using the to do app database.
+
+116
+00:08:06,860 --> 00:08:09,770
+Now down below we can set process.
+
+117
+00:08:09,890 --> 00:08:13,360
+Ian V dot Mongo DB.
+
+118
+00:08:13,420 --> 00:08:16,900
+You are I equal to the string we just copied.
+
+119
+00:08:16,910 --> 00:08:21,940
+But instead of setting an equal to the to do app database we're going to set it equal to the to do app
+
+120
+00:08:22,190 --> 00:08:23,680
+test database.
+
+121
+00:08:23,690 --> 00:08:28,190
+Now when we run our application in test mode we're going to be using a completely different database.
+
+122
+00:08:28,190 --> 00:08:33,920
+So it's not going to wipe the database that we're using for development to test that everything is working
+
+123
+00:08:33,920 --> 00:08:35,150
+as expected.
+
+124
+00:08:35,150 --> 00:08:36,580
+Right on the second line.
+
+125
+00:08:36,600 --> 00:08:41,930
+All I'm going to do is log out the environment variable using console that log.
+
+126
+00:08:42,090 --> 00:08:45,000
+I'm going to print the string in V with a couple of actresses.
+
+127
+00:08:45,000 --> 00:08:50,310
+So it's easy to spot in the terminal output and then I'll go ahead and pass the EMV variable in as the
+
+128
+00:08:50,310 --> 00:08:51,720
+second argument.
+
+129
+00:08:51,720 --> 00:08:54,890
+Now we can go ahead and test that everything is working as expected.
+
+130
+00:08:55,050 --> 00:09:00,130
+Over inside of the terminal I'm going to start up our app using node server server.
+
+131
+00:09:00,160 --> 00:09:00,970
+Yes.
+
+132
+00:09:01,470 --> 00:09:02,420
+And what do we get.
+
+133
+00:09:02,460 --> 00:09:06,420
+We get an NVI equal to development which is exactly what we expect.
+
+134
+00:09:06,570 --> 00:09:09,840
+And now we can play around with it in postman over inside a post man.
+
+135
+00:09:09,840 --> 00:09:11,870
+I'm going to switch to my local environment.
+
+136
+00:09:14,030 --> 00:09:19,100
+Then I'm going to go ahead and fetch all of my to do's and right here you can see we have some left
+
+137
+00:09:19,130 --> 00:09:20,930
+over test data.
+
+138
+00:09:20,930 --> 00:09:23,390
+What I want to do is go ahead and tweak this first one.
+
+139
+00:09:23,390 --> 00:09:29,090
+So it's different then we'll run our tests and make sure that the tweaked to do still shows up because
+
+140
+00:09:29,090 --> 00:09:32,080
+when we run the tests we shouldn't be accessing the same database.
+
+141
+00:09:32,120 --> 00:09:33,950
+So none of this data should get changed.
+
+142
+00:09:34,130 --> 00:09:41,040
+I'm going to copy the ID for the first item go into my patch call I'm updating the text and the completed
+
+143
+00:09:41,040 --> 00:09:41,510
+property.
+
+144
+00:09:41,520 --> 00:09:42,150
+So that's good.
+
+145
+00:09:42,150 --> 00:09:43,360
+I don't need to change that.
+
+146
+00:09:43,500 --> 00:09:48,840
+I'm going to go ahead and swap out the ID send off the call and now we have the updated to do with the
+
+147
+00:09:48,840 --> 00:09:51,720
+text of updates from postman.
+
+148
+00:09:51,720 --> 00:09:59,850
+Next up I'm going to go into the terminal shut down node server and run our tests using NPM test.
+
+149
+00:09:59,850 --> 00:10:01,410
+Now when we do this what do we get.
+
+150
+00:10:01,410 --> 00:10:04,030
+We get our EMV variable set to test right here.
+
+151
+00:10:04,170 --> 00:10:05,510
+Then it runs through the test suite.
+
+152
+00:10:05,550 --> 00:10:08,340
+All of our tests pass which is fantastic.
+
+153
+00:10:08,370 --> 00:10:13,620
+The true test as to whether or not what we set up works is if we start up the server again and we try
+
+154
+00:10:13,620 --> 00:10:18,720
+to fetch our data from the development database over inside of postman.
+
+155
+00:10:18,730 --> 00:10:24,720
+I'm going to make that get to do is request one last time and right here are to do data still shows
+
+156
+00:10:24,720 --> 00:10:30,420
+up as expected even though the test suite did run it didn't matter because it's not wiping this database
+
+157
+00:10:30,420 --> 00:10:31,010
+anymore.
+
+158
+00:10:31,110 --> 00:10:37,170
+It's now wiping a brand new database and you can view in robo Mongo if I click the connection and click
+
+159
+00:10:37,200 --> 00:10:38,100
+refresh.
+
+160
+00:10:38,130 --> 00:10:44,840
+We now have to do app databases we have to do app and we have to do app test.
+
+161
+00:10:44,850 --> 00:10:46,490
+This is fantastic.
+
+162
+00:10:46,500 --> 00:10:49,940
+Everything is set up and we are ready to get rolling.
+
+163
+00:10:49,950 --> 00:10:54,270
+Now what I do want to do before we go is take all of this code on a server J S and move it somewhere
+
+164
+00:10:54,270 --> 00:10:54,700
+else.
+
+165
+00:10:54,720 --> 00:11:00,420
+It doesn't really belong here and it only makes the server file more complex than it needs to be in
+
+166
+00:11:00,420 --> 00:11:01,350
+the server directory.
+
+167
+00:11:01,350 --> 00:11:08,040
+I'm going to make a brand new folder called config and in the config folder I'll make a new file called
+
+168
+00:11:08,040 --> 00:11:15,620
+config dot J.S. and inside of here we can do all of that process environment variable configuration.
+
+169
+00:11:15,660 --> 00:11:22,030
+I'm going to copy all of the code and replace it to a require call to that file.
+
+170
+00:11:22,080 --> 00:11:26,660
+It's a relative file so we'll go to a forward slash config forward slash config.
+
+171
+00:11:26,690 --> 00:11:30,670
+Jay Yes leaving off the extension inside of configfs.
+
+172
+00:11:30,690 --> 00:11:35,440
+We can now copy the code in and remove the line related to console dot lock.
+
+173
+00:11:35,520 --> 00:11:41,700
+Let's wrap this video up by committing our changes and deploying to Heroku over inside of the terminal
+
+174
+00:11:41,710 --> 00:11:46,440
+I'm going to clear the terminal output then we can go ahead and run get status to see what files we
+
+175
+00:11:46,440 --> 00:11:48,250
+have changed and we have quite a few.
+
+176
+00:11:48,360 --> 00:11:51,160
+We also have some new files in the server directory.
+
+177
+00:11:51,390 --> 00:11:56,250
+I'm going to use get added to add all of that to the next commit and not use get status again and to
+
+178
+00:11:56,250 --> 00:11:56,760
+confirm.
+
+179
+00:11:56,790 --> 00:11:58,500
+Everything looks good.
+
+180
+00:11:58,500 --> 00:11:59,780
+Now we're ready for that.
+
+181
+00:11:59,820 --> 00:12:08,420
+And I can go ahead and do that get commit with the M flag providing our message set up separate test
+
+182
+00:12:08,480 --> 00:12:15,250
+and development Envy's and I'm also going to deploy it to Heroku so we can verify we haven't broken
+
+183
+00:12:15,250 --> 00:12:16,260
+anything there.
+
+184
+00:12:16,430 --> 00:12:19,540
+Get push Heroku master.
+
+185
+00:12:19,810 --> 00:12:26,200
+Once this is done we'll wrap the video up by heading into postmen and making a get to Doo's request
+
+186
+00:12:26,440 --> 00:12:29,530
+to our Heroku application.
+
+187
+00:12:29,860 --> 00:12:34,960
+We're compressing the app and launching it now it looks like everything is going to go over inside of
+
+188
+00:12:34,960 --> 00:12:35,560
+post man.
+
+189
+00:12:35,560 --> 00:12:41,020
+I'm going to switch environments from to do app local to to do app parochial and we can fire off this
+
+190
+00:12:41,020 --> 00:12:42,240
+request now.
+
+191
+00:12:42,250 --> 00:12:45,440
+Now here we get our to do items coming from the real database.
+
+192
+00:12:45,580 --> 00:12:50,240
+Which means nothing was broken on the Heroku application and it shouldn't be.
+
+193
+00:12:50,260 --> 00:12:53,360
+Technically we haven't changed anything in Heroku.
+
+194
+00:12:53,380 --> 00:12:57,880
+All we're doing is we're running the config file but we don't use the default because it's already set
+
+195
+00:12:58,090 --> 00:13:02,920
+and it's not going to pass any of these statements because the ENP variable is going to be equal to
+
+196
+00:13:02,920 --> 00:13:04,160
+the string production.
+
+197
+00:13:04,330 --> 00:13:09,910
+So as far as Heroku is concerned nothing has changed and it's showing that because the data is still
+
+198
+00:13:09,910 --> 00:13:11,930
+coming back as expected.
+
+199
+00:13:12,070 --> 00:13:15,740
+And that is it for this video and that is it for this section in this section.
+
+200
+00:13:15,740 --> 00:13:24,220
+We learned about Mongo D-B mongoose API eyes post man testing routes all sorts of great features in
+
+201
+00:13:24,220 --> 00:13:29,950
+the next section we're going to wrap up the application by adding authentication that is all coming
+
+202
+00:13:29,950 --> 00:13:30,700
+up next.
+
+203
+00:13:30,730 --> 00:13:32,780
+I am super excited to get to it.
+
+204
+00:13:32,800 --> 00:13:34,050
+So stay tuned.
+
+205
+00:13:34,060 --> 00:13:36,590
+I will see you in the next section.
+

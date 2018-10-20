@@ -1,0 +1,584 @@
+﻿1
+00:00:00,570 --> 00:00:06,500
+In this video you're going to write some test cases that verify our delete route works as expected.
+
+2
+00:00:06,660 --> 00:00:11,250
+Now before we get into that what we're going to do is make one quick change to the delete route to make
+
+3
+00:00:11,250 --> 00:00:14,930
+it match our other routes our other routes return an object.
+
+4
+00:00:15,000 --> 00:00:20,850
+And on that object the response body we have it to do property and we did the same thing for the to
+
+5
+00:00:20,850 --> 00:00:23,750
+do's call right here on the response body.
+
+6
+00:00:23,820 --> 00:00:28,680
+We have the DO's property that stores the array for the delete request.
+
+7
+00:00:28,680 --> 00:00:29,830
+We never did that.
+
+8
+00:00:29,910 --> 00:00:34,880
+What I'm going to do is send back an object as the response body where the two do.
+
+9
+00:00:34,980 --> 00:00:38,140
+Property equals the to do that got deleted.
+
+10
+00:00:38,220 --> 00:00:39,170
+Although we'll just use that.
+
+11
+00:00:39,180 --> 00:00:39,590
+Yes.
+
+12
+00:00:39,610 --> 00:00:46,080
+Six syntax to send that back with this in place we can go ahead and write some test cases that verify
+
+13
+00:00:46,260 --> 00:00:47,010
+the delete route.
+
+14
+00:00:47,040 --> 00:00:51,990
+Works as expected and this is going to happen at the very bottom of our server test file.
+
+15
+00:00:52,040 --> 00:01:00,070
+I'm going to create a new described block for the delete forward slash to do is forward slash colon
+
+16
+00:01:00,130 --> 00:01:00,910
+ID.
+
+17
+00:01:00,960 --> 00:01:07,220
+Right right here we'll provide our arrow function and we can go ahead and call it three times the first
+
+18
+00:01:07,220 --> 00:01:08,270
+test case.
+
+19
+00:01:08,420 --> 00:01:11,390
+It should remove a.
+
+20
+00:01:11,390 --> 00:01:14,790
+To do this is going to be test case number one.
+
+21
+00:01:14,810 --> 00:01:20,990
+It's going to verify that when we pass in an ID that does exist inside of the dues collection the item
+
+22
+00:01:21,080 --> 00:01:22,420
+gets removed.
+
+23
+00:01:22,760 --> 00:01:27,610
+Next up it should return 4 or 4.
+
+24
+00:01:27,890 --> 00:01:35,790
+If you do not found if we try to delete the to do but nothing was actually deleted we're going to send
+
+25
+00:01:35,790 --> 00:01:37,070
+the 404 back.
+
+26
+00:01:37,070 --> 00:01:40,890
+So the user knows that the call probably didn't work as expected.
+
+27
+00:01:41,090 --> 00:01:45,590
+Yes the call didn't necessarily fail but you never deleted the item you wanted to delete.
+
+28
+00:01:45,590 --> 00:01:47,420
+So we are going to consider that a failure.
+
+29
+00:01:47,510 --> 00:01:50,480
+And that's what we did when we sent the 404 back.
+
+30
+00:01:50,690 --> 00:02:06,280
+And the last test we're going to write it should return 404 if object id is invalid and this test is
+
+31
+00:02:06,280 --> 00:02:12,910
+going to verify that when we have an invalid object id do get a 404 back which is the expected response
+
+32
+00:02:12,970 --> 00:02:14,710
+status code.
+
+33
+00:02:14,710 --> 00:02:16,960
+Now these two tests will thaw a little bit later.
+
+34
+00:02:16,960 --> 00:02:20,860
+We're going to go ahead and focus on this one because this is where we're going to need to do a few
+
+35
+00:02:20,860 --> 00:02:22,070
+complex things.
+
+36
+00:02:22,120 --> 00:02:26,930
+Not only are we going to need to send off the request after the request comes back.
+
+37
+00:02:26,980 --> 00:02:31,180
+We're going to want to assert some things about it and we're gonna want to query the database making
+
+38
+00:02:31,180 --> 00:02:36,010
+sure that to do was actually removed from the to do this collection.
+
+39
+00:02:36,130 --> 00:02:39,220
+The first thing I'm going to do is figure out which to do I want to leave.
+
+40
+00:02:39,310 --> 00:02:41,040
+We have two options up above.
+
+41
+00:02:41,050 --> 00:02:46,270
+I'm going to go ahead and delete the second to do item though that choice is irrelevant you could easily
+
+42
+00:02:46,270 --> 00:02:49,440
+just do this with the first one down below.
+
+43
+00:02:49,660 --> 00:02:55,080
+We'll create a hex ID variable like we did for our previous test case.
+
+44
+00:02:55,150 --> 00:02:58,280
+We're going to set that equal to the second item from the to do is right.
+
+45
+00:02:59,530 --> 00:03:06,640
+Then we're going to go ahead and grab its id property calling the two hacks sharing method.
+
+46
+00:03:06,820 --> 00:03:12,430
+Now that we have the hex ID for the second to do item we can start worrying about making the request
+
+47
+00:03:12,700 --> 00:03:13,450
+right here.
+
+48
+00:03:13,600 --> 00:03:16,470
+I'm going to call request passing in the app.
+
+49
+00:03:16,480 --> 00:03:18,580
+We want to make the request too.
+
+50
+00:03:18,970 --> 00:03:25,240
+Then we can call Delete which is going to trigger a delete HTP request the following you are l is going
+
+51
+00:03:25,240 --> 00:03:28,740
+to have some variables injected into it so I will use template strings.
+
+52
+00:03:28,780 --> 00:03:32,810
+Its forward slash to Doo's forward slash followed by the ID.
+
+53
+00:03:32,920 --> 00:03:36,590
+I'm going to inject the hex ID variable.
+
+54
+00:03:36,700 --> 00:03:42,340
+Now that we have our delete method all set up we can move on to start making our expectations.
+
+55
+00:03:42,430 --> 00:03:48,640
+We're going to expect that we get a 200 back we should get at 200 because this idea is going to exist
+
+56
+00:03:48,700 --> 00:03:50,140
+in the database.
+
+57
+00:03:50,140 --> 00:03:54,600
+Next up we can assert that the data comes back as the response body.
+
+58
+00:03:54,940 --> 00:04:01,660
+I'm going to make a custom expect call passing in our function where we have the response argument sent
+
+59
+00:04:01,720 --> 00:04:07,040
+in and we're going to do is assert that the ID is the ID right here.
+
+60
+00:04:07,360 --> 00:04:15,880
+We're going to expect that the response body property has to do Propp Where are the underscore ID property
+
+61
+00:04:16,090 --> 00:04:19,750
+equals the hex ID to be hex.
+
+62
+00:04:19,770 --> 00:04:20,590
+I d.
+
+63
+00:04:20,800 --> 00:04:25,270
+If this is the case then we can verify the call pretty much worked as expected.
+
+64
+00:04:25,270 --> 00:04:29,930
+Now the last thing we need to do is query the database and make sure the item was actually removed.
+
+65
+00:04:29,950 --> 00:04:35,770
+I'm going to call end passing in a callback so we can do a few asynchronous things before we wrap up
+
+66
+00:04:35,770 --> 00:04:37,210
+the test case.
+
+67
+00:04:37,210 --> 00:04:43,530
+And if you remember gets called with an error and the response if there is an error we're gonna need
+
+68
+00:04:43,530 --> 00:04:47,620
+to handle that because otherwise there's no need to query the database.
+
+69
+00:04:47,730 --> 00:04:56,900
+If error were going to return to prevent the function execution done passing in that error so the error
+
+70
+00:04:56,930 --> 00:04:58,730
+gets rendered by moka.
+
+71
+00:04:58,910 --> 00:05:03,670
+Now we can go ahead and make the query and this is actually going to be your challenge for the video.
+
+72
+00:05:03,680 --> 00:05:13,810
+What I want you to do is query database using find by ID you're going to try to find the to do item
+
+73
+00:05:13,810 --> 00:05:15,680
+that has this ID.
+
+74
+00:05:15,760 --> 00:05:20,910
+Now when you try to find that ID it should fail you should get nothing back.
+
+75
+00:05:20,920 --> 00:05:25,620
+You're going to create that to do variable in your then call and make sure it does not exist.
+
+76
+00:05:25,780 --> 00:05:31,600
+You can make sure something doesn't exist using the to not exist assertion that would look something
+
+77
+00:05:31,600 --> 00:05:41,560
+like this we're expecting no to not exist although instead of null you'll pass in the to do argument
+
+78
+00:05:41,800 --> 00:05:44,590
+which is going to be in your success handler.
+
+79
+00:05:44,590 --> 00:05:49,860
+Now this usually would contain the to do item but since we've just deleted it it should not exist.
+
+80
+00:05:49,880 --> 00:05:52,210
+And this is going to get all of that done.
+
+81
+00:05:52,210 --> 00:05:56,810
+Now if there is an error you're going to do the exact same thing we did up above in our test case for
+
+82
+00:05:56,810 --> 00:06:03,230
+a post to Dewes right here we simply add a catch clause passing the error through to done.
+
+83
+00:06:03,580 --> 00:06:06,750
+Now that you know what to do it's your job to get it done.
+
+84
+00:06:06,760 --> 00:06:09,540
+What I'd like you to do is fill this out fill out the query.
+
+85
+00:06:09,550 --> 00:06:10,960
+Make sure to handle the errors.
+
+86
+00:06:10,960 --> 00:06:12,690
+Make sure to call it done.
+
+87
+00:06:12,790 --> 00:06:18,030
+Then you can go ahead and run the test suite verifying that this test case passes.
+
+88
+00:06:18,040 --> 00:06:19,370
+These two are going to fail.
+
+89
+00:06:19,450 --> 00:06:24,670
+So for the moment I'm just going to comment them out they're going to fail because we have a done argument
+
+90
+00:06:24,670 --> 00:06:26,560
+specified but we never call it.
+
+91
+00:06:26,560 --> 00:06:29,020
+So the test will time out after two seconds.
+
+92
+00:06:29,020 --> 00:06:33,490
+Take a moment to knock this out run the test suite make sure it works as expected and when you're done
+
+93
+00:06:33,670 --> 00:06:38,840
+click play.
+
+94
+00:06:38,850 --> 00:06:40,950
+I hope you are able to get that done.
+
+95
+00:06:40,980 --> 00:06:51,940
+The first thing to do is call to Dewes dot excuse me to do dot find by id passing in that Hex ID.
+
+96
+00:06:51,960 --> 00:06:54,510
+This is the item that should have gotten deleted.
+
+97
+00:06:54,510 --> 00:06:57,210
+Now we can call then passing in our callback.
+
+98
+00:06:57,210 --> 00:07:00,230
+It is going to get called with the doc the to do.
+
+99
+00:07:00,230 --> 00:07:04,390
+Variable and all we're going to do is verify that it does not exist.
+
+100
+00:07:04,440 --> 00:07:07,010
+We just deleted it so fine by ID should return.
+
+101
+00:07:07,020 --> 00:07:08,730
+No for the doc.
+
+102
+00:07:08,820 --> 00:07:12,930
+We're going to expect that the to do variable does not exist.
+
+103
+00:07:12,930 --> 00:07:18,500
+Using the to not exist method available on that expect a library.
+
+104
+00:07:18,510 --> 00:07:25,480
+Now we do need to call done to wrap up the test case from here we can go ahead and call catch.
+
+105
+00:07:25,540 --> 00:07:30,930
+I'm going to call catch grabbing that error argument and passing it through to done.
+
+106
+00:07:31,060 --> 00:07:36,250
+There's no need to provide curly braces here we just have one statement so we can use the shortcut which
+
+107
+00:07:36,250 --> 00:07:42,610
+is available in yes 6 for error functions with our actual query in place we can remove the comments
+
+108
+00:07:42,610 --> 00:07:48,550
+that outlined what was supposed to happen and we can run the test case over inside of the terminal.
+
+109
+00:07:48,550 --> 00:07:53,790
+We can now run the test suite to verify that everything we set up worked as expected.
+
+110
+00:07:53,860 --> 00:08:01,330
+Over here I'm going to use NPM run test HIF and watch to start up our test suite with gnomon and when
+
+111
+00:08:01,330 --> 00:08:06,490
+it runs we see that we have our one test under the delete describe a block and it is passing.
+
+112
+00:08:06,490 --> 00:08:10,050
+Should remove to do passed without any errors.
+
+113
+00:08:10,060 --> 00:08:13,870
+Now that we have one test case in place we can fill out the two other ones.
+
+114
+00:08:13,870 --> 00:08:18,900
+These test cases are going to be basically identical to the test cases we have above.
+
+115
+00:08:18,940 --> 00:08:26,170
+For the get to do by id route there is no shame in copying and pasting code when you one know exactly
+
+116
+00:08:26,170 --> 00:08:27,250
+what the code does.
+
+117
+00:08:27,340 --> 00:08:31,180
+We know what it does because we wrote it and two we actually do need it.
+
+118
+00:08:31,180 --> 00:08:32,500
+We can't reuse it.
+
+119
+00:08:32,530 --> 00:08:35,860
+We need to tweak it just a little bit so it does make sense to copy.
+
+120
+00:08:35,860 --> 00:08:37,360
+I'm going to copy this.
+
+121
+00:08:37,390 --> 00:08:43,030
+This is for the should return for a for if to do not found test and we're going to paste that into the
+
+122
+00:08:43,030 --> 00:08:50,560
+exact same test for the delete route and don't we have to do is change get to delete save the file.
+
+123
+00:08:50,560 --> 00:08:54,310
+This is going to rerun the test suite and now we have two tests under delete.
+
+124
+00:08:54,310 --> 00:08:55,710
+They are both passing.
+
+125
+00:08:55,840 --> 00:08:59,720
+You can see our last test still fails so we can go ahead and do the same thing.
+
+126
+00:08:59,740 --> 00:09:05,340
+I'm going to copy the code right here which verifies that non-object IDs cause a 404.
+
+127
+00:09:05,350 --> 00:09:06,850
+I'm going to paste it in here.
+
+128
+00:09:06,850 --> 00:09:09,610
+Changing the get method call to delete.
+
+129
+00:09:09,610 --> 00:09:14,950
+If I save the file it's going to rerun the test suite and this time around all nine of test cases are
+
+130
+00:09:14,950 --> 00:09:15,810
+passing.
+
+131
+00:09:15,880 --> 00:09:19,990
+With this in place we now have delete to Doo's tested.
+
+132
+00:09:20,100 --> 00:09:24,400
+Let's go ahead and wrap this one up by making a commit over inside of the terminal.
+
+133
+00:09:24,610 --> 00:09:25,660
+Over here.
+
+134
+00:09:25,660 --> 00:09:29,260
+I'm going to run and get status to see what changes I got going on.
+
+135
+00:09:29,260 --> 00:09:29,990
+Everything looks good.
+
+136
+00:09:29,990 --> 00:09:35,030
+We made one small change to the server file and we added our tests to the server test file.
+
+137
+00:09:35,050 --> 00:09:43,940
+I can use get commit with a M flag to make a commit and a good message for this one would be test the
+
+138
+00:09:44,330 --> 00:09:50,350
+delete to Dewes by id route.
+
+139
+00:09:50,350 --> 00:09:55,240
+I'm going to take that commit and push it up to get a job and there's no need to deploy to Heroku since
+
+140
+00:09:55,240 --> 00:09:58,020
+we haven't created anything visually different.
+
+141
+00:09:58,030 --> 00:10:02,250
+We did tweak the server code just a little bit but we'll worry about that a little bit later.
+
+142
+00:10:02,260 --> 00:10:03,780
+For now everything is good.
+
+143
+00:10:03,820 --> 00:10:09,600
+We can move on to the next video where you are going to create the final route for managing to do's.
+
+144
+00:10:09,640 --> 00:10:12,550
+This is going to be a route that lets you update to do.
+
+145
+00:10:12,550 --> 00:10:14,490
+I'm excited to get to it so stay tuned.
+
+146
+00:10:14,490 --> 00:10:16,030
+I will see you next time
+

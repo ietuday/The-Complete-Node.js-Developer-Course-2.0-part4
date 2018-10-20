@@ -1,0 +1,80 @@
+﻿1
+00:00:00,390 --> 00:00:05,750
+Hello and welcome to Section 7 Mongo D-B mongoose and rest.
+
+2
+00:00:05,790 --> 00:00:12,120
+AP eyes in this section you're going to be building your very own rest API similar to the weather API
+
+3
+00:00:12,120 --> 00:00:16,800
+we used when we were building the weather app although instead of managing weather information you're
+
+4
+00:00:16,800 --> 00:00:22,260
+going to create an API that manages to do application which means we're going to need ways to create
+
+5
+00:00:22,470 --> 00:00:26,450
+delete complete and otherwise manage our data.
+
+6
+00:00:26,520 --> 00:00:31,650
+Now in order to actually store this data we could use the file system but that's a really bad idea for
+
+7
+00:00:31,650 --> 00:00:33,230
+most applications.
+
+8
+00:00:33,240 --> 00:00:38,130
+It's great when you're working with simple command line interfaces but for a real API like the one we're
+
+9
+00:00:38,130 --> 00:00:43,560
+going to build we want to use a real database and we're going to be using Mongo D-B to get that done.
+
+10
+00:00:43,620 --> 00:00:47,250
+Mongo D-B is a really popular No s ul database.
+
+11
+00:00:47,280 --> 00:00:49,940
+We'll talk exactly about what all of that means later.
+
+12
+00:00:50,070 --> 00:00:55,260
+But for now all you need to know is that it's going to let us persist user information as well as to
+
+13
+00:00:55,260 --> 00:00:56,790
+do information.
+
+14
+00:00:56,940 --> 00:01:01,440
+We're also going to be looking at Mongoose which is a library that makes it really easy to work with
+
+15
+00:01:01,440 --> 00:01:02,520
+Mongo D-B.
+
+16
+00:01:02,610 --> 00:01:08,380
+But before we add on libraries and obscure things even further let's just stick to the fundamentals.
+
+17
+00:01:08,430 --> 00:01:13,170
+We're going to get started by installing Mongo and we'll spend a few videos going through exactly what
+
+18
+00:01:13,170 --> 00:01:16,280
+Mongo is and why it's become so popular.
+
+19
+00:01:16,290 --> 00:01:17,500
+Let's go ahead and dive in.
+
+20
+00:01:17,520 --> 00:01:19,530
+Installing the database software
+

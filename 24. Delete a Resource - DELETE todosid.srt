@@ -1,0 +1,848 @@
+﻿1
+00:00:00,300 --> 00:00:06,720
+In this video we're going to explore how to remove documents from our Mongo DB collections using a mongoose.
+
+2
+00:00:06,730 --> 00:00:11,610
+Then you're going to be responsible for filling out the delete route which will let someone delete it
+
+3
+00:00:11,610 --> 00:00:17,310
+to do by the ID to get started we are going to duplicate that mongoose queries file.
+
+4
+00:00:18,530 --> 00:00:21,760
+Calling the new file mongoose hyphen remove.
+
+5
+00:00:21,980 --> 00:00:25,370
+In here we can remove everything below our initial imports.
+
+6
+00:00:25,400 --> 00:00:29,530
+I'm going to highlight everything in the file including the uncommented code below.
+
+7
+00:00:29,600 --> 00:00:35,810
+Remove it and we end up with a file that looks like this mongoose gives us three methods for deleting
+
+8
+00:00:35,840 --> 00:00:37,100
+our records.
+
+9
+00:00:37,100 --> 00:00:39,110
+The first one lets you delete multiple records.
+
+10
+00:00:39,110 --> 00:00:46,610
+This one is to do dot remove and to do not remove works kind of like to do dot find you pass in a query
+
+11
+00:00:46,790 --> 00:00:50,060
+and that query matches multiple records removing all of them.
+
+12
+00:00:50,150 --> 00:00:52,670
+If it matches none none will get removed.
+
+13
+00:00:52,670 --> 00:00:55,210
+Now the difference between to do find and to do remove.
+
+14
+00:00:55,280 --> 00:01:00,950
+Other than the fact that remove removes the docs is that you can't pass in an empty argument and expect
+
+15
+00:01:00,980 --> 00:01:02,530
+all the documents to get removed.
+
+16
+00:01:02,690 --> 00:01:07,070
+If you want to remove everything from your collection you need to run it like this.
+
+17
+00:01:07,160 --> 00:01:09,440
+If we run this we're going to have everything get removed.
+
+18
+00:01:09,440 --> 00:01:12,480
+I'm going to tack then on right here.
+
+19
+00:01:12,680 --> 00:01:18,650
+We're going to get back our results and we can print that result to the screen using console dialog
+
+20
+00:01:18,920 --> 00:01:21,110
+result just like this.
+
+21
+00:01:21,110 --> 00:01:25,960
+Now we can run the mongoose remove file which is going to remove all of that to do's from our database
+
+22
+00:01:26,980 --> 00:01:36,100
+node playground forward slash mongoose hyphen remove dot J Yes.
+
+23
+00:01:36,190 --> 00:01:38,840
+Now when we run the Remove method.
+
+24
+00:01:38,950 --> 00:01:40,940
+Once again we get back a results object.
+
+25
+00:01:40,950 --> 00:01:45,790
+A lot of this stuff is not useful to us but at the very top there is a result property we can see that
+
+26
+00:01:45,790 --> 00:01:47,540
+the removal did work.
+
+27
+00:01:47,560 --> 00:01:49,610
+We got a one back as opposed to a zero.
+
+28
+00:01:49,690 --> 00:01:52,300
+And we have the number of records that were removed.
+
+29
+00:01:52,330 --> 00:01:56,030
+In this case the number of records happens to be three.
+
+30
+00:01:56,050 --> 00:02:00,650
+Now there are two other ways to remove documents and these are going to be much more useful for us.
+
+31
+00:02:00,670 --> 00:02:08,770
+In this video the first one is going to be to do dot find one and remove.
+
+32
+00:02:08,860 --> 00:02:11,350
+Now find one and remove is going to work.
+
+33
+00:02:11,350 --> 00:02:16,110
+Kind of like find one it's going to match that very first document only it's going to remove it.
+
+34
+00:02:16,180 --> 00:02:20,960
+Now this will also return the document so you can do something with the removed data.
+
+35
+00:02:21,130 --> 00:02:24,670
+Now the data will be removed from the database but you will get the object back so you can print it
+
+36
+00:02:24,670 --> 00:02:26,920
+to the screen or send it back to the user.
+
+37
+00:02:26,920 --> 00:02:29,800
+This is unlike the Remove method in the Remove method.
+
+38
+00:02:29,800 --> 00:02:36,160
+We do not get the docs back that got removed we just get a number saying how many were removed was find
+
+39
+00:02:36,160 --> 00:02:36,900
+one and removed.
+
+40
+00:02:36,900 --> 00:02:39,090
+We do get that information back.
+
+41
+00:02:39,130 --> 00:02:50,290
+Now another method is to do not find a by id and remove find by id and remove works just like find by
+
+42
+00:02:50,290 --> 00:02:54,120
+ID you pass on the ideas the argument and it removes it.
+
+43
+00:02:54,130 --> 00:02:58,210
+Now both of these are going to return the doc and that is exactly what we want.
+
+44
+00:02:58,290 --> 00:03:06,640
+There is no need to run both of them we can just run one to do not find by id and remove.
+
+45
+00:03:07,060 --> 00:03:12,610
+This is going to let us remove it to do by ID some ID like this and we're going to be able to attach
+
+46
+00:03:12,640 --> 00:03:18,010
+a then method providing our callback in the callback is going to get the doc back.
+
+47
+00:03:18,040 --> 00:03:23,200
+You could call it Doc or in this case we can call it to do since it is a to do item.
+
+48
+00:03:23,650 --> 00:03:27,310
+Now that we have this in place we just need to create it to do since we deleted all of them and put
+
+49
+00:03:27,310 --> 00:03:31,260
+the ID in right here over inside of Roble Mongo.
+
+50
+00:03:31,270 --> 00:03:34,980
+I can right click that to Doo's collection and insert a document.
+
+51
+00:03:34,990 --> 00:03:42,250
+We're just going to set a text property and I'll set that text property equal to something to do and
+
+52
+00:03:42,280 --> 00:03:44,140
+we can save that record.
+
+53
+00:03:44,140 --> 00:03:48,190
+I'm going to make sure that when I click view documents we do get our one document and it's sitting
+
+54
+00:03:48,190 --> 00:03:49,050
+right here.
+
+55
+00:03:49,240 --> 00:03:53,440
+Now obviously it is missing some of the properties since I created an Roble non-goal but that is fine
+
+56
+00:03:53,440 --> 00:03:54,820
+for our purposes.
+
+57
+00:03:55,060 --> 00:04:00,640
+I'm now going to edit that document and grab the ID and this is the ID we can add into our playground
+
+58
+00:04:00,640 --> 00:04:05,130
+file to make sure the document gets removed over inside an atom.
+
+59
+00:04:05,500 --> 00:04:07,810
+Right here will pass in our string.
+
+60
+00:04:07,810 --> 00:04:11,690
+This is the string ID and inside of our then the callback.
+
+61
+00:04:11,800 --> 00:04:16,320
+We're going to use console dialog to print that to do to the con..
+
+62
+00:04:16,330 --> 00:04:20,800
+I am going to comment out this call to remove up above because otherwise it would remove the document
+
+63
+00:04:20,800 --> 00:04:26,530
+we're trying to remove right here with this in place I can now save the file head into the terminal
+
+64
+00:04:26,740 --> 00:04:28,570
+and rerun the script.
+
+65
+00:04:28,570 --> 00:04:29,800
+I'm going to shut it down.
+
+66
+00:04:30,040 --> 00:04:31,090
+Started up again.
+
+67
+00:04:31,120 --> 00:04:31,810
+And what do we get.
+
+68
+00:04:31,810 --> 00:04:37,210
+We get our documents sitting right here which is fantastic and if I had into Roboam I'll go and try
+
+69
+00:04:37,210 --> 00:04:39,410
+to fetch the documents into Dewes.
+
+70
+00:04:39,490 --> 00:04:43,920
+We're going to get an error that there are no documents we have one but we deleted it.
+
+71
+00:04:44,200 --> 00:04:50,800
+Now inside of atom we can also play around with find one and remove find one and remove works exactly
+
+72
+00:04:50,800 --> 00:04:56,020
+the same as find by idea and remove only it takes that query object.
+
+73
+00:04:56,020 --> 00:05:03,070
+This would be to do not find one and remove we would pass in the query object like this.
+
+74
+00:05:03,820 --> 00:05:10,480
+Pasting in our ID and we could attach our event callback which would get called with the document just
+
+75
+00:05:10,570 --> 00:05:11,620
+like this.
+
+76
+00:05:11,620 --> 00:05:13,690
+Both of these work very similarly.
+
+77
+00:05:13,690 --> 00:05:18,150
+The big difference is whether or not you need to query by more than just the ID.
+
+78
+00:05:18,220 --> 00:05:22,750
+Now that you know how to use find by id and remove we're going to go into the server file and start
+
+79
+00:05:22,750 --> 00:05:24,400
+filling out the actual route.
+
+80
+00:05:24,400 --> 00:05:27,850
+This is going to be the route that lets us delete or to do.
+
+81
+00:05:28,090 --> 00:05:32,530
+I'll do the setup for the route for you but you're going to be responsible for filling out everything
+
+82
+00:05:32,530 --> 00:05:36,090
+inside of the callback function to create a delete route.
+
+83
+00:05:36,100 --> 00:05:38,100
+We're going to use app dot delete
+
+84
+00:05:41,230 --> 00:05:45,730
+then we're going to provide you R-AL which will look identical to the one we have for getting an individual
+
+85
+00:05:45,730 --> 00:05:51,270
+to do by ID forward slash to reduce a forward slash colon ID.
+
+86
+00:05:51,280 --> 00:05:55,140
+This will be the ideal we could access inside of the callback function.
+
+87
+00:05:55,210 --> 00:06:01,080
+The callback function will get the same request and response arguments and inside of here I'll leave
+
+88
+00:06:01,080 --> 00:06:03,420
+some comments to guide you in the right direction.
+
+89
+00:06:03,510 --> 00:06:06,780
+But you're going to be responsible for filling every single thing out.
+
+90
+00:06:06,810 --> 00:06:12,820
+First up get the ID right here you're going to pull off the ID just like we do up above.
+
+91
+00:06:12,930 --> 00:06:17,140
+And we're going to do that because the next thing you're going to do is validate the ID.
+
+92
+00:06:17,310 --> 00:06:22,700
+If it's not valid not valid return a 4.
+
+93
+00:06:22,730 --> 00:06:28,190
+0 4 if it's not valid you're going to send a four or four back just like we do above.
+
+94
+00:06:28,190 --> 00:06:33,700
+Next up you're going to remove to do by deed.
+
+95
+00:06:33,950 --> 00:06:38,090
+And this is going to require you to use that function we just discussed over inside of the mongoose
+
+96
+00:06:38,090 --> 00:06:43,280
+room move file you're going to remove it by id and there's two ways that could go.
+
+97
+00:06:43,280 --> 00:06:48,690
+We could have a success or we could have an error if we do get an error.
+
+98
+00:06:48,710 --> 00:06:56,710
+You can respond in the usual ways sending back a 400 with an empty body.
+
+99
+00:06:56,720 --> 00:07:01,400
+Now if it's a success we're going to need to make sure that had to do was actually deleted by checking
+
+100
+00:07:01,400 --> 00:07:07,310
+that the doc came back if no doc send 404.
+
+101
+00:07:07,340 --> 00:07:11,400
+So the person knows that the I.D. could not be found and it could not be removed.
+
+102
+00:07:11,420 --> 00:07:17,140
+If Doc send doc back with a two hundred.
+
+103
+00:07:17,390 --> 00:07:23,330
+Now the reason we need to check if the doc exists is because this function fine by id and remove is
+
+104
+00:07:23,330 --> 00:07:28,060
+still going to have its success case called even if no to do gets deleted.
+
+105
+00:07:28,280 --> 00:07:33,130
+I can prove this by rerunning the file after having deleted the item with that ID.
+
+106
+00:07:33,380 --> 00:07:38,210
+I'm going to comment out find one and remove head into the terminal and rerun the script.
+
+107
+00:07:38,210 --> 00:07:38,990
+And what do we get.
+
+108
+00:07:38,990 --> 00:07:42,230
+We get Knol as the value of to do.
+
+109
+00:07:42,380 --> 00:07:46,800
+That means you want to set up an if statement like we do here to do something specific.
+
+110
+00:07:46,800 --> 00:07:52,190
+If no item was actually deleted with this in place you are ready to go.
+
+111
+00:07:52,190 --> 00:07:53,440
+You know how to do all of this.
+
+112
+00:07:53,510 --> 00:07:59,150
+Most of it is done in the route up above and everything specific to removing an item was done over in
+
+113
+00:07:59,150 --> 00:08:01,030
+this playground file.
+
+114
+00:08:01,040 --> 00:08:02,480
+Take a moment to pause the video.
+
+115
+00:08:02,480 --> 00:08:05,240
+Knock this out once you have it filled out.
+
+116
+00:08:05,240 --> 00:08:06,580
+You're going to go in the postman.
+
+117
+00:08:06,620 --> 00:08:10,340
+You're going to create a couple new items because currently we have none.
+
+118
+00:08:10,340 --> 00:08:16,550
+Then you can try to make a dillweed request seeing exactly what happens when you provide a valid ID
+
+119
+00:08:16,580 --> 00:08:19,050
+or you provide an invalid ID.
+
+120
+00:08:19,160 --> 00:08:21,820
+Make sure everything works as expected when you're done.
+
+121
+00:08:21,830 --> 00:08:27,240
+Go ahead and click play.
+
+122
+00:08:27,350 --> 00:08:32,840
+Hopefully you are able to get that done and you were able to successfully delete the to do you created
+
+123
+00:08:32,840 --> 00:08:34,070
+inside of Postman.
+
+124
+00:08:34,070 --> 00:08:37,070
+If so that is fantastic.
+
+125
+00:08:37,070 --> 00:08:38,480
+Now we're going to go through one by one.
+
+126
+00:08:38,480 --> 00:08:43,420
+The first thing we need to do is grab the idea off of the request object.
+
+127
+00:08:43,490 --> 00:08:48,450
+I'm going to make a variable called ID sending an equal to request Rams.
+
+128
+00:08:48,560 --> 00:08:53,150
+This is where all of our you are all parameters are stored and then we get it by value.
+
+129
+00:08:53,150 --> 00:08:54,700
+We have IDs set up right here.
+
+130
+00:08:54,710 --> 00:08:57,410
+So we would get the ID property.
+
+131
+00:08:57,620 --> 00:09:01,920
+I'm going to remove the comment and down below we can validate the ID.
+
+132
+00:09:02,210 --> 00:09:08,630
+If object id ADOT is valid.
+
+133
+00:09:08,780 --> 00:09:13,490
+Now we're checking if this ID is valid and if it is valid Well we don't really want to do anything.
+
+134
+00:09:13,490 --> 00:09:16,130
+All we care about is if it's not valid.
+
+135
+00:09:16,130 --> 00:09:21,680
+So I'm going to flip the boolean value and inside of here we can now run some code when the ID is not
+
+136
+00:09:21,680 --> 00:09:22,320
+valid.
+
+137
+00:09:22,460 --> 00:09:25,230
+That code is going to send back a 4 0 4.
+
+138
+00:09:25,430 --> 00:09:29,830
+I'm going to use return to preventing the rest of the function from being executed.
+
+139
+00:09:29,900 --> 00:09:32,020
+Then we're going to go ahead and respond.
+
+140
+00:09:32,030 --> 00:09:40,040
+Setting the status response status equal to a 4 0 4 and we'll call send to initiate the response with
+
+141
+00:09:40,130 --> 00:09:42,280
+no body data.
+
+142
+00:09:42,350 --> 00:09:48,300
+Now that the object ID is valid we can move on down below actually removing it right here.
+
+143
+00:09:48,320 --> 00:09:58,820
+We're going to kick things off by calling to do the dot find a by id and remove now find by id and remove
+
+144
+00:09:58,850 --> 00:10:00,950
+as you know takes just a one argument.
+
+145
+00:10:00,950 --> 00:10:07,370
+The actual ID to remove it we can call then passing in our success callback which as we know will get
+
+146
+00:10:07,370 --> 00:10:11,550
+called with the individual to do the document.
+
+147
+00:10:11,630 --> 00:10:15,450
+Now inside of the success case we still have to make sure to do is actually deleted.
+
+148
+00:10:15,560 --> 00:10:24,460
+If there was no to do we are going to send a 4 0 4 back if there was no to do we are going to respond
+
+149
+00:10:24,970 --> 00:10:32,860
+using return and setting the status using response status to a 404 and calling send to initiate the
+
+150
+00:10:32,860 --> 00:10:33,940
+response.
+
+151
+00:10:33,940 --> 00:10:36,350
+Now if this if statement doesn't run it means it to do.
+
+152
+00:10:36,350 --> 00:10:37,910
+It was actually deleted.
+
+153
+00:10:37,990 --> 00:10:42,460
+In that case we want to respond with a 200 letting the user know that everything went well and we're
+
+154
+00:10:42,460 --> 00:10:51,730
+going to send it to do argument back response and not send passing in to do the only thing left to do
+
+155
+00:10:51,730 --> 00:10:55,840
+for this to do challenge is to call catch.
+
+156
+00:10:55,990 --> 00:11:00,000
+We're going to catch so we can do something with any potential errors.
+
+157
+00:11:00,190 --> 00:11:08,260
+All we're going to do is respond using response dot status sending an equal to a 400 and we'll go ahead
+
+158
+00:11:08,260 --> 00:11:13,450
+and call send with no arguments sending back an empty response.
+
+159
+00:11:13,450 --> 00:11:16,180
+With this in place we are now good to go.
+
+160
+00:11:16,180 --> 00:11:20,840
+We have everything set up just like we wanted to which means we can remove the comments from down below.
+
+161
+00:11:21,010 --> 00:11:25,510
+And you'll notice that the method we have it down below looks really similar to the one we have up above
+
+162
+00:11:25,840 --> 00:11:30,560
+and this is going to be the case for a lot of our routes that manage an individual to do item.
+
+163
+00:11:30,610 --> 00:11:32,220
+We're always going to want to get that idea.
+
+164
+00:11:32,320 --> 00:11:37,410
+We're always going to want to validate that the object id is indeed a real object ID.
+
+165
+00:11:37,570 --> 00:11:42,010
+And down below inside of our success and error cases similar things are also going to happen.
+
+166
+00:11:42,010 --> 00:11:46,670
+We want to make sure that a doc was actually deleted if it wasn't we'll send back that 404.
+
+167
+00:11:46,780 --> 00:11:51,640
+And with this in place we cannot verify that this route works.
+
+168
+00:11:51,640 --> 00:11:57,600
+Now we can save the file and start up the server in the terminal I'll use clear to clear the terminal
+
+169
+00:11:57,600 --> 00:12:01,830
+output and then we can run node server forward slash server.
+
+170
+00:12:01,840 --> 00:12:07,590
+J.S. once the server is up we can move into post man and start firing off a couple of requests.
+
+171
+00:12:07,590 --> 00:12:09,690
+First up I'm going to create a few to do's.
+
+172
+00:12:09,690 --> 00:12:13,790
+I'll send this off and then I'll change the text and send it off again.
+
+173
+00:12:13,890 --> 00:12:21,730
+I'll change the body text to some other to do item sending that off.
+
+174
+00:12:21,800 --> 00:12:26,540
+And now we should have to do is if I go to get to do's and fetch them what do we get.
+
+175
+00:12:26,540 --> 00:12:28,340
+We get our two to do's.
+
+176
+00:12:28,370 --> 00:12:32,570
+Now I am going to need one of these ideas this is going to be the to do that we delete.
+
+177
+00:12:32,570 --> 00:12:38,220
+So what I will do is copy this to the clipboard and then we can go ahead and create our new route.
+
+178
+00:12:38,420 --> 00:12:43,520
+This new route is going to use the delete method so we're going to switch from get to delete then and
+
+179
+00:12:43,520 --> 00:12:48,860
+we can go ahead and provide the you are out using the environment variable you RL that we created in
+
+180
+00:12:48,860 --> 00:12:50,140
+the last video.
+
+181
+00:12:50,230 --> 00:12:53,860
+Their route is forward slash to Doo's forward slash ID.
+
+182
+00:12:53,860 --> 00:12:56,350
+I'm going to paste the ID in here.
+
+183
+00:12:56,390 --> 00:12:59,120
+Now I can go ahead and run the request when I run it.
+
+184
+00:12:59,120 --> 00:13:01,120
+What do we get we get a 200.
+
+185
+00:13:01,130 --> 00:13:04,920
+Everything went well and down here we have the document that we deleted.
+
+186
+00:13:05,090 --> 00:13:11,510
+If I go back to get to do's and rerun it now we only have one document and the item that we passed in
+
+187
+00:13:11,540 --> 00:13:15,410
+as the id to delete did indeed get deleted.
+
+188
+00:13:15,410 --> 00:13:20,720
+I'm going to save this request to our collection so we can fire it off without having to manually enter
+
+189
+00:13:20,720 --> 00:13:22,320
+all of that information.
+
+190
+00:13:22,340 --> 00:13:32,170
+Let's save as delete in uppercase followed by the route forwards slash to Doo's forward slash colon
+
+191
+00:13:32,230 --> 00:13:32,980
+ID.
+
+192
+00:13:33,130 --> 00:13:35,520
+We are going to save this to an existing collection.
+
+193
+00:13:35,530 --> 00:13:40,200
+The to do app collection now we have this route sitting right here.
+
+194
+00:13:40,240 --> 00:13:42,550
+We can always go ahead and access it whenever we need.
+
+195
+00:13:42,550 --> 00:13:45,610
+Now from here we're going to go ahead and fire the request again.
+
+196
+00:13:45,730 --> 00:13:51,100
+This is going to try to delete a to do whose ID is valid but doesn't match one in the collection and
+
+197
+00:13:51,100 --> 00:13:52,830
+we get a 404 back.
+
+198
+00:13:52,840 --> 00:13:57,970
+Now if I make this idea invalid by deleting a bunch of characters and I send that off we also get a
+
+199
+00:13:57,970 --> 00:14:01,520
+404 because the idea is invalid which is fantastic.
+
+200
+00:14:01,720 --> 00:14:05,090
+With this in place we can now make a commit over inside of the terminal.
+
+201
+00:14:05,170 --> 00:14:08,860
+I'm going to shut the server down run and get status.
+
+202
+00:14:08,860 --> 00:14:14,440
+And you can see we have two files we have a new file the mongoose playground file and we have our modified
+
+203
+00:14:14,500 --> 00:14:15,640
+server file.
+
+204
+00:14:15,640 --> 00:14:20,680
+I'm going to use get add a dot to add all of those to the next commit and we'll use it get commit with
+
+205
+00:14:20,680 --> 00:14:29,810
+the flag to make the commit add delete to Doo's by ID route.
+
+206
+00:14:30,020 --> 00:14:32,780
+I'm going to make the commit and push it up to get hub.
+
+207
+00:14:32,930 --> 00:14:37,650
+We can also go ahead and deploy our application using get push Heroku master.
+
+208
+00:14:37,700 --> 00:14:44,510
+Now we'll be able to delete our two Doo's inside of the Heroku application with this in place we are
+
+209
+00:14:44,510 --> 00:14:45,320
+now done.
+
+210
+00:14:45,350 --> 00:14:50,510
+I will see you next time where we're going to write some test cases for the route we just set up.
+
+211
+00:14:50,510 --> 00:14:51,070
+Stay tuned.
+
+212
+00:14:51,070 --> 00:14:52,420
+I will see you then.
+

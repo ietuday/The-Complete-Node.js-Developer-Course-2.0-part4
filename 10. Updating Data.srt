@@ -1,0 +1,732 @@
+﻿1
+00:00:00,310 --> 00:00:05,490
+You know how to insert delete and fetch the documents out of Mongo D.B and this one you're going to
+
+2
+00:00:05,490 --> 00:00:10,440
+learn how to update documents in your Mongo IDB collections and to kick things off.
+
+3
+00:00:10,440 --> 00:00:15,770
+As usual we're going to duplicate the last script we wrote and we'll update it for the video.
+
+4
+00:00:15,930 --> 00:00:18,300
+I'm going to duplicate the delete file.
+
+5
+00:00:19,650 --> 00:00:26,580
+Renaming it to mango D.B hyphen update dot SJS and this is where we'll write our update statements.
+
+6
+00:00:26,580 --> 00:00:30,540
+I'm also going to delete all of these statements we wrote that deleted data.
+
+7
+00:00:30,660 --> 00:00:35,460
+Now that we have this in place we can explore the one method we'll be looking at in this video this
+
+8
+00:00:35,460 --> 00:00:38,460
+one is called Find one end update.
+
+9
+00:00:38,460 --> 00:00:45,650
+It's kind of similar to find one and delete it lets us update an item and get the new document back.
+
+10
+00:00:45,660 --> 00:00:52,760
+So if I update it to do set incompleted equal to true I will get that document and back in the response.
+
+11
+00:00:52,770 --> 00:00:57,080
+Now in order to get started we're going to be updating one of the items that we have inside of our to
+
+12
+00:00:57,150 --> 00:00:59,070
+do's collection.
+
+13
+00:00:59,070 --> 00:01:04,920
+If I gave you the documents we currently have to the goal here is going to be to update the second item
+
+14
+00:01:04,920 --> 00:01:07,110
+in the one where text equals eat lunch.
+
+15
+00:01:07,110 --> 00:01:12,030
+We're going to try to set the completed value to true which would be a pretty common action if I check
+
+16
+00:01:12,030 --> 00:01:18,690
+off a to do item we want to toggle that completed a boolean value back inside of Adam.
+
+17
+00:01:18,690 --> 00:01:22,200
+We're going to kick things off by accessing the appropriate collection.
+
+18
+00:01:22,250 --> 00:01:24,250
+That'll be DVD collection.
+
+19
+00:01:25,220 --> 00:01:34,500
+The collection name is uppercase t to do's and the method we'll be using is find one and update.
+
+20
+00:01:34,760 --> 00:01:39,650
+Now find one and update is going to take the most arguments we've used so far.
+
+21
+00:01:39,650 --> 00:01:42,540
+So let's go ahead and look up the documentation for it.
+
+22
+00:01:42,650 --> 00:01:44,990
+So you can have this for future reference.
+
+23
+00:01:45,110 --> 00:01:48,170
+Over inside of Chrome I can close my get hub tab.
+
+24
+00:01:48,170 --> 00:01:50,920
+We currently have the cursor tab open.
+
+25
+00:01:50,930 --> 00:01:53,030
+This is where we have the count method defined.
+
+26
+00:01:53,150 --> 00:01:56,450
+If we scroll down below the cursor tab we have our other tabs.
+
+27
+00:01:56,450 --> 00:02:01,090
+The one we're looking for is collection now inside of the collection section.
+
+28
+00:02:01,100 --> 00:02:05,270
+We have our type DAPs and our methods we're looking at methods here.
+
+29
+00:02:05,270 --> 00:02:10,040
+So if I scroll down we should be able to find find one and update and click it.
+
+30
+00:02:10,040 --> 00:02:12,440
+Now find one an update takes quite a few arguments.
+
+31
+00:02:12,500 --> 00:02:13,910
+The first one is the filter.
+
+32
+00:02:13,910 --> 00:02:16,490
+This lets us target the document we want to update.
+
+33
+00:02:16,550 --> 00:02:21,080
+Maybe we have the text or most likely we have the ID of the document.
+
+34
+00:02:21,080 --> 00:02:23,120
+Next up is the actual updates.
+
+35
+00:02:23,120 --> 00:02:23,920
+We want to make.
+
+36
+00:02:23,990 --> 00:02:27,500
+We don't want to update the ID we just want to filter by id the updates.
+
+37
+00:02:27,500 --> 00:02:31,150
+In this case are going to be updating that completed boolean.
+
+38
+00:02:31,280 --> 00:02:33,730
+Then we have some options which are defined below.
+
+39
+00:02:33,830 --> 00:02:36,580
+We'll use just one of them and we have our callback.
+
+40
+00:02:36,590 --> 00:02:41,560
+We're going to leave off the callback as we've been doing so far in favor of promises.
+
+41
+00:02:41,660 --> 00:02:47,030
+As you can see down below returns or promise if no callback has passed in and that's exactly what we
+
+42
+00:02:47,030 --> 00:02:48,320
+expect.
+
+43
+00:02:48,320 --> 00:02:53,060
+Let's go ahead and start filling out the appropriate arguments for a find one and update.
+
+44
+00:02:53,180 --> 00:02:55,290
+Kicking things off with that filter.
+
+45
+00:02:55,340 --> 00:03:02,420
+What I'm going to do is filter Abidi over inside of Roboam Mango I can grab the idea of this document
+
+46
+00:03:02,930 --> 00:03:06,910
+I'm going to edit it and copy the ID to the clipboard.
+
+47
+00:03:07,360 --> 00:03:13,250
+Now over inside an atom we can start querying the first object at the filter.
+
+48
+00:03:13,280 --> 00:03:22,910
+We're only looking for documents where the ID Eagles a new object id with the value that we copied to
+
+49
+00:03:22,910 --> 00:03:23,700
+the clipboard.
+
+50
+00:03:23,750 --> 00:03:26,390
+And this is all we need for the filter argument.
+
+51
+00:03:26,390 --> 00:03:28,680
+Now next up is going to be the actual updates.
+
+52
+00:03:28,700 --> 00:03:31,890
+We want to apply and this is not exactly straightforward.
+
+53
+00:03:32,000 --> 00:03:37,340
+What we have to do here is learn about the Mongo D-B update operators.
+
+54
+00:03:37,400 --> 00:03:45,600
+We can do a complete list of these operators and exactly what they are by googling Mongo D-B update
+
+55
+00:03:46,170 --> 00:03:53,450
+operators when I do this we're looking for the mango D-B dot com documentation.
+
+56
+00:03:53,680 --> 00:03:58,240
+Now this documentation is specific to Mongo D-B which means it's going to work with all of the drivers
+
+57
+00:03:58,480 --> 00:04:01,770
+in this case that is going to work with our node J.S. driver.
+
+58
+00:04:01,930 --> 00:04:06,740
+And if we scroll down below we can look at all of the update operators we have access to.
+
+59
+00:04:06,850 --> 00:04:11,430
+The most important and the one we're going to get started with is the set operator this.
+
+60
+00:04:11,530 --> 00:04:16,760
+Let's set a field a value inside of an update which is exactly what we want to do.
+
+61
+00:04:16,780 --> 00:04:22,990
+There's other operators like increment and this one money sign and see let you increment a field's value
+
+62
+00:04:22,990 --> 00:04:26,400
+like the H field in our users collection.
+
+63
+00:04:26,470 --> 00:04:28,060
+All of these are super useful.
+
+64
+00:04:28,060 --> 00:04:33,100
+We're going to get started with set though in order to use one of these operators what we need to do
+
+65
+00:04:33,100 --> 00:04:39,290
+is type it out set and then set it equal to an object and in this object.
+
+66
+00:04:39,300 --> 00:04:41,560
+These are the things that we're actually going to be setting.
+
+67
+00:04:41,610 --> 00:04:46,760
+For example we want a set completed equal to true.
+
+68
+00:04:47,130 --> 00:04:53,340
+If we tried to put completed equal to true at the root of this object like this it would not work as
+
+69
+00:04:53,340 --> 00:04:53,850
+expected.
+
+70
+00:04:53,850 --> 00:04:58,470
+We have to use these update operators which means we need this.
+
+71
+00:04:58,590 --> 00:05:03,660
+And now that we have our updates in place using the set update operator we can go ahead and provide
+
+72
+00:05:03,660 --> 00:05:05,600
+our third and final argument.
+
+73
+00:05:05,640 --> 00:05:10,620
+If you head over to the documentation for find one an update we can take a look at the options real
+
+74
+00:05:10,620 --> 00:05:11,180
+quick.
+
+75
+00:05:11,280 --> 00:05:17,820
+The one we care about is return original return original is defaulted to true which means that it returns
+
+76
+00:05:17,820 --> 00:05:22,980
+the original document not the updated one and we don't want that when we update a document.
+
+77
+00:05:22,980 --> 00:05:25,280
+We want to get back that updated document.
+
+78
+00:05:25,440 --> 00:05:28,810
+So what we're going to do is set return original to false.
+
+79
+00:05:28,920 --> 00:05:32,130
+That's going to happen in our third and final argument.
+
+80
+00:05:32,130 --> 00:05:40,160
+This one is also going to be an object return original setting equal to Wells.
+
+81
+00:05:40,170 --> 00:05:46,770
+Now with this in place we are done we can tack on and then call to do something with the results right
+
+82
+00:05:46,770 --> 00:05:51,330
+here and get my result back and I can simply print it to the screen and we can take a look at exactly
+
+83
+00:05:51,540 --> 00:05:52,980
+what comes back.
+
+84
+00:05:53,850 --> 00:05:54,800
+Excellent.
+
+85
+00:05:54,810 --> 00:05:58,180
+And now let's go ahead and run this from the terminal.
+
+86
+00:05:58,380 --> 00:06:01,260
+I'm going to save my file over inside of the terminal.
+
+87
+00:06:01,260 --> 00:06:02,830
+We're going to be running node.
+
+88
+00:06:03,270 --> 00:06:09,350
+The file is in the playground folder and we just called it Mongo D-B hyphen update dot and jazz.
+
+89
+00:06:09,480 --> 00:06:14,460
+I'm going to run the script and what do we get back we get back at the value prop just like we did when
+
+90
+00:06:14,460 --> 00:06:16,250
+we used to find one and delete.
+
+91
+00:06:16,320 --> 00:06:21,940
+And this has our document with the completed value set to true which is the brand new value we just
+
+92
+00:06:21,960 --> 00:06:22,290
+set.
+
+93
+00:06:22,310 --> 00:06:24,110
+And this is fantastic.
+
+94
+00:06:24,300 --> 00:06:28,540
+If we head over to Roble Mongo we can confirm that the value was indeed updated.
+
+95
+00:06:28,650 --> 00:06:31,540
+Here's the old document where the value is false.
+
+96
+00:06:31,590 --> 00:06:34,580
+I'm going to open up a new view for dues.
+
+97
+00:06:34,920 --> 00:06:35,840
+And what do we get.
+
+98
+00:06:35,850 --> 00:06:39,390
+We had lunch with a completed value of true.
+
+99
+00:06:39,630 --> 00:06:45,780
+Now that we have this in place we know how to insert delete update and read documents from our Mongo
+
+100
+00:06:45,840 --> 00:06:48,810
+D-B collections to wrap this video up.
+
+101
+00:06:48,810 --> 00:06:54,330
+I want to give you a quick challenge over inside of the users collection.
+
+102
+00:06:54,430 --> 00:06:55,610
+You should have a document.
+
+103
+00:06:55,720 --> 00:06:58,020
+It should have some name it's probably not.
+
+104
+00:06:58,150 --> 00:07:04,700
+It's probably something that you set when I want you to do is update this name to your name.
+
+105
+00:07:04,720 --> 00:07:08,020
+Now if it's already your name that's fine you can change it to something else.
+
+106
+00:07:08,020 --> 00:07:14,080
+I also want you to use that eye and see the increment operator that we talked about to increment this
+
+107
+00:07:14,200 --> 00:07:15,430
+by one.
+
+108
+00:07:15,430 --> 00:07:19,870
+Now I'm not going to tell you exactly how increment works but I want you to do is head over to the docks.
+
+109
+00:07:19,870 --> 00:07:25,840
+Click on the operator and then you can scroll down to see the examples there's examples for each operator.
+
+110
+00:07:25,870 --> 00:07:30,180
+It's going to become really useful to you to learn how to read documentation.
+
+111
+00:07:30,340 --> 00:07:33,520
+Now documentation for libraries is not always going to be the same.
+
+112
+00:07:33,520 --> 00:07:38,110
+Everyone does it a little differently but once you learn how to read the docs for one library it gets
+
+113
+00:07:38,110 --> 00:07:40,650
+a lot easier to read the docs for others.
+
+114
+00:07:40,660 --> 00:07:43,090
+And I can only teach so much in this course.
+
+115
+00:07:43,120 --> 00:07:47,950
+The real goal of this course is to get you writing your own code doing your own research and looking
+
+116
+00:07:47,950 --> 00:07:49,800
+up your own documentation.
+
+117
+00:07:50,050 --> 00:07:54,960
+So your goal once again is to update this document setting the name to something other than what it's
+
+118
+00:07:55,000 --> 00:07:58,250
+currently set to and incrementing the age by one.
+
+119
+00:07:58,270 --> 00:07:59,900
+Take a moment to knock this out.
+
+120
+00:08:00,010 --> 00:08:00,550
+Test it.
+
+121
+00:08:00,550 --> 00:08:01,530
+Make sure it works.
+
+122
+00:08:01,690 --> 00:08:05,350
+And when you're done you can go ahead and click play and I'll show you how I would have done it.
+
+123
+00:08:08,820 --> 00:08:09,920
+Hopefully that went well.
+
+124
+00:08:09,930 --> 00:08:13,850
+To kick things off I'm going to grab the idea of the document right here.
+
+125
+00:08:13,860 --> 00:08:17,080
+This is the document I want to update I'll copy it to the clipboard.
+
+126
+00:08:17,110 --> 00:08:20,510
+Now we can focus on writing that statement over inside of atom.
+
+127
+00:08:20,640 --> 00:08:23,710
+First up we'll update the names since we already know how to do that.
+
+128
+00:08:25,160 --> 00:08:32,050
+Inside the atom I'm going to go ahead and duplicate the statement I have here I'll copy and paste it
+
+129
+00:08:32,270 --> 00:08:37,210
+and then I'm going to go back and grab the idea again since I just removed it from a clipboard.
+
+130
+00:08:38,720 --> 00:08:39,610
+Awesome.
+
+131
+00:08:39,630 --> 00:08:42,500
+And now back inside of out and we can start swapping things out.
+
+132
+00:08:42,500 --> 00:08:47,600
+First up we're going to swap out the old ID for the new one and we're going to change what we pass to
+
+133
+00:08:47,630 --> 00:08:49,940
+set instead of updating completed.
+
+134
+00:08:49,940 --> 00:08:51,860
+We want to update name.
+
+135
+00:08:51,860 --> 00:08:54,370
+I'm going to set name equal to something other than Gen.
+
+136
+00:08:54,440 --> 00:08:56,260
+I'm going to go ahead and use my name.
+
+137
+00:08:56,300 --> 00:08:59,810
+Andrew now we are going to keep returning original set to false.
+
+138
+00:08:59,810 --> 00:09:01,970
+We want to get the new document back.
+
+139
+00:09:01,970 --> 00:09:03,770
+Not the original.
+
+140
+00:09:03,770 --> 00:09:07,310
+Now the other thing we needed to do was increment that age.
+
+141
+00:09:07,340 --> 00:09:12,650
+This was going to be done via the increment operator which you should have explored using the documentation
+
+142
+00:09:12,650 --> 00:09:14,160
+over inside of chrome.
+
+143
+00:09:14,210 --> 00:09:19,340
+If you clicked on Anke that's going to bring you to that part of the documentation and if you scroll
+
+144
+00:09:19,340 --> 00:09:24,830
+down you should be able to see an example right here we have an example of what it looks like to increment
+
+145
+00:09:25,310 --> 00:09:28,140
+we set ink just like we set set.
+
+146
+00:09:28,250 --> 00:09:33,230
+Then inside of the object we specify the things we want to increment and the degree to which we want
+
+147
+00:09:33,230 --> 00:09:34,170
+to increment them.
+
+148
+00:09:34,220 --> 00:09:40,160
+It could be negative 2 or in our case it would be positive 1 over inside out and we can implement this
+
+149
+00:09:42,470 --> 00:09:43,360
+right here.
+
+150
+00:09:43,650 --> 00:09:44,190
+I'll set.
+
+151
+00:09:44,230 --> 00:09:49,790
+Ink equal to an object and on there will increment the age by 1.
+
+152
+00:09:49,910 --> 00:09:52,630
+And with this in place we are now done.
+
+153
+00:09:52,820 --> 00:09:58,400
+Before I do run this file I am going to comment out to the other call to find one an update just leaving
+
+154
+00:09:58,400 --> 00:09:59,210
+the new one.
+
+155
+00:09:59,240 --> 00:10:01,320
+I also need to swap out the collection.
+
+156
+00:10:01,340 --> 00:10:06,050
+We're no longer updating the to do's collection we're updating that users collection and now we are
+
+157
+00:10:06,050 --> 00:10:06,910
+good to go.
+
+158
+00:10:07,010 --> 00:10:11,750
+We're setting name equal to Andrew and we're incrementing the age by 1 which means that we would expect
+
+159
+00:10:11,750 --> 00:10:16,070
+the age in Roboam Mongo to be 26 instead of twenty five.
+
+160
+00:10:16,070 --> 00:10:20,000
+Let's go ahead and run this by restarting the script over inside of the terminal.
+
+161
+00:10:20,210 --> 00:10:26,150
+Then we can see our new document where the name is indeed Andrew and the age is indeed 26 and this is
+
+162
+00:10:26,210 --> 00:10:27,830
+fantastic.
+
+163
+00:10:27,830 --> 00:10:30,070
+Now you know how to use the increment operator.
+
+164
+00:10:30,110 --> 00:10:35,810
+You can also go off and learn all of the other operators you have available to you inside of your update
+
+165
+00:10:35,990 --> 00:10:36,940
+calls.
+
+166
+00:10:36,980 --> 00:10:41,450
+I can double check that everything did work as expected over inside of Roboam Mongo.
+
+167
+00:10:41,630 --> 00:10:44,420
+I'm going to go ahead and refresh the users collection.
+
+168
+00:10:44,420 --> 00:10:45,280
+And what do we have.
+
+169
+00:10:45,280 --> 00:10:48,940
+We have our updated document right here.
+
+170
+00:10:49,020 --> 00:10:53,450
+Let's wrap this video up by committing our changes over inside of the terminal.
+
+171
+00:10:53,450 --> 00:10:58,550
+I'm going to run get status so we can view all of the changes to the repository here we just have one
+
+172
+00:10:58,790 --> 00:10:59,870
+unchecked File.
+
+173
+00:10:59,960 --> 00:11:02,730
+Our Mongo D-B update script.
+
+174
+00:11:02,870 --> 00:11:10,320
+I'm going to use a get and to add that to the next commit and then I'll use get commit to actually make
+
+175
+00:11:10,320 --> 00:11:11,000
+the commit.
+
+176
+00:11:11,070 --> 00:11:18,530
+I am going to provide that an argument for a message so we can specify a message and update script.
+
+177
+00:11:18,690 --> 00:11:19,500
+Excellent.
+
+178
+00:11:19,500 --> 00:11:25,200
+And now we can run the commit command and push it up to get hubs so our code is backed up on our get
+
+179
+00:11:25,200 --> 00:11:31,770
+hub repository with updating in place so we don't have all of the basic crud operations down crud standing
+
+180
+00:11:31,770 --> 00:11:35,460
+for creating reading updating and deleting.
+
+181
+00:11:35,460 --> 00:11:40,950
+Up next we're going to talk about something called mongoose which we'll be using for the to do API.
+
+182
+00:11:41,000 --> 00:11:42,620
+It's coming up soon so stay tuned.
+
+183
+00:11:42,630 --> 00:11:44,300
+We'll see you next time.
+

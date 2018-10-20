@@ -1,0 +1,568 @@
+﻿1
+00:00:00,460 --> 00:00:03,770
+In this video you're going to deploy the to do API to Heroku.
+
+2
+00:00:03,780 --> 00:00:08,810
+So anybody with a u r l can access these routes adding and fetching to do items.
+
+3
+00:00:08,820 --> 00:00:13,830
+Now before we can push it to Heroku there are quite a few things we need to change small little tweaks
+
+4
+00:00:13,830 --> 00:00:19,110
+to get it ready for the Heroku servers one of the bigger tweaks is going to be to set up a real Mongo
+
+5
+00:00:19,110 --> 00:00:24,930
+D-B database because currently we use a local host database and this is not going to be available.
+
+6
+00:00:24,990 --> 00:00:30,540
+Once we get our app on Heroku to kick things off we're going to move into the server file and set up
+
+7
+00:00:30,810 --> 00:00:36,330
+the app to use the environment port variable that Heroku is going to set which we did in the previous
+
+8
+00:00:36,330 --> 00:00:38,760
+section where we deployed to Heroku.
+
+9
+00:00:38,820 --> 00:00:47,860
+If you remember what we did is we created a variable called port and we set that equal to process dot
+
+10
+00:00:47,890 --> 00:00:51,390
+E and V dot uppercase port.
+
+11
+00:00:51,420 --> 00:00:53,500
+This is the variable that may or may not be set.
+
+12
+00:00:53,510 --> 00:00:54,390
+It's going to be set.
+
+13
+00:00:54,410 --> 00:00:58,510
+If the app is running on Heroku it won't be set if it's running locally.
+
+14
+00:00:58,700 --> 00:01:03,250
+We can use our or syntax to set up a value if port is not defined.
+
+15
+00:01:03,260 --> 00:01:08,510
+This is going to be used on local host and we're going to stick with port three thousand if the process
+
+16
+00:01:08,550 --> 00:01:11,110
+in the port variable is there we're going to use it.
+
+17
+00:01:11,180 --> 00:01:18,620
+If it's not we'll use 3000 now we need to swap out 3000 down below with the port which means our call
+
+18
+00:01:18,620 --> 00:01:21,130
+to listen is going to have port passed in.
+
+19
+00:01:21,230 --> 00:01:24,590
+And our string below is going to get switched to a template string.
+
+20
+00:01:24,680 --> 00:01:34,130
+So we can inject the actual port right here I'll use started up at port then I'm going to inject the
+
+21
+00:01:34,130 --> 00:01:37,420
+actual port variable in to the template string.
+
+22
+00:01:37,640 --> 00:01:38,330
+All right.
+
+23
+00:01:38,330 --> 00:01:42,010
+The port is set up and now we can move into the packaged up Jason File.
+
+24
+00:01:42,020 --> 00:01:44,090
+There's two things you need to tweak in here.
+
+25
+00:01:44,090 --> 00:01:47,940
+First up we need to tell Heroku how to start the project.
+
+26
+00:01:47,970 --> 00:01:54,200
+This is done via the start script the start script is the command that Heroku is going to run to start
+
+27
+00:01:54,200 --> 00:01:55,320
+the application.
+
+28
+00:01:55,370 --> 00:02:00,720
+In our case it's going to be node and then we're going to go into the server directory and we're going
+
+29
+00:02:00,720 --> 00:02:02,260
+to run the server.
+
+30
+00:02:02,440 --> 00:02:03,770
+J.S. file.
+
+31
+00:02:03,890 --> 00:02:08,180
+I have a com at the end and we are good to go with the start script.
+
+32
+00:02:08,180 --> 00:02:13,520
+The next thing we need to do is tell Heroku which version of node we want to use the default version
+
+33
+00:02:13,520 --> 00:02:18,110
+currently is a VIF 5 a version of node and that's going to cause some problems because we take advantage
+
+34
+00:02:18,350 --> 00:02:25,280
+of a lot of six features in this project and those are available in the six of node in order to figure
+
+35
+00:02:25,280 --> 00:02:30,370
+out exactly what version of node you're using you can run node at the from the terminal here.
+
+36
+00:02:30,420 --> 00:02:32,960
+I'm using six point two point two.
+
+37
+00:02:33,170 --> 00:02:36,990
+If you're using a different V-6 version that is perfectly fine.
+
+38
+00:02:37,460 --> 00:02:42,920
+Over inside of package out Jason we're going to tell Heroku to use the same version we're using here.
+
+39
+00:02:42,920 --> 00:02:50,520
+This gets done by setting up an engine's property engines lets us specify various versions for things
+
+40
+00:02:50,520 --> 00:02:56,880
+that Heroku lets us configure one of these is node the property name will be node and the value is going
+
+41
+00:02:56,880 --> 00:03:01,930
+to be the version of node to use Six Point to Point two.
+
+42
+00:03:02,010 --> 00:03:02,650
+Awesome.
+
+43
+00:03:02,820 --> 00:03:08,700
+Now our package Jason File is ready for Heroku Heroku knows how to start the app and it knows exactly
+
+44
+00:03:08,700 --> 00:03:11,180
+which version of node we want to use.
+
+45
+00:03:11,310 --> 00:03:16,530
+So we won't get any weird errors when we deployed with packages out Jason out of the way the last thing
+
+46
+00:03:16,530 --> 00:03:22,280
+we need to do is set up a database and we're going to do this with a Heroku ad on
+
+47
+00:03:25,150 --> 00:03:30,220
+know if you go to her Roker's Web site and click on any of your apps we haven't created one for this
+
+48
+00:03:30,220 --> 00:03:33,230
+one so click on an app from the previous section.
+
+49
+00:03:33,280 --> 00:03:35,580
+I'm going to go ahead and click on one of mine.
+
+50
+00:03:35,740 --> 00:03:40,150
+You're going to see a little dashboard where you can do quite a few things right here.
+
+51
+00:03:40,150 --> 00:03:46,230
+You can see there's an installed add ons section but what we really want is to configure our add ons
+
+52
+00:03:46,930 --> 00:03:52,890
+when you configure your add ons you're able to add all sorts of really cool tools that come built into
+
+53
+00:03:52,900 --> 00:03:53,340
+Heroku.
+
+54
+00:03:53,340 --> 00:03:57,690
+Now not all of these are free but most of them have a good free plan.
+
+55
+00:03:57,760 --> 00:04:02,830
+You can see we have various database related items down below we have data storage utilities we have
+
+56
+00:04:02,830 --> 00:04:08,670
+monitoring tools a lot of really cool stuff but we're going to be using as an add on called End lab.
+
+57
+00:04:08,770 --> 00:04:11,500
+This is a mango DBI database service.
+
+58
+00:04:11,500 --> 00:04:17,970
+It has a great free plan and it's going to let us integrate Mongo D-B with our Heroku application.
+
+59
+00:04:17,980 --> 00:04:23,070
+Now you don't actually need to do anything from the Web site we're going to do everything from the terminal.
+
+60
+00:04:23,080 --> 00:04:26,180
+I just want to make you aware of exactly where this lives.
+
+61
+00:04:26,320 --> 00:04:31,840
+Down below you can see they do have a free sandbox plan and they have plans that go all the way up to
+
+62
+00:04:31,840 --> 00:04:34,070
+$5000 a month.
+
+63
+00:04:34,090 --> 00:04:39,120
+We're going to be sticking with the zero dollar plan though everything in this course is free.
+
+64
+00:04:39,340 --> 00:04:44,860
+In order to get set up over inside of the terminal we're going to create a new Heroku app because currently
+
+65
+00:04:44,860 --> 00:04:50,020
+we don't have one Heroku create is the command to get that done.
+
+66
+00:04:50,120 --> 00:04:55,520
+Once the application has been created we need to tell the app that we want to use and lab which is short
+
+67
+00:04:55,520 --> 00:04:56,960
+for Mongo lab.
+
+68
+00:04:57,200 --> 00:05:06,000
+In order to add this add on we're going to run the following command Heroku add ons Colan create Now
+
+69
+00:05:06,000 --> 00:05:12,640
+the add on is Mongo lab and after the colon we're going to specify the plan we want to use.
+
+70
+00:05:12,690 --> 00:05:17,540
+We're going to use that sandbox plan which is free when we run this command.
+
+71
+00:05:17,580 --> 00:05:23,630
+It's going to configure and lab with our Heroku application and we are good to go.
+
+72
+00:05:23,880 --> 00:05:30,210
+Now if you run the Heroku config command you can actually get a list of all the configuration variables
+
+73
+00:05:30,270 --> 00:05:31,960
+for your Heroku application.
+
+74
+00:05:31,980 --> 00:05:33,650
+Right now we just have one.
+
+75
+00:05:33,720 --> 00:05:35,210
+It's a mongo DB.
+
+76
+00:05:35,220 --> 00:05:39,930
+You are I this is the database you are l that M lab gave us.
+
+77
+00:05:39,930 --> 00:05:44,680
+This is the one we need to connect to it's the only one available for our app.
+
+78
+00:05:44,760 --> 00:05:47,750
+Now this Mongo DB You are variable.
+
+79
+00:05:47,790 --> 00:05:50,270
+This is actually on process dot envy.
+
+80
+00:05:50,340 --> 00:05:56,790
+When the app runs on Heroku which means we can use a similar technique to what we did right here inside
+
+81
+00:05:56,790 --> 00:06:00,330
+of our mongoose J.S. file inside of mongoose.
+
+82
+00:06:00,340 --> 00:06:02,820
+J.S. Right here in our call to connect.
+
+83
+00:06:02,820 --> 00:06:10,470
+We can check if process dot NV dot uppercase Mongo D-B underscore.
+
+84
+00:06:10,500 --> 00:06:12,090
+You are I exists.
+
+85
+00:06:12,090 --> 00:06:18,210
+If it does we're going to use it if it doesn't after our or statement we are going to use the local
+
+86
+00:06:18,210 --> 00:06:19,720
+host you are Al.
+
+87
+00:06:19,890 --> 00:06:24,570
+And this is going to make sure that our Heroku app connects to the actual database because connecting
+
+88
+00:06:24,630 --> 00:06:28,360
+to local host will fail causing the app to crash.
+
+89
+00:06:28,380 --> 00:06:33,600
+With this in place we are now ready to get things going over inside of the terminal.
+
+90
+00:06:33,600 --> 00:06:36,980
+I'm going to run a get status to check our changed files.
+
+91
+00:06:36,990 --> 00:06:37,910
+We have three.
+
+92
+00:06:37,920 --> 00:06:39,410
+Everything looks good.
+
+93
+00:06:39,450 --> 00:06:42,050
+I can run yet commit with a flag.
+
+94
+00:06:42,060 --> 00:06:48,830
+This is going to let us specify our commit message set up app for Heroku.
+
+95
+00:06:48,960 --> 00:06:51,780
+I'm going to make the commit and push it up to get help.
+
+96
+00:06:51,810 --> 00:06:54,570
+Now we need to push our application to Heroku.
+
+97
+00:06:54,780 --> 00:06:58,730
+I'm going to do that using get push Heroku master.
+
+98
+00:06:58,890 --> 00:07:03,930
+Remember when you create a Heroku application it automatically adds that Heroku remote.
+
+99
+00:07:04,140 --> 00:07:09,510
+And here we're putting it to the master branch the master branch is the only branch Heroku is actually
+
+100
+00:07:09,510 --> 00:07:15,890
+going to do anything with the application is getting pushed up it should be ready in just a few seconds.
+
+101
+00:07:15,990 --> 00:07:21,210
+Once it's done we can open up the you are l on the browser and see exactly what we get.
+
+102
+00:07:21,270 --> 00:07:28,020
+Now another command I want to talk about for just a moment is a command called Heroku logs Heroku logs
+
+103
+00:07:28,050 --> 00:07:30,830
+shows you the server logs for your application.
+
+104
+00:07:30,930 --> 00:07:35,220
+If anything goes wrong you can usually get an error message inside of here.
+
+105
+00:07:35,250 --> 00:07:40,470
+So if you have a problem deploying in this section and you're going to ask a question on you to me please
+
+106
+00:07:40,590 --> 00:07:42,440
+run the Heroku Lockes command.
+
+107
+00:07:42,480 --> 00:07:48,160
+Copy the output and paste it into your question and this will let me answer your question right away.
+
+108
+00:07:48,180 --> 00:07:54,540
+Now as you can see we have our started up at port 4 1 9 0 6 message printing at the bottom which is
+
+109
+00:07:54,540 --> 00:07:55,110
+great.
+
+110
+00:07:55,110 --> 00:07:57,630
+Your port is going to be different as long as you have this message.
+
+111
+00:07:57,630 --> 00:07:59,210
+Everything should be good to go.
+
+112
+00:07:59,470 --> 00:08:04,110
+I am going to run Heroku open or copy that you are all up above.
+
+113
+00:08:04,110 --> 00:08:05,480
+You can see it right here.
+
+114
+00:08:05,490 --> 00:08:08,370
+This is going to open up the application in my browser.
+
+115
+00:08:08,370 --> 00:08:10,430
+I'm going to choose to copy the you are l.
+
+116
+00:08:10,740 --> 00:08:16,770
+I'll move into chrome and I can visit it now visiting the root of the app should do nothing because
+
+117
+00:08:16,770 --> 00:08:23,380
+we haven't set up a route you are Al but if we go to forward's slashed to Dewes we should get our to.
+
+118
+00:08:23,400 --> 00:08:28,800
+Jason coming back here you can see we have an empty array which is expected because we haven't added
+
+119
+00:08:28,800 --> 00:08:29,870
+any to do items.
+
+120
+00:08:29,910 --> 00:08:32,670
+So let's go ahead and do that.
+
+121
+00:08:32,670 --> 00:08:38,520
+What I want to do is grab this you r l and head over to post man inside of post man we're going to make
+
+122
+00:08:38,520 --> 00:08:39,770
+a few calls.
+
+123
+00:08:39,810 --> 00:08:42,740
+I'm going to create a post to Doo's request.
+
+124
+00:08:42,780 --> 00:08:47,670
+All I need to do is take the you are all here and swap it out with the one I just copied and then I
+
+125
+00:08:47,670 --> 00:08:51,410
+can send off the request because the body data is already configured.
+
+126
+00:08:51,420 --> 00:08:54,140
+I'm going to send that off and down below what do we get.
+
+127
+00:08:54,150 --> 00:08:57,770
+We get our to do item and this is not coming from our local machine.
+
+128
+00:08:57,780 --> 00:09:04,960
+This is coming from our Heroku application that is talking to our Mongo lab Mongo DB database.
+
+129
+00:09:05,060 --> 00:09:07,340
+Now all the other commands should also work.
+
+130
+00:09:07,350 --> 00:09:14,190
+I'm going to go to get to Doo's paste in the U R L and we should be able to get all of our to do items.
+
+131
+00:09:14,190 --> 00:09:18,360
+I'm also going to check what happens when I try to fetch an individual to do right here.
+
+132
+00:09:18,480 --> 00:09:23,960
+I'll copy the ID added on to the U R L and send off that request.
+
+133
+00:09:23,970 --> 00:09:25,050
+And what do I get.
+
+134
+00:09:25,080 --> 00:09:28,850
+I get the individual to do item so no matter which call we use.
+
+135
+00:09:28,850 --> 00:09:32,330
+Everything is working as expected and this is fantastic.
+
+136
+00:09:32,340 --> 00:09:38,850
+Our application is now running on Heroku with a real production database and that is it for this one.
+
+137
+00:09:38,850 --> 00:09:41,430
+Now we're up on her Roku in the next video.
+
+138
+00:09:41,430 --> 00:09:46,320
+I'm going to show you a few tweaks and tricks we can use inside of post man to make switching between
+
+139
+00:09:46,320 --> 00:09:48,990
+our local environment and our Heroku environment.
+
+140
+00:09:48,990 --> 00:09:50,300
+Much much easier.
+
+141
+00:09:50,340 --> 00:09:52,220
+That's coming up next so stay tuned.
+
+142
+00:09:52,230 --> 00:09:54,210
+I will see you then.
+

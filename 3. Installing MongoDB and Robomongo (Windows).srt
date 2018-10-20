@@ -1,0 +1,640 @@
+﻿1
+00:00:00,600 --> 00:00:01,450
+If you're on Windows.
+
+2
+00:00:01,470 --> 00:00:06,780
+This is the installation video for you if you're on Linux or OS X the last video was for you you can
+
+3
+00:00:06,780 --> 00:00:08,880
+go ahead and skip this one.
+
+4
+00:00:08,880 --> 00:00:11,220
+From here on out I am going to assume that you're on Windows.
+
+5
+00:00:11,220 --> 00:00:15,090
+The goal is to install Mongo D-B on our machines.
+
+6
+00:00:15,090 --> 00:00:20,640
+This is going to let us create a local Mongo DB database server will be able to connect to that server
+
+7
+00:00:20,640 --> 00:00:25,200
+with no ass and we'll be able to read and write data to the database.
+
+8
+00:00:25,210 --> 00:00:30,990
+This is going to be fantastic for the to do API which is going to be responsible for reading and writing
+
+9
+00:00:31,020 --> 00:00:34,290
+Various to do related information to get started.
+
+10
+00:00:34,290 --> 00:00:41,310
+We're going to grab the Mongo DB installer by going over to Mongo D-B dot com here we can click that
+
+11
+00:00:41,310 --> 00:00:45,150
+big green download button and there are quite a few options on this page.
+
+12
+00:00:45,150 --> 00:00:48,540
+We're using the community server and we are on Windows.
+
+13
+00:00:48,570 --> 00:00:52,680
+If you go to the version dropdown none of these versions are going to look right for you.
+
+14
+00:00:52,680 --> 00:01:00,080
+The top one is what you want Windows Server 0 8 are to 64 bit and later with SSL support.
+
+15
+00:01:00,180 --> 00:01:02,430
+I'm going to go ahead and start that download.
+
+16
+00:01:02,460 --> 00:01:03,660
+It is slightly big.
+
+17
+00:01:03,660 --> 00:01:05,940
+Just a tad over 100 megabytes.
+
+18
+00:01:05,940 --> 00:01:11,550
+So take a moment to start the download pause the video and when your download is done you can go ahead
+
+19
+00:01:11,580 --> 00:01:16,440
+and click play my installer just finished.
+
+20
+00:01:16,440 --> 00:01:18,180
+I'm going to go ahead and start it up.
+
+21
+00:01:18,180 --> 00:01:23,440
+It's one of those basic installers where you click next to a few times and you agree to a license agreement.
+
+22
+00:01:24,590 --> 00:01:29,060
+Go ahead and click the custom option for a second although we will be following through with the complete
+
+23
+00:01:29,090 --> 00:01:29,840
+option.
+
+24
+00:01:29,840 --> 00:01:33,430
+If you click Custom it's going to show you where on your machine it's going to install.
+
+25
+00:01:33,440 --> 00:01:34,860
+And this is important here.
+
+26
+00:01:34,970 --> 00:01:41,970
+You can see it's on my C-Drive Program Files Mongo db server then the 3.2 directory.
+
+27
+00:01:42,050 --> 00:01:46,490
+This is going to be important because we're going to need to navigate into this directory in order to
+
+28
+00:01:46,490 --> 00:01:49,500
+start up the Mongo DB server.
+
+29
+00:01:49,520 --> 00:01:54,710
+I am going to go back though and I will be using the complete option which installs everything we need.
+
+30
+00:01:54,740 --> 00:01:57,700
+Now we can go ahead and actually start to install process.
+
+31
+00:01:57,710 --> 00:02:02,270
+Usually you have to click yes verifying that you want to install the software I'm going to go ahead
+
+32
+00:02:02,270 --> 00:02:05,110
+and do that and then we are done.
+
+33
+00:02:05,300 --> 00:02:10,320
+Now once it's installed we're going to navigate into the command prompt and boot up a server.
+
+34
+00:02:11,560 --> 00:02:15,280
+The first thing we need to do is navigate into that program files directory.
+
+35
+00:02:15,400 --> 00:02:16,510
+I'm in the command prompt.
+
+36
+00:02:16,510 --> 00:02:21,720
+I recommend you use the command prompt and not get bash get bash is not going to work for starting up
+
+37
+00:02:21,730 --> 00:02:24,370
+the Mongo db server right here.
+
+38
+00:02:24,370 --> 00:02:28,960
+I'm going to navigate to the root of my machine using CD forward slash and then we can start navigating
+
+39
+00:02:29,040 --> 00:02:42,600
+to that path CD program files forward slash Mongo DB where DBM capitalized forward slash server capital
+
+40
+00:02:42,600 --> 00:02:49,560
+S board slash three point two this is the directory where Mongo DB was installed.
+
+41
+00:02:49,740 --> 00:02:55,200
+I can use Der. to print out the contents of this directory and what we care about is this been and directory
+
+42
+00:02:55,470 --> 00:03:02,010
+we can navigate into Been using CD bin and print its contents out using d'O and this directory contains
+
+43
+00:03:02,010 --> 00:03:06,930
+a whole bunch of executables that we're going to use to do things like start up our server and connect
+
+44
+00:03:06,990 --> 00:03:07,660
+to it.
+
+45
+00:03:07,680 --> 00:03:10,510
+The first one we're going to run is this Mongo.
+
+46
+00:03:10,920 --> 00:03:11,540
+File.
+
+47
+00:03:11,550 --> 00:03:17,550
+This is going to start our local Mongo D-B database before we can go ahead and run in this taxi see
+
+48
+00:03:17,550 --> 00:03:21,570
+there is one more thing we need to do over in the generic file explorer.
+
+49
+00:03:21,580 --> 00:03:26,240
+We need to create a directory where all of our data can get stored to do that.
+
+50
+00:03:26,280 --> 00:03:34,050
+I'm going to put mine in my user directory by going to the C-Drive users Andrew and right here I'm going
+
+51
+00:03:34,050 --> 00:03:41,580
+to make a new directory and I'm going to call this directory Mongo hyphen in data.
+
+52
+00:03:41,850 --> 00:03:46,200
+Now the Mongo data directory is where all of our data is actually going to get stored.
+
+53
+00:03:46,200 --> 00:03:50,960
+This is the path that we need to specify when we run the Mongo D-Conn. Ex-Sea command.
+
+54
+00:03:50,970 --> 00:03:56,740
+We need to tell Mongo where to store the data over in the terminal we can now start this command.
+
+55
+00:03:56,820 --> 00:04:00,540
+I'm going to run Mongo D.
+
+56
+00:04:00,720 --> 00:04:06,230
+X-C passing in as the D-B path argument.
+
+57
+00:04:06,230 --> 00:04:08,540
+The path to that folder we just created.
+
+58
+00:04:08,750 --> 00:04:13,520
+In my case it's forward slash users forward slash upper case.
+
+59
+00:04:13,550 --> 00:04:17,030
+Andrew forward slash Mongo hyphen data.
+
+60
+00:04:17,030 --> 00:04:21,440
+Now if your user name is different which it obviously is or you put the folder in a different directory
+
+61
+00:04:21,620 --> 00:04:26,050
+you're going to need to specify the absolute path to the Mongo data folder right here.
+
+62
+00:04:26,150 --> 00:04:30,770
+Once you have that though you can go ahead and start up the server by running the command.
+
+63
+00:04:30,770 --> 00:04:32,750
+You're going to get a long list of output.
+
+64
+00:04:32,750 --> 00:04:37,720
+The only thing you care about is that at the very bottom you see waiting for connections on port 27
+
+65
+00:04:37,730 --> 00:04:41,460
+0 1 7 if you see that then you are good to go.
+
+66
+00:04:41,510 --> 00:04:46,640
+And now that the server is up let's connect to it and issue some commands to create and read some data
+
+67
+00:04:47,000 --> 00:04:47,750
+to do that.
+
+68
+00:04:47,780 --> 00:04:52,420
+Well we're going to do is open up a second command prompt and navigate into that same bin directory
+
+69
+00:04:53,060 --> 00:04:58,430
+from the second command prompt we're going to navigate into that same bin directory using CD forward
+
+70
+00:04:58,430 --> 00:05:10,610
+slash program files Burrard slash Mongo D-B board slash server forward slash 3.2 for Slash Ben from
+
+71
+00:05:10,610 --> 00:05:11,180
+here.
+
+72
+00:05:11,180 --> 00:05:13,730
+We're going to run a mongo dot X..
+
+73
+00:05:13,760 --> 00:05:16,250
+Notice we're not running the Mongo D command.
+
+74
+00:05:16,250 --> 00:05:18,110
+We're running Mongo dot X-C.
+
+75
+00:05:18,230 --> 00:05:23,720
+This is going to connect to our local Mongo DB database and it's going to put us in sort of a command
+
+76
+00:05:23,720 --> 00:05:25,730
+prompt view of our database.
+
+77
+00:05:25,730 --> 00:05:29,800
+We'll be able to issue various Mongo commands to manipulate the data.
+
+78
+00:05:29,870 --> 00:05:34,450
+Kind of like we can run node from the terminal to run various javascript statements right inside of
+
+79
+00:05:34,460 --> 00:05:36,410
+the council when we run this.
+
+80
+00:05:36,440 --> 00:05:39,340
+We're going to connect it to the database over in the left tab.
+
+81
+00:05:39,410 --> 00:05:41,790
+You can see that connection excepted shows up.
+
+82
+00:05:41,810 --> 00:05:47,900
+We do have a new connection in the right hand side now we can run some commands to create and read data.
+
+83
+00:05:47,900 --> 00:05:50,860
+Now I don't expect you to take away anything from these commands.
+
+84
+00:05:50,870 --> 00:05:54,160
+We're not going to talk about the ins and outs of Mongo DB just yet.
+
+85
+00:05:54,260 --> 00:05:59,000
+All I want to do is make sure that when you run them it works as expected to get started.
+
+86
+00:05:59,000 --> 00:06:01,400
+Let's create a new to do from the council.
+
+87
+00:06:01,440 --> 00:06:08,150
+This is going to get done via D.B and dot to do's and on this to do's collection.
+
+88
+00:06:08,240 --> 00:06:09,830
+We're going to call the method.
+
+89
+00:06:09,830 --> 00:06:16,760
+Insert dot insert and we're going to call insert with one argument and object and that object can have
+
+90
+00:06:16,760 --> 00:06:18,830
+any properties we want to add to the record.
+
+91
+00:06:18,860 --> 00:06:22,050
+For example I want to go ahead and set a text property.
+
+92
+00:06:22,070 --> 00:06:25,430
+This is the thing I actually need to do inside of quotes.
+
+93
+00:06:25,430 --> 00:06:33,220
+I can go ahead and pick something I'm going to go with create new node of course.
+
+94
+00:06:33,230 --> 00:06:38,360
+Now when I run this command it's going to actually make the insert into our database and we should get
+
+95
+00:06:38,360 --> 00:06:42,640
+a right result back with an and inserted property set to one.
+
+96
+00:06:42,660 --> 00:06:45,630
+This means that one record was inserted.
+
+97
+00:06:45,650 --> 00:06:51,300
+Now that we have one to do in our database we can go ahead and try to fetch it using DBI dot to do's.
+
+98
+00:06:51,320 --> 00:06:58,280
+Once again this time instead of calling insert to add a record we're going to call find with no arguments
+
+99
+00:06:58,280 --> 00:07:03,180
+provided this is going to return every single to do inside of our database.
+
+100
+00:07:03,290 --> 00:07:04,870
+When I run this command what do we get.
+
+101
+00:07:04,940 --> 00:07:09,880
+We get an object looking thing where we had a text property set to create new node.
+
+102
+00:07:09,890 --> 00:07:17,270
+Course we also have an underscore ID property underscore ID as Mongo DB is unique identifier.
+
+103
+00:07:17,330 --> 00:07:19,930
+And this is the property they use to give your document.
+
+104
+00:07:19,940 --> 00:07:26,120
+In this case the to do a unique identifier we'll be talking more about underscore ID and about all of
+
+105
+00:07:26,120 --> 00:07:28,080
+the commands we just ran a little later.
+
+106
+00:07:28,100 --> 00:07:31,840
+For now we can go ahead and close this down using control-C.
+
+107
+00:07:31,920 --> 00:07:38,120
+We have successfully disconnected from Mongo and now we can close the second command prompt window.
+
+108
+00:07:38,300 --> 00:07:41,280
+Before we go there is one more thing I want to do.
+
+109
+00:07:41,420 --> 00:07:45,290
+We're going to be installing a program called robo Mongo Robo.
+
+110
+00:07:45,290 --> 00:07:47,840
+Mango is a gooey for Mongo D-B.
+
+111
+00:07:47,870 --> 00:07:52,640
+It's going to let you connect to your local database as well as real databases which we'll be talking
+
+112
+00:07:52,640 --> 00:07:56,990
+about later and it'll let you view all the data manipulate it and do anything you could do inside of
+
+113
+00:07:56,990 --> 00:07:57,820
+a database.
+
+114
+00:07:58,520 --> 00:07:59,680
+It's really useful.
+
+115
+00:07:59,720 --> 00:08:05,120
+Sometimes you just need to dive into a database to see exactly what the data looks like in order to
+
+116
+00:08:05,120 --> 00:08:06,110
+get this started.
+
+117
+00:08:06,110 --> 00:08:12,810
+Well we're going to do is head over to a new tab and go to robo Mongo dot org.
+
+118
+00:08:13,970 --> 00:08:17,440
+Here we can grab the installer by going to download.
+
+119
+00:08:17,990 --> 00:08:20,840
+We're going to download the latest version and I'm on Windows.
+
+120
+00:08:20,840 --> 00:08:23,260
+I want the installer not the portable version.
+
+121
+00:08:23,260 --> 00:08:29,150
+So a click that first link this is going to start a really small download just 17 megabytes and we can
+
+122
+00:08:29,150 --> 00:08:34,630
+click Next a few times through this one to get robo Mongo installed on our machines.
+
+123
+00:08:35,520 --> 00:08:37,050
+My installers all done.
+
+124
+00:08:37,050 --> 00:08:42,600
+I'm going to go ahead and start the process confirming installation and clicking next to just a couple
+
+125
+00:08:42,600 --> 00:08:43,940
+of times.
+
+126
+00:08:43,980 --> 00:08:46,870
+There's no need to do anything custom inside of the settings.
+
+127
+00:08:46,920 --> 00:08:50,280
+We're going to run the installer with all of the default settings applied.
+
+128
+00:08:50,310 --> 00:08:54,710
+Now we can go ahead and actually run the program by finishing the installer.
+
+129
+00:08:54,930 --> 00:08:58,790
+When you run robo Mongo you're going to be greeted with a connection's screen.
+
+130
+00:08:58,890 --> 00:09:03,870
+This screen lets you configure all the connections for robo Lango you might have a local connection
+
+131
+00:09:03,870 --> 00:09:05,180
+for your local database.
+
+132
+00:09:05,250 --> 00:09:09,990
+You might have a connection to a real you R-AL where your actual production data is stored.
+
+133
+00:09:10,050 --> 00:09:11,960
+We'll get into all of that later for now.
+
+134
+00:09:11,970 --> 00:09:18,390
+We're going to go ahead and click Create and by default your address of localhost and Port of 2 7 0
+
+135
+00:09:18,390 --> 00:09:20,830
+1 7 and do not need to be changed.
+
+136
+00:09:20,970 --> 00:09:22,470
+All I'm going to do is change the name.
+
+137
+00:09:22,470 --> 00:09:24,660
+So it's a little easier to identify.
+
+138
+00:09:24,660 --> 00:09:28,760
+I'll go with local Mongo database
+
+139
+00:09:32,010 --> 00:09:32,730
+perfect.
+
+140
+00:09:32,880 --> 00:09:38,340
+Now that we have this in place we can save our new connection and actually connect to the database by
+
+141
+00:09:38,340 --> 00:09:39,770
+simply double clicking it.
+
+142
+00:09:39,870 --> 00:09:42,780
+When we do that we get a little tree view of our database.
+
+143
+00:09:42,780 --> 00:09:44,520
+We have this test database.
+
+144
+00:09:44,550 --> 00:09:46,480
+This is the one that's created by default.
+
+145
+00:09:46,530 --> 00:09:49,850
+We can go ahead and expand it then we can expand our collections.
+
+146
+00:09:49,860 --> 00:09:52,400
+And right here we see the dues collection.
+
+147
+00:09:52,410 --> 00:09:55,950
+This is the collection we created over inside of the council.
+
+148
+00:09:55,950 --> 00:10:00,720
+I'm going to go ahead and right click that and go to view documents when I view the documents.
+
+149
+00:10:00,720 --> 00:10:03,460
+I actually get to view the individual records.
+
+150
+00:10:03,540 --> 00:10:10,140
+Here I see my underscore id property and my text property that has create new node course sitting right
+
+151
+00:10:10,140 --> 00:10:10,740
+here.
+
+152
+00:10:10,950 --> 00:10:13,570
+If you are seeing this then you are done.
+
+153
+00:10:13,590 --> 00:10:19,260
+It means that you have a local Mango's server running and that also means that you've successfully inserted
+
+154
+00:10:19,260 --> 00:10:20,480
+data into it.
+
+155
+00:10:20,490 --> 00:10:23,190
+We were able to use Roboam ongo to view the database.
+
+156
+00:10:23,250 --> 00:10:29,800
+We were able to use the Mongo DDX executable to start the server up.
+
+157
+00:10:29,850 --> 00:10:34,500
+Now that we have this in place we can actually create a node application that takes advantage of Mongo
+
+158
+00:10:34,500 --> 00:10:37,960
+D-B as its database that is all coming up next.
+
+159
+00:10:37,980 --> 00:10:39,100
+So stay tuned.
+
+160
+00:10:39,120 --> 00:10:40,830
+I will see you next time
+
