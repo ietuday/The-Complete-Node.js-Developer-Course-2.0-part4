@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp');
+mongoose.connect('mongodb://udayaditya.singh:12345678@ds145043.mlab.com:45043/node-app');
 
 var Todo = mongoose.model('Todo', {
     text: {
